@@ -15,7 +15,7 @@ public class Kitten implements KeyListener, MouseListener {
 
 	private static final int PLAYER_WIDTH = 24 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 12 * Finals.PIXEL_RATIO;
 
-	private static final int JUMP_VEL = - 30;
+	private static final int JUMP_VEL = - 30, WALK_VEL = 10;
 	
 	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp";
 
@@ -133,11 +133,11 @@ public class Kitten implements KeyListener, MouseListener {
 		}
 
 		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-			dx = -5;
+			dx = -WALK_VEL;
 		}
 
 		if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-			dx = 5;
+			dx = WALK_VEL;
 		}
 
 		if (key == KeyEvent.VK_SPACE) {
