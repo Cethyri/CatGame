@@ -26,6 +26,8 @@ public class Game extends JPanel implements ActionListener {
 
 	private Timer T;
 
+	private Kitten kitty;
+
 	public Game() {
 			super();
 			Init();
@@ -41,18 +43,22 @@ public class Game extends JPanel implements ActionListener {
 		addMouseListener(MA);
 		addMouseMotionListener(MA);
 		addMouseWheelListener(MA);
+		
+		kitty = new Kitten(300, 400);
 
 		T = new Timer(250, this);
 		T.start();
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.drawImage(bgImage, 0, 0, this);
+		
+		kitty.draw(g);
 
 		this.paintComponents(g);
 
