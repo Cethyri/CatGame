@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -46,7 +47,7 @@ public class Game extends JPanel implements ActionListener {
 		
 		kitty = new Kitten(300, 400);
 
-		T = new Timer(250, this);
+		T = new Timer(10, this);
 		T.start();
 	}
 
@@ -72,18 +73,23 @@ public class Game extends JPanel implements ActionListener {
 	// g2d.fillRect(x, y, width, height);
 
 	public void actionPerformed(ActionEvent e) {
-
+		kitty.move();
+		
 		repaint();
 	}
 
 	public class TAdapter extends KeyAdapter {
-
-		public void keyReleased(KeyEvent e) {
-
+		
+		public void keyPressed(KeyEvent e) {
+			kitty.keyPressed(e);
 		}
 
-		public void keyPressed(KeyEvent e) {
-
+		public void keyReleased(KeyEvent e) {
+			kitty.keyReleased(e);
+		}
+		
+		public void keyTyped(KeyEvent e) {
+			kitty.keyTyped(e);
 		}
 	}
 
