@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -21,13 +20,11 @@ public class Game extends JPanel implements ActionListener {
 
 	private KeyAdapter TA;
 
-	private MouseAdapter MA;
-
 	private Image bgImage;
 
 	private Timer T;
 
-	private Kitten kitty;
+	private Stage s;
 
 	public Game() {
 			super();
@@ -39,13 +36,8 @@ public class Game extends JPanel implements ActionListener {
 
 		TA = new TAdapter();
 		addKeyListener(TA);
-
-		MA = new MAdapter();
-		addMouseListener(MA);
-		addMouseMotionListener(MA);
-		addMouseWheelListener(MA);
 		
-		kitty = new Kitten(300, Finals.FRAME_HEIGHT - 100);
+		s = new Stage(100, Finals.FRAME_WIDTH);
 
 		T = new Timer(10, this);
 		T.start();
@@ -59,7 +51,7 @@ public class Game extends JPanel implements ActionListener {
 
 		g2d.drawImage(bgImage, 0, 0, this);
 		
-		kitty.draw(g);
+		s.draw(g);
 
 		this.paintComponents(g);
 
@@ -73,7 +65,7 @@ public class Game extends JPanel implements ActionListener {
 	// g2d.fillRect(x, y, width, height);
 
 	public void actionPerformed(ActionEvent e) {
-		kitty.move();
+		s.actionPerformed();
 		
 		repaint();
 	}
@@ -81,51 +73,15 @@ public class Game extends JPanel implements ActionListener {
 	public class TAdapter extends KeyAdapter {
 		
 		public void keyPressed(KeyEvent e) {
-			kitty.keyPressed(e);
+			s.keyPressed(e);
 		}
 
 		public void keyReleased(KeyEvent e) {
-			kitty.keyReleased(e);
+			s.keyReleased(e);
 		}
 		
 		public void keyTyped(KeyEvent e) {
-			kitty.keyTyped(e);
+			s.keyTyped(e);
 		}
-	}
-
-	public class MAdapter extends MouseAdapter {
-
-		public void mouseClicked(MouseEvent e) {
-			// System.out.println("click " + e.getButton());
-		}
-
-		public void mouseDragged(MouseEvent e) {
-			// System.out.println("drag");
-		}
-
-		public void mouseEntered(MouseEvent e) {
-			// System.out.println("enter");
-		}
-
-		public void mouseExited(MouseEvent e) {
-			// System.out.println("exit");
-		}
-
-		public void mouseMoved(MouseEvent e) {
-			// System.out.println("X: " + x + "Y: " + y);
-		}
-
-		public void mousePressed(MouseEvent e) {
-			// System.out.println("press");
-		}
-
-		public void mouseReleased(MouseEvent e) {
-			// System.out.println("release");
-		}
-
-		public void mouseWheelMoved(MouseWheelEvent e) {
-			// System.out.println("mousewheel");
-		}
-
 	}
 }
