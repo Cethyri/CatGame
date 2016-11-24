@@ -18,7 +18,7 @@ public class Kitten implements KeyListener, MouseListener {
 
 	private static final int JUMP_VEL = -25, WALK_VEL = 10;
 
-	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp";
+	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", JUMP = "Jump", FALL = "Fall";
 
 	private int posx, posy, dx, dy, collideDx, collideDy;
 	
@@ -97,14 +97,16 @@ public class Kitten implements KeyListener, MouseListener {
 	}
 
 	private void animate() {
+		String direction = dx == 0 ? IDLE : (dx < 0 ? LEFT : RIGHT), action = WALK;
+		
 		if (frameDelay >= Finals.animDelay) {
 			frameDelay = 0;
 
-			if (frame > 5) {
+			if (frame > 4 || direction == IDLE) {
 				frame = 0;
 			}
 			
-			sprite = new ImageIcon(PATH + PLACE_HOLDER + frame + END).getImage();
+			sprite = new ImageIcon(PATH + direction + action + frame + END).getImage();
 			frame++;
 		}
 		frameDelay++;
