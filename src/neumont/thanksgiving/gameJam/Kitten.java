@@ -14,9 +14,9 @@ import javax.swing.ImageIcon;
 
 public class Kitten implements KeyListener {
 
-	private static final int PLAYER_WIDTH = 24 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 12 * Finals.PIXEL_RATIO;
+	private static final int PLAYER_WIDTH = 64 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 64 * Finals.PIXEL_RATIO;
 
-	private static final int JUMP_VEL = -25, WALK_VEL = 10;
+	private static final int JUMP_VEL = -25, WALK_VEL = 5;
 
 	private static final String PATH = "Images/Useable/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", JUMP = "Jump", FALL = "Fall";
 
@@ -176,12 +176,12 @@ public class Kitten implements KeyListener {
 	}
 
 	private void animate() {
-		String direction = dx == 0 ? IDLE : (dx < 0 ? LEFT : RIGHT), action = WALK;
+		String direction = dx < 0 ? LEFT : RIGHT, action = dx == 0 ? IDLE : WALK;
 		
 		if (frameDelay >= Finals.animDelay) {
 			frameDelay = 0;
 
-			if (frame > 4 || direction == IDLE) {
+			if (frame > 4 || action == IDLE) {
 				frame = 0;
 			}
 			
