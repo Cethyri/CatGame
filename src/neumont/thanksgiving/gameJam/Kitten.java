@@ -18,7 +18,7 @@ public class Kitten implements KeyListener {
 
 	private static final int JUMP_VEL = -25, WALK_VEL = 10;
 
-	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", JUMP = "Jump", FALL = "Fall";
+	private static final String PATH = "Images/Useable/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", JUMP = "Jump", FALL = "Fall";
 
 	private final playerID ID;
 

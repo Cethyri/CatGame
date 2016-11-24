@@ -31,7 +31,6 @@ public class Stage implements KeyListener {
 		
 		for (int i = 0; i < kittens.length; i++) {
 			kittens[i] = new Kitten(300, floorHeight, playerID.values()[i]);
-			System.out.println(i);
 		}
 	}
 
