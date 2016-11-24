@@ -3,6 +3,7 @@ package neumont.thanksgiving.gameJam;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,16 +16,19 @@ public class Kitten implements KeyListener, MouseListener {
 
 	private static final int PLAYER_WIDTH = 24 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 12 * Finals.PIXEL_RATIO;
 
-	private static final int JUMP_VEL = - 30, WALK_VEL = 10;
-	
+	private static final int JUMP_VEL = -30, WALK_VEL = 10;
+
 	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp";
 
 	private int posx, posy, dx, dy;
-	
-	private boolean jump, duck;
+
+	private boolean onGround;
+	private boolean jump, duck, left, right;
 
 	private int frame, frameDelay;
 	private Image sprite;
+	
+	private Stage s;
 
 	public Kitten(int startX, int startY) {
 
@@ -33,45 +37,77 @@ public class Kitten implements KeyListener, MouseListener {
 
 		dx = 0;
 		dy = 0;
+
+		onGround = true;
 		
 		jump = false;
 		duck = false;
+		left = false;
+		right = false;
 
 		frame = 0;
 		frameDelay = Finals.animDelay;
+		sprite = new ImageIcon(PATH + PLACE_HOLDER + frame + END).getImage();
+		
+		s = new Stage(100, Finals.FRAME_WIDTH);
 	}
 
 	public void move() {
-		posx += dx;
-		
-		
-		if (jump) {
-			jump = false;
-			dy += JUMP_VEL;
-		}
-		
-		System.out.println("dy: " + dy);
-		if (posy + PLAYER_HEIGHT + dy < Finals.FRAME_HEIGHT && posy + dy > 0) {
-			posy += dy;			
-			dy -= Finals.GRAV;
-		}
-		else {
-			dy = 0;
-			posy = Finals.FRAME_HEIGHT - PLAYER_HEIGHT;
-		}
+		doHorizontal();
 
+		doVertical();
 
 		animate();
+	}
+
+	private void doHorizontal() {
+		if (left || right) {
+
+			dx = left ? -WALK_VEL : WALK_VEL;
+			
+			if (!onGround) {
+				dx /= 2;
+			}
+
+			posx += s.collisionsHorizontal(dx, getHitBox());
+		}
+	}
+
+	private void doVertical() {
+		if (jump) {
+			jump = false;
+			if (onGround()) {
+				dy += JUMP_VEL;				
+			}
+		}
+		
+		posy += s.collisionsVertical(dy, getHitBox());
+		
+		if (s.collisionsVertical(dy, getHitBox()) != dy) {
+			dy = 0;
+		}
+		
+		if (!onGround()) {
+			dy -= Finals.GRAV;			
+		}
+	}
+
+	private boolean onGround() {
+		return s.onGround(getHitBox());
+	}
+
+	private Rectangle getHitBox() {
+		return new Rectangle(posx, duck ? posy - PLAYER_HEIGHT / 2: posy, PLAYER_WIDTH, duck ? PLAYER_HEIGHT / 2: PLAYER_HEIGHT);
 	}
 
 	private void animate() {
 		if (frameDelay >= Finals.animDelay) {
 			frameDelay = 0;
-			
+
 			if (frame > 5) {
 				frame = 0;
 			}
-			File f = new File(PATH + PLACE_HOLDER + frame + END);
+			
 			sprite = new ImageIcon(PATH + PLACE_HOLDER + frame + END).getImage();
 			frame++;
 		}
@@ -83,6 +119,8 @@ public class Kitten implements KeyListener, MouseListener {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.drawImage(sprite, posx, posy, null);
+		
+		s.draw(g2d);
 	}
 
 	public Image getSprite() {
@@ -133,11 +171,11 @@ public class Kitten implements KeyListener, MouseListener {
 		}
 
 		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-			dx = -WALK_VEL;
+			left = true;
 		}
 
 		if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-			dx = WALK_VEL;
+			right = true;
 		}
 
 		if (key == KeyEvent.VK_SPACE) {
@@ -159,11 +197,11 @@ public class Kitten implements KeyListener, MouseListener {
 		}
 
 		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-			dx = 0;
+			left = false;
 		}
 
 		if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-			dx = 0;
+			right = false;
 		}
 
 		if (key == KeyEvent.VK_SPACE) {

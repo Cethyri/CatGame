@@ -45,7 +45,7 @@ public class Game extends JPanel implements ActionListener {
 		addMouseMotionListener(MA);
 		addMouseWheelListener(MA);
 		
-		kitty = new Kitten(300, 400);
+		kitty = new Kitten(300, Finals.FRAME_HEIGHT - 100);
 
 		T = new Timer(10, this);
 		T.start();
