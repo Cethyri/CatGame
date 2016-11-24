@@ -19,20 +19,20 @@ public class Stage {
 		
 		surfaces.add(new Rectangle(0, Finals.FRAME_HEIGHT - floorHeight, floorWidth, floorHeight));
 		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (100 + floorHeight), 100, 100));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 150, Finals.FRAME_HEIGHT - (350 + floorHeight), 100, 100));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (600 + floorHeight), 100, 100));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 + 50, Finals.FRAME_HEIGHT - (850 + floorHeight), 100, 100));
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 150, Finals.FRAME_HEIGHT - (330 + floorHeight), 100, 100));
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (560 + floorHeight), 100, 100));
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 + 50, Finals.FRAME_HEIGHT - (790 + floorHeight), 100, 100));
 	}
 	
 	public int collisionsHorizontal(int dx, Rectangle hitBox) {
 		Rectangle temp = new Rectangle(hitBox);
 		temp.setLocation(hitBox.x + dx, hitBox.y);
 		
-		ArrayList<Rectangle> t = new ArrayList<Rectangle> ();
+//		ArrayList<Rectangle> t = new ArrayList<Rectangle> ();
 		
 		for (Rectangle r: surfaces) {
 			if (r.intersects(temp)) {
-				t.add(r.intersection(temp));
+//				t.add(r.intersection(temp));
 				if (dx < 0) {
 					dx = (r.x + r.width) - hitBox.x;
 				} else {
@@ -42,9 +42,9 @@ public class Stage {
 			}
 		}
 		
-		for (Rectangle r : t) {
-			surfaces.add(r);
-		}
+//		for (Rectangle r : t) {
+//			surfaces.add(r);
+//		}
 		
 		return dx;
 	}
@@ -53,11 +53,11 @@ public class Stage {
 		Rectangle temp = new Rectangle(hitBox);
 		temp.setLocation(hitBox.x, hitBox.y + dy);
 		
-		ArrayList<Rectangle> t = new ArrayList<Rectangle> ();
+//		ArrayList<Rectangle> t = new ArrayList<Rectangle> ();
 		
 		for (Rectangle r: surfaces) {
 			if (r.intersects(temp)) {
-				t.add(r.intersection(temp));
+//				t.add(r.intersection(temp));
 				if (dy < 0) {
 					dy = (r.y + r.height) - hitBox.y;
 				} else {
@@ -67,9 +67,9 @@ public class Stage {
 			}
 		}
 		
-		for (Rectangle r : t) {
-			surfaces.add(r);
-		}
+//		for (Rectangle r : t) {
+//			surfaces.add(r);
+//		}
 		
 		return dy;
 	}

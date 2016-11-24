@@ -16,13 +16,12 @@ public class Kitten implements KeyListener, MouseListener {
 
 	private static final int PLAYER_WIDTH = 24 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 12 * Finals.PIXEL_RATIO;
 
-	private static final int JUMP_VEL = -30, WALK_VEL = 10;
+	private static final int JUMP_VEL = -25, WALK_VEL = 10;
 
 	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp";
 
-	private int posx, posy, dx, dy;
-
-	private boolean onGround;
+	private int posx, posy, dx, dy, collideDx, collideDy;
+	
 	private boolean jump, duck, left, right;
 
 	private int frame, frameDelay;
@@ -37,8 +36,6 @@ public class Kitten implements KeyListener, MouseListener {
 
 		dx = 0;
 		dy = 0;
-
-		onGround = true;
 		
 		jump = false;
 		duck = false;
@@ -64,12 +61,9 @@ public class Kitten implements KeyListener, MouseListener {
 		if (left || right) {
 
 			dx = left ? -WALK_VEL : WALK_VEL;
-			
-			if (!onGround) {
-				dx /= 2;
-			}
 
-			posx += s.collisionsHorizontal(dx, getHitBox());
+			collideDx = s.collisionsHorizontal(dx, getHitBox());
+			posx += collideDx;
 		}
 	}
 
@@ -81,9 +75,11 @@ public class Kitten implements KeyListener, MouseListener {
 			}
 		}
 		
-		posy += s.collisionsVertical(dy, getHitBox());
 		
-		if (s.collisionsVertical(dy, getHitBox()) != dy) {
+		collideDy = s.collisionsVertical(dy, getHitBox());
+		posy += collideDy;
+		
+		if (collideDy != dy) {
 			dy = 0;
 		}
 		
@@ -97,7 +93,7 @@ public class Kitten implements KeyListener, MouseListener {
 	}
 
 	private Rectangle getHitBox() {
-		return new Rectangle(posx, duck ? posy - PLAYER_HEIGHT / 2: posy, PLAYER_WIDTH, duck ? PLAYER_HEIGHT / 2: PLAYER_HEIGHT);
+		return new Rectangle(posx, duck ? posy + PLAYER_HEIGHT / 2: posy, PLAYER_WIDTH, duck ? PLAYER_HEIGHT / 2: PLAYER_HEIGHT);
 	}
 
 	private void animate() {
@@ -118,7 +114,7 @@ public class Kitten implements KeyListener, MouseListener {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.drawImage(sprite, posx, posy, null);
+		g2d.drawImage(sprite, posx, duck ? posy + PLAYER_HEIGHT / 2: posy, null);
 		
 		s.draw(g2d);
 	}

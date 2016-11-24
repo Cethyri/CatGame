@@ -10,5 +10,5 @@ public class Finals {
 	
 	public static final int animDelay = 25;
 	
-	public static final int GRAV = -2;
+	public static final int GRAV = -1;
 }
