@@ -18,7 +18,7 @@ public class Kitten implements KeyListener {
 
 	private static final int JUMP_VEL = -25, WALK_VEL = 5;
 
-	private static final String PATH = "Images/Useable/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", JUMP = "Jump", FALL = "Fall";
+	private static final String PATH = "Images/Useable/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", DUCK = "Duck", JUMP = "Jump", FALL = "Fall";
 
 	private final playerID ID;
 
@@ -176,7 +176,7 @@ public class Kitten implements KeyListener {
 	}
 
 	private void animate() {
-		String direction = dx < 0 ? LEFT : RIGHT, action = dx == 0 ? IDLE : WALK;
+		String direction = dx < 0 ? LEFT : RIGHT, action = dx == 0 ? IDLE : duck ? DUCK : WALK;
 		
 		if (frameDelay >= Finals.animDelay) {
 			frameDelay = 0;
