@@ -1,4 +1,4 @@
-package neumont.thanksgiving.gameJam;
+package edu.neumont.csc150.finalProject;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

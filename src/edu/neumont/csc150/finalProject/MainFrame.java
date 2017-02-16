@@ -1,4 +1,4 @@
-package neumont.thanksgiving.gameJam;
+package edu.neumont.csc150.finalProject;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
