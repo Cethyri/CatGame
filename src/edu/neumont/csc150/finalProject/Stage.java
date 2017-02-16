@@ -115,7 +115,6 @@ public class Stage extends JPanel implements ActionListener {
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println("keylistened");
 			for (Kitten k : kittens) {
 				k.keyPressed(e);
 			}

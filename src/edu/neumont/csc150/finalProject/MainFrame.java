@@ -29,21 +29,10 @@ public class MainFrame extends JFrame {
     	
     	setVisible(true);
     	
-    	initGame();
+       	C = new Game();
     	
     	this.setContentPane(C);
-    }
-    
-    
-    public void initGame() {
-    	C = new Game();
-    	
-    	C.setLayout(null);
-       	C.setFocusable(false);
-        C.setDoubleBuffered(true);
-        C.setBounds(0, 0, Finals.FRAME_WIDTH, Finals.FRAME_HEIGHT);
-    }
-    
+    }    
     
     
 	public static void main(String[] args) {

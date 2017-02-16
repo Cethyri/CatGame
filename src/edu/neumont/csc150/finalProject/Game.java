@@ -28,7 +28,11 @@ public class Game extends JPanel {
 		}
 
 	public void initPanel() {
-		
+		setLayout(null);
+       	setFocusable(false);
+        setDoubleBuffered(true);
+        setBounds(0, 0, Finals.FRAME_WIDTH, Finals.FRAME_HEIGHT);
+        
 		this.add(new Stage(100));
 	}
 }
