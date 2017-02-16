@@ -36,7 +36,7 @@ public class Kitten {
 		this.ID = ID;
 		
 		posx = startX;
-		posy = startY - PLAYER_HEIGHT;
+		posy = Finals.FRAME_HEIGHT - startY - PLAYER_HEIGHT;
 
 		dx = 0;
 		dy = 0;

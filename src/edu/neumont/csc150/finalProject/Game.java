@@ -31,9 +31,4 @@ public class Game extends JPanel {
 		
 		this.add(new Stage(100));
 	}
-
-	// g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-	// g2d.setColor(Color.(COLOR/color));
-	// g2d.drawString("", x, y);
-	// g2d.fillRect(x, y, width, height);
 }

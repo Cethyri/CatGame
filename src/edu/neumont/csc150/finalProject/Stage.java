@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -11,12 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Stage extends JPanel implements ActionListener {
-
-	private int floorHeight;
 	
 	private KeyAdapter TA;
 
@@ -29,13 +29,8 @@ public class Stage extends JPanel implements ActionListener {
 	public Stage(int floorHeight) {
 		surfaces = new ArrayList<Rectangle>();
 
-		this.floorHeight = floorHeight;
-
-		surfaces.add(new Rectangle(0, Finals.FRAME_HEIGHT - floorHeight, Finals.FRAME_WIDTH , floorHeight));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (100 + floorHeight), 100, 100));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 150, Finals.FRAME_HEIGHT - (330 + floorHeight), 100, 100));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (560 + floorHeight), 100, 100));
-		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 + 50, Finals.FRAME_HEIGHT - (790 + floorHeight), 100, 100));
+		createFloor(floorHeight);
+		createTestStage(floorHeight);
 
 		kittens = new Kitten[2];
 		
@@ -43,6 +38,15 @@ public class Stage extends JPanel implements ActionListener {
 			kittens[i] = new Kitten(300, floorHeight, playerID.values()[i]);
 		}
 		
+		initUI();
+	}
+
+	private void initUI() {
+    	setLayout(null);
+       	setFocusable(true);
+        setDoubleBuffered(true);
+        setBounds(0, 0, Finals.FRAME_WIDTH, Finals.FRAME_HEIGHT);
+        
 		TA = new TAdapter();
 		addKeyListener(TA);
 		
@@ -50,10 +54,24 @@ public class Stage extends JPanel implements ActionListener {
 		T.start();
 	}
 
-	public void draw(Graphics g) {
+	private void createTestStage(int floorHeight) {
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (100 + floorHeight), 100, 100));
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 150, Finals.FRAME_HEIGHT - (330 + floorHeight), 100, 100));
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (560 + floorHeight), 100, 100));
+		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 + 50, Finals.FRAME_HEIGHT - (790 + floorHeight), 100, 100));
+	}
+
+	private void createFloor(int floorHeight) {
+
+		surfaces.add(new Rectangle(0, Finals.FRAME_HEIGHT - floorHeight, Finals.FRAME_WIDTH , floorHeight));
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-
+		
 		g2d.setColor(Color.DARK_GRAY);
 
 		for (Rectangle r : surfaces) {
@@ -64,7 +82,10 @@ public class Stage extends JPanel implements ActionListener {
 			k.draw(g);
 		}
 
-		test(g);
+		this.paintComponents(g);
+
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
 	}
 
 	public void test(Graphics g) {
@@ -86,7 +107,6 @@ public class Stage extends JPanel implements ActionListener {
 		for (Kitten k : kittens) {
 			k.move(surfaces);
 		}
-		
 		repaint();
 	}
 
@@ -95,6 +115,7 @@ public class Stage extends JPanel implements ActionListener {
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
+			System.out.println("keylistened");
 			for (Kitten k : kittens) {
 				k.keyPressed(e);
 			}

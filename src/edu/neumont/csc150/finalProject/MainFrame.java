@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
     	C = new Game();
     	
     	C.setLayout(null);
-       	C.setFocusable(true);
+       	C.setFocusable(false);
         C.setDoubleBuffered(true);
         C.setBounds(0, 0, Finals.FRAME_WIDTH, Finals.FRAME_HEIGHT);
     }
