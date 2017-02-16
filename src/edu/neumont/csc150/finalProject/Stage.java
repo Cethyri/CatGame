@@ -4,24 +4,34 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class Stage implements KeyListener {
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class Stage extends JPanel implements ActionListener {
 
 	private int floorHeight;
+	
+	private KeyAdapter TA;
 
-	ArrayList<Rectangle> surfaces;
+	private Timer T;
+	
+	private ArrayList<Rectangle> surfaces;
 
 	private Kitten[] kittens;
 
-	public Stage(int floorHeight, int floorWidth) {
+	public Stage(int floorHeight) {
 		surfaces = new ArrayList<Rectangle>();
 
 		this.floorHeight = floorHeight;
 
-		surfaces.add(new Rectangle(0, Finals.FRAME_HEIGHT - floorHeight, floorWidth, floorHeight));
+		surfaces.add(new Rectangle(0, Finals.FRAME_HEIGHT - floorHeight, Finals.FRAME_WIDTH , floorHeight));
 		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (100 + floorHeight), 100, 100));
 		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 150, Finals.FRAME_HEIGHT - (330 + floorHeight), 100, 100));
 		surfaces.add(new Rectangle(Finals.FRAME_WIDTH / 2 - 50, Finals.FRAME_HEIGHT - (560 + floorHeight), 100, 100));
@@ -32,6 +42,12 @@ public class Stage implements KeyListener {
 		for (int i = 0; i < kittens.length; i++) {
 			kittens[i] = new Kitten(300, floorHeight, playerID.values()[i]);
 		}
+		
+		TA = new TAdapter();
+		addKeyListener(TA);
+		
+		T = new Timer(10, this);
+		T.start();
 	}
 
 	public void draw(Graphics g) {
@@ -65,32 +81,30 @@ public class Stage implements KeyListener {
 		}
 	}
 
-	public void actionPerformed() {
+	
+	public void actionPerformed(ActionEvent e) {
 		for (Kitten k : kittens) {
 			k.move(surfaces);
 		}
-
+		
+		repaint();
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		for (Kitten k : kittens) {
-			k.keyPressed(e);
+	
+	public class TAdapter extends KeyAdapter {
+		
+		@Override
+		public void keyPressed(KeyEvent e) {
+			for (Kitten k : kittens) {
+				k.keyPressed(e);
+			}
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent e) {
+			for (Kitten k : kittens) {
+				k.keyReleased(e);
+			}
 		}
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		for (Kitten k : kittens) {
-			k.keyReleased(e);
-		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		for (Kitten k : kittens) {
-			k.keyTyped(e);
-		}
-	}
-
 }

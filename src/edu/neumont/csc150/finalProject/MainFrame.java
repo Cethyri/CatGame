@@ -14,10 +14,10 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() {
 		
-		InitUI();
+		initUI();
 	}
 	
-    private void InitUI() {
+    private void initUI() {
     	
     	setTitle("Fight!");
     	setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -29,13 +29,13 @@ public class MainFrame extends JFrame {
     	
     	setVisible(true);
     	
-    	InitGame();
+    	initGame();
     	
     	this.setContentPane(C);
     }
     
     
-    public void InitGame() {
+    public void initGame() {
     	C = new Game();
     	
     	C.setLayout(null);

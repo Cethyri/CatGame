@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Kitten implements KeyListener {
+public class Kitten {
 
 	private static final int PLAYER_WIDTH = 64 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 64 * Finals.PIXEL_RATIO;
 
@@ -215,7 +215,6 @@ public class Kitten implements KeyListener {
 		return sprite;
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 
 		int key = e.getKeyCode();
@@ -237,7 +236,6 @@ public class Kitten implements KeyListener {
 		}
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 
 		int key = e.getKeyCode();
@@ -259,9 +257,4 @@ public class Kitten implements KeyListener {
 		}
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 }
