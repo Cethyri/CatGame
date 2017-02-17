@@ -7,12 +7,14 @@ import javax.bluetooth.DiscoveryListener;
 import javax.bluetooth.LocalDevice;
 import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
+import javax.bluetooth.UUID;
 
 public class BlueToothConnection{
 	
 	private Object lock = new Object();
-	private LocalDevice local;
-	private DiscoveryAgent agent;
+	private LocalDevice localDevice = null;
+	private DiscoveryAgent agent = null;
+	UUID[] uuidSet = new UUID[1];
 	
 	
 	public BlueToothConnection() {
@@ -21,11 +23,12 @@ public class BlueToothConnection{
 	}
 	
 	public void getConnection() {
+//		uuidSet[0] = new UUID(0000110100001000800000805f9b34fb);
 		
 		try {
-			local = LocalDevice.getLocalDevice();
+			localDevice = LocalDevice.getLocalDevice();
 			
-			agent = local.getDiscoveryAgent();
+			agent = localDevice.getDiscoveryAgent();
 			
 			System.out.println("start searching for device");
 			
@@ -33,19 +36,19 @@ public class BlueToothConnection{
 				
 				@Override
 				public void servicesDiscovered(int arg0, ServiceRecord[] arg1) {
-					// TODO Auto-generated method stub
+					System.out.println("Service Discovered....");
 					
 				}
 				
 				@Override
 				public void serviceSearchCompleted(int arg0, int arg1) {
 					// TODO Auto-generated method stub
-					System.out.println("search complete");
+					System.out.println("search complete.....");
 				}
 				
 				@Override
 				public void inquiryCompleted(int arg0) {
-					
+					System.out.println("inquiry Completed.....");
 					synchronized(lock) {
 						lock.notify();
 					}
@@ -57,19 +60,20 @@ public class BlueToothConnection{
 					String name;
 					
 					try {
-						name = local.getFriendlyName();
+						name = localDevice.getFriendlyName();
 						
 					} catch (Exception e) {
-						name = local.getBluetoothAddress();
+						name = localDevice.getBluetoothAddress();
 
 					}
 					
-					System.out.println("Device Found " + name);
+					System.out.println("Device Discovered " + name);
 				}
 			});
 			
+			
 			try{
-				System.out.println("Attemting to wait");
+				System.out.println("Waiting");
 				synchronized (lock) {
 					lock.wait();
 				}
@@ -80,9 +84,10 @@ public class BlueToothConnection{
 				
 			}
 			
+//			agent.searchServices(null,uuidSet,device, new MyDiscoveryListener());
+			
 		} catch (BluetoothStateException e) {
-			e.printStackTrace();
-			System.out.println("No Connection");			
+			e.printStackTrace();			
 			
 		}
 		
@@ -94,6 +99,7 @@ public class BlueToothConnection{
 	
 
 	public static void main(String[] args) {
+		
 		BlueToothConnection b = new BlueToothConnection();
 		
 	}
