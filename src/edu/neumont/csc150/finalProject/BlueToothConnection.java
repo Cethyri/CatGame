@@ -16,7 +16,7 @@ public class BlueToothConnection{
 	
 	
 	public BlueToothConnection() {
-		this.getConnection();
+		getConnection();
 		
 	}
 	
@@ -69,8 +69,10 @@ public class BlueToothConnection{
 			});
 			
 			try{
-				System.out.println("locking....");
-				lock.wait();
+				System.out.println("Attemting to wait");
+				synchronized (lock) {
+					lock.wait();
+				}
 				
 			} catch (InterruptedException e) {	
 				System.out.println("done");
