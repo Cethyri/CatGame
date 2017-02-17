@@ -10,13 +10,14 @@ import javax.bluetooth.ServiceRecord;
 
 public class BlueToothConnection{
 	
+	private Object lock = new Object();
 	private LocalDevice local;
 	private DiscoveryAgent agent;
-	private Object lock = new Object();
 	
 	
 	public BlueToothConnection() {
-		getConnection();
+		this.getConnection();
+		
 	}
 	
 	public void getConnection() {
@@ -39,32 +40,48 @@ public class BlueToothConnection{
 				@Override
 				public void serviceSearchCompleted(int arg0, int arg1) {
 					// TODO Auto-generated method stub
-					
+					System.out.println("search complete");
 				}
 				
 				@Override
 				public void inquiryCompleted(int arg0) {
-					// TODO Auto-generated method stub
+					
+					synchronized(lock) {
+						lock.notify();
+					}
 					
 				}
 				
 				@Override
 				public void deviceDiscovered(RemoteDevice arg0, DeviceClass arg1) {
-					// TODO Auto-generated method stub
+					String name;
 					
+					try {
+						name = local.getFriendlyName();
+						
+					} catch (Exception e) {
+						name = local.getBluetoothAddress();
+
+					}
+					
+					System.out.println("Device Found " + name);
 				}
 			});
 			
 			try{
-				
+				System.out.println("locking....");
 				lock.wait();
-			}catch (InterruptedException e) {
+				
+			} catch (InterruptedException e) {	
+				System.out.println("done");
 				e.printStackTrace();
+				
 			}
 			
 		} catch (BluetoothStateException e) {
-			System.out.println("No Connection");
 			e.printStackTrace();
+			System.out.println("No Connection");			
+			
 		}
 		
 	}
@@ -76,5 +93,6 @@ public class BlueToothConnection{
 
 	public static void main(String[] args) {
 		BlueToothConnection b = new BlueToothConnection();
+		
 	}
 }
