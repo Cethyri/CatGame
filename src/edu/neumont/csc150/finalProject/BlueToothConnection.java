@@ -1,7 +1,5 @@
 package edu.neumont.csc150.finalProject;
 
-import java.io.IOException;
-
 import javax.bluetooth.BluetoothStateException;
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.DiscoveryAgent;
@@ -59,30 +57,17 @@ public class BlueToothConnection{
 				
 				@Override
 				public void deviceDiscovered(RemoteDevice arg0, DeviceClass arg1) {
-					String name, RDName, DCClass;
+					String name;
 					
 					try {
-						RDName = arg0.getFriendlyName(true);
 						name = localDevice.getFriendlyName();
-						DCClass = "" + arg1.getMajorDeviceClass();
-						
 						
 					} catch (Exception e) {
-						RDName = arg0.getBluetoothAddress();
 						name = localDevice.getBluetoothAddress();
-						DCClass = "" + arg1.getMinorDeviceClass();
-						System.out.println("caught exception");
-					}
-					if (RDName == "SAMSUNG-SM-J320V") {
-						try {
-							arg0.authenticate();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+
 					}
 					
-					System.out.println("Device Discovered " + RDName + " of class: " + DCClass);
+					System.out.println("Device Discovered " + name);
 				}
 			});
 			
