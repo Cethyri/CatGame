@@ -12,13 +12,13 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Kitten {
+public class Kitten implements KeyListener{
 
 	private static final int PLAYER_WIDTH = 64 * Finals.PIXEL_RATIO, PLAYER_HEIGHT = 64 * Finals.PIXEL_RATIO;
 
 	private static final int JUMP_VEL = -25, WALK_VEL = 5;
 
-	private static final String PATH = "Images/Useable/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", DUCK = "Duck", JUMP = "Jump", FALL = "Fall";
+	private static final String PATH = "Images/", END = ".png", PLACE_HOLDER = "catTemp", IDLE = "Idle", RIGHT = "Right", LEFT = "Left", WALK = "Walk", DUCK = "Duck", JUMP = "Jump", FALL = "Fall";
 
 	private final playerID ID;
 
@@ -255,6 +255,12 @@ public class Kitten {
 		if (ID.equals(playerID.FIRST) ? key == KeyEvent.VK_D : key == KeyEvent.VK_RIGHT) {
 			right = false;
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

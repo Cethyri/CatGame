@@ -36,6 +36,7 @@ public class Stage extends JPanel implements ActionListener {
 		
 		for (int i = 0; i < kittens.length; i++) {
 			kittens[i] = new Kitten(300, floorHeight, playerID.values()[i]);
+			addKeyListener(kittens[i]);
 		}
 		
 		initUI();
@@ -46,9 +47,6 @@ public class Stage extends JPanel implements ActionListener {
        	setFocusable(true);
         setDoubleBuffered(true);
         setBounds(0, 0, Finals.FRAME_WIDTH, Finals.FRAME_HEIGHT);
-        
-		TA = new TAdapter();
-		addKeyListener(TA);
 		
 		T = new Timer(10, this);
 		T.start();
@@ -108,23 +106,5 @@ public class Stage extends JPanel implements ActionListener {
 			k.move(surfaces);
 		}
 		repaint();
-	}
-
-	
-	public class TAdapter extends KeyAdapter {
-		
-		@Override
-		public void keyPressed(KeyEvent e) {
-			for (Kitten k : kittens) {
-				k.keyPressed(e);
-			}
-		}
-		
-		@Override
-		public void keyReleased(KeyEvent e) {
-			for (Kitten k : kittens) {
-				k.keyReleased(e);
-			}
-		}
 	}
 }
