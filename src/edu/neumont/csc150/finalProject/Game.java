@@ -26,6 +26,7 @@ public class Game extends JPanel {
 			super();
 			initUI();
 			initStage();
+			
 		}
 
 	public void initUI() {
@@ -38,5 +39,7 @@ public class Game extends JPanel {
 	private void initStage() {
 		s = new Stage();
 		this.add(s);
+		
+		s.add(new Kitten());
 	}
 }
