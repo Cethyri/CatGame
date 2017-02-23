@@ -24,15 +24,19 @@ public class Game extends JPanel {
 
 	public Game() {
 			super();
-			initPanel();
+			initUI();
+			initStage();
 		}
 
-	public void initPanel() {
+	public void initUI() {
 		setLayout(null);
        	setFocusable(false);
         setDoubleBuffered(true);
-        setBounds(0, 0, Finals.FRAME_WIDTH, Finals.FRAME_HEIGHT);
-        
-		this.add(new Stage(100));
+        setBounds(0, 0, MainFrame.FRAME_WIDTH, MainFrame.FRAME_HEIGHT);
+	}
+
+	private void initStage() {
+		s = new Stage();
+		this.add(s);
 	}
 }
