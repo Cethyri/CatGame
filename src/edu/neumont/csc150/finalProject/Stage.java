@@ -12,17 +12,18 @@ import javax.swing.Timer;
 
 public class Stage extends JPanel implements ActionListener {
 	
-	ArrayList<Collidable> surfaces;
-	ArrayList<TickListener> ticks;
+	private ArrayList<Collidable> surfaces;
+	private ArrayList<TickListener> ticks;
 	
-	Timer t;
+	private Timer t;
 	
 	public Stage() {
-		initUI();
 		initVars();
+		initUI();
 	}
 
 	private void initUI() {
+		
 		setLayout(null);
        	setFocusable(true);
         setDoubleBuffered(true);
@@ -32,6 +33,7 @@ public class Stage extends JPanel implements ActionListener {
 	}
 	
 	private void initVars() {
+		
 		surfaces = new ArrayList<>();
 		ticks = new ArrayList<>();
 		

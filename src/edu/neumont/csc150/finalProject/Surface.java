@@ -1,5 +1,8 @@
 package edu.neumont.csc150.finalProject;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
@@ -9,5 +12,10 @@ public class Surface extends JLabel implements Collidable {
 		setOpaque(true);
 		
 		setBounds(x, y, width, height);
+	}
+
+	@Override
+	public void checkForCollisions(ArrayList<Rectangle> surfaces) {
+		
 	}
 }

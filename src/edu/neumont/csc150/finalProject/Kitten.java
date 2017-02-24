@@ -2,8 +2,10 @@ package edu.neumont.csc150.finalProject;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -12,15 +14,33 @@ import javax.swing.JTextArea;
 
 public class Kitten extends JLabel implements KeyListener, Collidable, TickListener {
 	
-	int frame;
+	public final PlayerID id;
 	
-	public Kitten() {
-		this.setOpaque(false);
+	private int frame;
+	
+	public Kitten(PlayerID id) {
+		initVars(id);
+		
+		initUI();
+		
+		this.id = id;
+	}
+
+	private void initVars(PlayerID id) {
 		
 		frame = 0;
 		doTick();
+	}
+
+	private void initUI() {
 		
+		this.setOpaque(true);
 		setBounds(0, 0, getIcon().getIconWidth(), getIcon().getIconHeight());
+	}
+	
+	@Override
+	public void checkForCollisions(ArrayList<Rectangle> surfaces) {
+		
 	}
 	
 	@Override
@@ -35,7 +55,6 @@ public class Kitten extends JLabel implements KeyListener, Collidable, TickListe
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		System.out.println("I'm painted");
 		super.paintComponent(g);
 	}
 	
