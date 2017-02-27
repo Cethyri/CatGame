@@ -15,7 +15,12 @@ public class Surface extends JLabel implements Collidable {
 	}
 
 	@Override
-	public void checkForCollisions(ArrayList<Rectangle> surfaces) {
+	public void checkForCollisions(ArrayList<Collidable> surfaces) {
 		
+	}
+
+	@Override
+	public boolean isMovable() {
+		return false;
 	}
 }

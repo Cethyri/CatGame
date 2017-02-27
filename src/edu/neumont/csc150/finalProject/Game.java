@@ -39,6 +39,7 @@ public class Game extends JPanel {
 		s = new Stage();
 		this.add(s);
 		
-		s.add(new Kitten(PlayerID.FIRST));
+		s.createKittens(1);
+		//s.createTestStage();
 	}
 }

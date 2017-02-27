@@ -7,5 +7,7 @@ public interface Collidable {
 	
 	public Rectangle getBounds();
 	
-	public void checkForCollisions(ArrayList<Rectangle> surfaces);
+	public void checkForCollisions(ArrayList<Collidable> surfaces);
+	
+	public boolean isMovable();
 }
