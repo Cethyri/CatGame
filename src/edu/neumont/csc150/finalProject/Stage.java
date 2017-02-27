@@ -30,7 +30,7 @@ public class Stage extends JPanel implements ActionListener {
 		setLayout(null);
        	setFocusable(true);
         setDoubleBuffered(true);
-        setBounds(0, 0, MainFrame.FRAME_WIDTH, MainFrame.FRAME_HEIGHT);
+        setBounds(0, 0, MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT);
         
         setBackground(Color.cyan);
 	}
@@ -76,6 +76,11 @@ public class Stage extends JPanel implements ActionListener {
 			add(new Kitten(PlayerID.values()[i]));
 		}
 		
+	}
+
+	public void createTestStage() {
+		add(new Surface(0, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10), MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 	}
 
 }

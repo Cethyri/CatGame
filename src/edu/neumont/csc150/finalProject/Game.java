@@ -32,7 +32,7 @@ public class Game extends JPanel {
 		setLayout(null);
        	setFocusable(false);
         setDoubleBuffered(true);
-        setBounds(0, 0, MainFrame.FRAME_WIDTH, MainFrame.FRAME_HEIGHT);
+        setBounds(0, 0, MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT);
 	}
 
 	private void initStage() {
@@ -40,6 +40,6 @@ public class Game extends JPanel {
 		this.add(s);
 		
 		s.createKittens(1);
-		//s.createTestStage();
+		s.createTestStage();
 	}
 }

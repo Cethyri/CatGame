@@ -45,29 +45,31 @@ public class Kitten extends JLabel implements KeyListener, Collidable, TickListe
 	private void setVelocity() {
 		dx = left ? -dxVel : right ? dxVel : 0;
 		dy = up ? -jumpVel : dy;
-		dy -= Stage.GRAV;
+		if (!isGrounded()) {
+			dy -= Stage.GRAV;
+		}
 	}
 	
 	@Override
 	public void checkForCollisions(ArrayList<Collidable> surfaces) {
 		Rectangle internalX, internalY, external;
 		internalX = new Rectangle(getBounds());
-		internalX.setLocation((int) (getX() + dx), getY());
+		internalX.setLocation(getPosX() + getDX(), getPosY());
 		
 		internalY = new Rectangle(getBounds());
-		internalY.setLocation(getX(), (int) (getY() + dy));
+		internalY.setLocation(getPosX(), getPosY() + getDY());
 		
 		for (Collidable collidable : surfaces) {
 			external = new Rectangle(collidable.getBounds());
 			if (!external.intersects(this.getBounds())) {
 				if (external.intersects(internalX)) {
-					dx = (dx > 0 ? external.getX() - internalX.getMaxX() : external.getMaxX() - internalX.getX());
-					setPosX(posX + dx);
+					posX = dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX();
+					setPosX(posX);
 					dx = 0;
 				}
 				if (external.intersects(internalY)) {
-					dy = dy > 0 ? external.getY() - internalY.getMaxY() : external.getMaxY() - internalY.getY();
-					setPosY(posY + dy);
+					posY = dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY();
+					setPosY(posY);
 					dy = 0;
 				}
 			}
@@ -100,7 +102,29 @@ public class Kitten extends JLabel implements KeyListener, Collidable, TickListe
 	}
 
 	private void resetLocation() {
-		this.setLocation((int) posX, (int) posY);
+		this.setLocation(getPosX(), getPosY());
+	}
+
+	private int getPosX() {
+		return round(posX);
+	}
+	
+	private int getPosY() {
+		return round(posY);
+	}
+	
+	private int getDX() {
+		return round(dx);
+	}
+	
+	private int getDY() {
+		return round(dy);
+	}
+	
+	private int round(double d) {
+		int r = (int) d;
+		r += (d - ((int) d) >= .5) ? 1 : 0;
+		return r;
 	}
 
 	@Override
