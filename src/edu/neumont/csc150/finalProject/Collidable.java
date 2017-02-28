@@ -9,5 +9,8 @@ public interface Collidable {
 	
 	public void checkForCollisions(ArrayList<Collidable> surfaces);
 	
-	public boolean isMovable();
+	public boolean doVerticalCollisionResolution();
+	public boolean doHorizontalCollisionResolution();
+	
+	public void resolveCollision(Collidable collidable);
 }

@@ -17,7 +17,7 @@ public class Stage extends JPanel implements ActionListener {
 	private static ArrayList<Collidable> surfaces;
 	private ArrayList<TickListener> ticks;
 	
-	public static final int tickLength = 10;
+	public static final int tickLength = 100;
 	private Timer t;
 	
 	public Stage() {
