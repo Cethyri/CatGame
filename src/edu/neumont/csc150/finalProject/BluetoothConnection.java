@@ -1,5 +1,8 @@
 package edu.neumont.csc150.finalProject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
@@ -17,6 +20,8 @@ import javax.obex.HeaderSet;
 import javax.obex.Operation;
 import javax.obex.ResponseCodes;
 
+import com.intel.bluetooth.BluetoothConnectionAccessAdapter;
+
 
 public class BluetoothConnection implements DiscoveryListener{
 	
@@ -24,6 +29,7 @@ public class BluetoothConnection implements DiscoveryListener{
 	private LocalDevice localDevice;
 	private DiscoveryAgent agent;
 	private ArrayList<RemoteDevice> devices;
+	private int i = 1;
 	
 	public static void main(String[] args) {
 			BluetoothConnection b = new BluetoothConnection();
@@ -39,7 +45,6 @@ public class BluetoothConnection implements DiscoveryListener{
 	}
 	
 	public void discover() {
-		
 		try{
             localDevice = LocalDevice.getLocalDevice();
 
@@ -79,8 +84,8 @@ public class BluetoothConnection implements DiscoveryListener{
                 }
                 
                 
-                System.out.println("Service search done.");
             }
+            System.out.println("Service search done.");
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,12 +100,10 @@ public class BluetoothConnection implements DiscoveryListener{
 	        } catch (Exception e) {
 	            name = rDevice.getBluetoothAddress();
 	        }
-	        if(name.matches("SM-N910V")) {
-	        	devices.add(rDevice);
-	        	System.out.println("device found: " + name);
-	        	
-	        }
 	        
+	        devices.add(rDevice);
+	       	System.out.println(i + ". device found: " + name);
+	        i++;
 	    }
 
 	    @Override
@@ -120,30 +123,55 @@ public class BluetoothConnection implements DiscoveryListener{
 	    @Override
 	    public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
 	    	
-	        for (int i = 0; i < servRecord.length; i++) {
-	        	
-	            String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
-	            
-	            if (url == null) {
-	                continue;
-	            }
-	            
-	            DataElement serviceName = servRecord[i].getAttributeValue(0x0100);
-	            
-	            if (serviceName != null) {
-	                System.out.println("service " + serviceName.getValue() + " found " + url);
-	                
-	                if(serviceName.getValue().equals("OBEX Object Push")){
-	                    sendMessageToDevice(url);                
-	                }
-	                
-	            } else {
-	                System.out.println("service found " + url);
-	
-	            }
-	            
-	          
-	        }
+//	        for (int i = 0; i < servRecord.length; i++) {
+//	        	
+//	            String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
+//	            
+//	            if (url == null) {
+//	                continue;
+//	            }
+//	            
+//	            DataElement serviceName = servRecord[i].getAttributeValue(0x0100);
+//	            
+//	            if (serviceName != null) {
+//	                System.out.println("service " + serviceName.getValue() + " found " + url);
+//	                
+//	                if(serviceName.getValue().equals("OBEX Object Push")){
+//	                	System.out.println("sending message");
+//	                    sendMessageToDevice(url);                
+//	                }
+//	                
+//	            } else {
+//	            	System.out.println("serviceName is null");
+//	                System.out.println("service found " + url + "");
+//	
+//	            }
+//	            	          
+//	        }
+	    	int i=0;
+	     	System.out.println("enter the device number \n");
+	     	BufferedReader br = new BufferedReader( new InputStreamReader(System.in));
+	     	try {
+	 			String s = br.readLine();
+	             i = Integer.parseInt(s);
+	             
+	 		} catch (IOException e) {
+	 			e.printStackTrace();
+	 			
+	 		} 
+	           
+	           String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
+	             DataElement serviceName = servRecord[i].getAttributeValue(0x0100);
+	             if (serviceName != null) {
+	                 System.out.println("service " + serviceName.getValue() + " found " + url);
+	                 
+	                    if(true){
+	                     sendMessageToDevice(url);                
+	                 }
+	             } else {
+	                 System.out.println("service found " + url);
+	             }
+	    	
 	    }
 	    
 	    private void sendMessageToDevice(String serverURL){
