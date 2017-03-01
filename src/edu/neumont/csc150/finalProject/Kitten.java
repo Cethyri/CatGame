@@ -18,7 +18,8 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	private int frame;
 
-	public static final double dxVel = 2, jumpVel = 15;
+	public static final double dxVel = 2, jumpVel = 15, resolveFloat = dxVel / 4;
+	
 	private double dx, dy, posY, posX;
 	private boolean left, right, up, down;
 
@@ -32,6 +33,18 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 	private void initVars(PlayerID id) {
 
 		frame = 0;
+		
+		dx = 0;
+		dy = 0;
+		
+		posX = id.startX;
+		posY = 0;
+		
+		left = false;
+		right = false;
+		up = false;
+		down = false;
+		
 		doTick();
 	}
 
@@ -39,7 +52,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 		this.setOpaque(true);
 		this.setBackground(id.getPlayerColor());
-		setBounds(0, 0, getIcon().getIconWidth(), getIcon().getIconHeight());
+		setBounds(getIntPosX(), getIntPosY(), getIcon().getIconWidth(), getIcon().getIconHeight());
 	}
 
 	private void setVelocity() {
@@ -56,26 +69,28 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 		for (Collidable collidable : surfaces) {
 			external = new Rectangle(collidable.getBounds());
-
-			if (!external.intersects(this.getBounds())
-					&& !this.getBounds().equals(collidable.getBounds())) {
-
-				internalX = new Rectangle(getBounds());
-				internalX.setLocation(getIntPosX() + getIntDx(), getIntPosY());
-				if (external.intersects(internalX)) {
-					setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
-					dx = 0;
+			
+			if (!this.getBounds().equals(collidable.getBounds())) {
+				if (!external.intersects(this.getBounds()) && !(collidable instanceof Kitten)) {
+					
+					internalX = new Rectangle(getBounds());
+					internalX.setLocation(getIntPosX() + getIntDx(), getIntPosY());
+					if (external.intersects(internalX)) {
+						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
+						dx = 0;
+					}
+					
+					internalY = new Rectangle(getBounds());
+					internalY.setLocation(getIntPosX(), getIntPosY() + getIntDy());
+					if (external.intersects(internalY)) {
+						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
+						dy = 0;
+					}
+				} else if (external.intersects(this.getBounds())) {
+					this.resolveCollision(collidable);
+					collidable.resolveCollision(this);
 				}
-				internalY = new Rectangle(getBounds());
-				internalY.setLocation(getIntPosX(), getIntPosY() + getIntDy());
-				if (external.intersects(internalY)) {
-					setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
-					dx = 0;
-				}
-			} else if (external.intersects(this.getBounds())) {
-				this.resolveCollision(collidable);
-				collidable.resolveCollision(this);
-			} 
+			}
 		}
 	}
 
@@ -94,15 +109,15 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 		double posDx, negDx, posDy, negDy, newDx, newDy;
 		posDx = collidable.getBounds().getMaxX() - this.getBounds().getX();
 		negDx = collidable.getBounds().getX() - this.getBounds().getMaxX();
-		
+
 		posDy = collidable.getBounds().getMaxY() - this.getBounds().getY();
 		negDy = collidable.getBounds().getY() - this.getBounds().getMaxY();
 
-		newDx = posDx < negDx ? posDx : negDx;
-		newDy = posDy < negDy ? posDy : negDy;
-		
-		dx = newDx < newDy ? newDx: dx;
-		dy = newDy < newDx ? newDy: dy;
+		newDx = posDx < Math.abs(negDx) ? resolveFloat : -resolveFloat;
+		newDy = posDy < Math.abs(negDy) ? resolveFloat : -resolveFloat;
+
+		dx = doHorizontalCollisionResolution() ? newDx + dx : dx;
+		dy = doVerticalCollisionResolution() ? newDy + dx : dy;
 	}
 
 	private void doMove() {
@@ -166,7 +181,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 	}
 
 	private void animate() {
-		this.setIcon(new ImageIcon("images/Cat_Left_" + frame + ".png"));
+		this.setIcon(new ImageIcon("images/Cat_Left_Idle_" + frame + ".png"));
 
 		frame++;
 		if (frame >= 4) {
