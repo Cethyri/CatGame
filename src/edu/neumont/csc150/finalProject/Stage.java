@@ -80,7 +80,12 @@ public class Stage extends JPanel implements ActionListener {
 
 	public void createTestStage() {
 		add(new Surface(0, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10), MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT / 10));
+		
 		add(new Surface(MainFrame.CONTENT_WIDTH / 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 5 * 2, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 4, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 5));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 3, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 6, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 	}
 
 }

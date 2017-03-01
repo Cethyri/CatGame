@@ -16,7 +16,7 @@ public class Surface extends JLabel implements Collidable {
 	}
 
 	@Override
-	public void checkForCollisions(ArrayList<Collidable> surfaces) {
+	public void checkForCollisions(ArrayList<Collidable> surfaces, boolean resolve) {
 		
 	}
 
@@ -34,5 +34,10 @@ public class Surface extends JLabel implements Collidable {
 	public void resolveCollision(Collidable collidable) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public double getResolveVal() {
+		return 4;
 	}
 }
