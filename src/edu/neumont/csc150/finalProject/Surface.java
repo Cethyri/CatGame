@@ -40,4 +40,9 @@ public class Surface extends JLabel implements Collidable {
 	public double getResolveVal() {
 		return 4;
 	}
+	
+	@Override
+	public boolean isGround() {
+		return true;
+	}
 }

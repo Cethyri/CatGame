@@ -18,7 +18,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	private int frame;
 
-	public static final double dxVel = 2, jumpVel = 15, resolveVal = dxVel / 2;
+	public static final double dxVel = 2, jumpVel = 20, resolveVal = dxVel / 2;
 	
 	private double dx, dy, posY, posX;
 	private boolean left, right, up, down;
@@ -65,7 +65,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	@Override
 	public void checkForCollisions(ArrayList<Collidable> surfaces, boolean resolve) {
-		Rectangle internalX, internalY, external;
+		Rectangle internalX, internalY, internalBoth, external;
 
 		for (Collidable collidable : surfaces) {
 			external = new Rectangle(collidable.getBounds());
@@ -86,7 +86,16 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
 						dy = 0;
 					}
-				} else if (external.intersects(this.getBounds()) && resolve) {
+					
+					internalBoth = new Rectangle(getBounds());
+					internalBoth.setLocation(round(posX + dx), round(posY + dy));
+					if (external.intersects(internalBoth) && dx != 0 && dy !=0) {
+						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
+						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
+						dx = 0;
+						dy = 0;
+					}
+				} else if (external.intersects(this.getBounds()) && (resolve)) {
 					this.resolveCollision(collidable);
 					collidable.resolveCollision(this);
 				}
@@ -96,7 +105,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	@Override
 	public boolean doVerticalCollisionResolution() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -126,6 +135,11 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 		}
 	}
 	
+	@Override
+	public boolean isGround() {
+		return false;
+	}
+	
 	public double getResolveVal() {
 		return resolveVal;
 	}
@@ -139,7 +153,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 	public boolean isGrounded() {
 		for (Collidable collidable : Stage.getSurfaces()) {
 			if (this.getBounds().getMaxY() == collidable.getBounds().getY() && this.getBounds().getX() < collidable.getBounds().getMaxX()
-					&& this.getBounds().getMaxX() > collidable.getBounds().getX()) {
+					&& this.getBounds().getMaxX() > collidable.getBounds().getX() && collidable.isGround()) {
 				return true;
 			}
 		}

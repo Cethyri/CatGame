@@ -14,4 +14,6 @@ public interface Collidable {
 	
 	public void resolveCollision(Collidable collidable);
 	public double getResolveVal();
+	
+	public boolean isGround();
 }
