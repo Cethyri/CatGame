@@ -8,30 +8,33 @@ public class MyUDPServer {
 
 	public static void main(String args[]) throws Exception {
 		
-		DatagramSocket serverSocket = new DatagramSocket(9876);
+		DatagramSocket serverSocket = new DatagramSocket(4444);
 		
 		byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];
 		System.out.println("waiting......");
+		
 		while(true) {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
 			serverSocket.receive(receivePacket);
-
-			String sentence = new String( receivePacket.getData());
-			System.out.println("RECEIVED: " + sentence);
+			System.out.println("serversocket recieved packet......");
+			
+			String buttoninput = new String( receivePacket.getData());
+			
+			System.out.println("RECEIVED: " + buttoninput);
 
 			InetAddress IPAddress = receivePacket.getAddress();
 			System.out.println(IPAddress);
 			
 			int port = receivePacket.getPort();
 
-			String capitalizedSentence = sentence.toUpperCase();
+			String capitalizedSentence = buttoninput.toUpperCase();
 			sendData = capitalizedSentence.getBytes();
 
-//			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 
-//			serverSocket.send(sendPacket);
+			serverSocket.send(sendPacket);
 		}
 	}
 }

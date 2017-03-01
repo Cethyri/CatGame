@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.julianreyes.udpclientcontroller.MainActivity">
+
+
+    <Button
+        android:text="Down"
+        android:background="@drawable/roundbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LEFT"
+        android:layout_alignLeft="@+id/UP"
+        android:layout_alignStart="@+id/UP"
+        android:id="@+id/DOWN"
+        android:onClick="sendDown" />
+
+    <Button
+        android:text="Right"
+        android:background="@drawable/roundbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="57dp"
+        android:layout_marginStart="57dp"
+        android:id="@+id/RIGHT"
+        android:onClick="sendRight"
+        android:layout_above="@+id/DOWN"
+        android:layout_toRightOf="@+id/LEFT"
+        android:layout_toEndOf="@+id/LEFT" />
+
+    <Button
+        android:text="Left"
+        android:layout_width="wrap_content"
+        android:background="@drawable/roundbutton"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:id="@+id/LEFT"
+        android:onClick="sendLeft"
+        android:layout_alignTop="@+id/UP"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundbutton"
+        android:id="@+id/B"
+        android:onClick="sendSpecial"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp"
+        android:layout_above="@+id/A"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundbutton"
+        android:id="@+id/A"
+        android:onClick="sendAttack"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_alignBaseline="@+id/RIGHT"
+        android:layout_alignBottom="@+id/RIGHT"
+        android:layout_toLeftOf="@+id/B"
+        android:layout_toStartOf="@+id/B" />
+
+    <Button
+        android:text="Up"
+        android:background="@drawable/roundbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/UP"
+        android:onClick="sendUp"
+        android:layout_marginTop="88dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/RIGHT"
+        android:layout_alignEnd="@+id/RIGHT"
+        android:layout_marginRight="72dp"
+        android:layout_marginEnd="72dp" />
+</RelativeLayout>
