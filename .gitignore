@@ -63,7 +63,7 @@ local.properties
 # Code Recommenders
 .recommenders/
 
-# Built application files
+
 *.apk
 *.ap_
 
