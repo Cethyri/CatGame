@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
 	
-	public static final int FRAME_WIDTH = 2000, FRAME_HEIGHT = 1000;
+	public static final int CONTENT_WIDTH = 2000, CONTENT_HEIGHT = 1000;
 	
 	private GroupLayout layout;
 	
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
     	
     	setVisible(true);
     	Insets i = this.getInsets();
-    	setSize(FRAME_WIDTH + i.left + i.right, FRAME_HEIGHT + i.top + i.bottom);
+    	setSize(CONTENT_WIDTH + i.left + i.right, CONTENT_HEIGHT + i.top + i.bottom);
     	setLocationRelativeTo(null);
     	
        	C = new Game();

@@ -23,20 +23,23 @@ public class Game extends JPanel {
 	private Stage s;
 
 	public Game() {
-			super();
 			initUI();
 			initStage();
+			
 		}
 
 	public void initUI() {
 		setLayout(null);
        	setFocusable(false);
         setDoubleBuffered(true);
-        setBounds(0, 0, MainFrame.FRAME_WIDTH, MainFrame.FRAME_HEIGHT);
+        setBounds(0, 0, MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT);
 	}
 
 	private void initStage() {
 		s = new Stage();
 		this.add(s);
+		
+		s.createKittens(1);
+		s.createTestStage();
 	}
 }
