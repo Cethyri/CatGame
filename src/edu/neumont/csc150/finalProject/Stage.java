@@ -73,7 +73,7 @@ public class Stage extends JPanel implements ActionListener {
 	public void createKittens(int playerCount) {
 		playerCount = playerCount <= PlayerID.values().length ? playerCount: 4;
 		for (int i = 0; i < playerCount; i++) {
-			add(new Kitten(PlayerID.values()[i]));
+			add(new Cat(PlayerID.values()[i]));
 		}
 		
 	}

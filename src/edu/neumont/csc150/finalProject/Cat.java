@@ -12,7 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class Kitten extends JLabel implements KeyListener, TickListener, Collidable {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable {
 
 	public final PlayerID id;
 
@@ -23,7 +23,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 	private double dx, dy, posY, posX;
 	private boolean left, right, up, down;
 
-	public Kitten(PlayerID id) {
+	public Cat(PlayerID id) {
 		this.id = id;
 		initVars(id);
 
@@ -71,7 +71,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 			external = new Rectangle(collidable.getBounds());
 			
 			if (!this.getBounds().equals(collidable.getBounds())) {
-				if (!external.intersects(this.getBounds()) && !(collidable instanceof Kitten)) {
+				if (!external.intersects(this.getBounds()) && !(collidable instanceof Cat)) {
 					
 					internalX = new Rectangle(getBounds());
 					internalX.setLocation(round(posX + dx), getIntPosY());
@@ -95,6 +95,7 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 						dx = 0;
 						dy = 0;
 					}
+					
 				} else if (external.intersects(this.getBounds()) && (resolve)) {
 					this.resolveCollision(collidable);
 					collidable.resolveCollision(this);
