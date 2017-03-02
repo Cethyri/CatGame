@@ -16,12 +16,15 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	public final PlayerID id;
 
-	private int frame;
+	private static final int TIME_FOR_FRAME = 200;
+	private int frame, frameDelay;
+	
+	public static final double DX_VEL = 2, JUMP_VEL = 20, RESOLVE_VAL = DX_VEL / 2;
 
-	public static final double dxVel = 2, jumpVel = 20, resolveVal = dxVel / 2;
 	
 	private double dx, dy, posY, posX;
 	private boolean left, right, up, down;
+	private String action, direction;
 
 	public Cat(PlayerID id) {
 		this.id = id;
@@ -32,7 +35,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	private void initVars(PlayerID id) {
 
+		frameDelay = 0;
 		frame = 0;
+		
 		
 		dx = 0;
 		dy = 0;
@@ -45,6 +50,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		up = false;
 		down = false;
 		
+		direction = "Right";
+		
 		doTick();
 	}
 
@@ -56,8 +63,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	private void setVelocity() {
-		dx = left ? -dxVel : right ? dxVel : 0;
-		dy = up && isGrounded() ? -jumpVel : dy;
+		dx = left ? -DX_VEL : right ? DX_VEL : 0;
+		dy = up && isGrounded() ? -JUMP_VEL : dy;
 		if (!isGrounded()) {
 			dy -= Stage.GRAV;
 		}
@@ -142,7 +149,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 	
 	public double getResolveVal() {
-		return resolveVal;
+		return RESOLVE_VAL;
 	}
 
 	private void doMove() {
@@ -199,19 +206,26 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	@Override
 	public void doTick() {
-		animate();
 		setVelocity();
 		checkForCollisions(Stage.getSurfaces(), true);
 		checkForCollisions(Stage.getSurfaces(), false);
+		animate();
 		doMove();
 	}
 
 	private void animate() {
-		this.setIcon(new ImageIcon("images/Cat_Left_Idle_" + frame + ".png"));
+		
+		direction = right ? "Right" : left ? "Left" : direction;
+		action = (right || left) ?  "Walk" : "Idle";
+		this.setIcon(new ImageIcon("images/Cat/" + action + "_" + direction + "_" + frame + ".png"));
 
-		frame++;
-		if (frame >= 4) {
-			frame = 0;
+		frameDelay++;
+		if (frameDelay >= TIME_FOR_FRAME / Stage.tickLength) {
+			frame++;
+			if (frame >= 4) {
+				frame = 0;
+			}	
+			frameDelay = 0;
 		}
 	}
 
