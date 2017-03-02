@@ -18,7 +18,6 @@ public class MyUDPServer {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
 			serverSocket.receive(receivePacket);
-			System.out.println("serversocket recieved packet......");
 			
 			String buttoninput = new String( receivePacket.getData());
 			
