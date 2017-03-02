@@ -1,106 +1,127 @@
 package com.example.julianreyes.udpclientcontroller;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String host = "localhost";
-    private int port;
+    private int port = 4444;
     private String str = null;
-    private byte[] send_data = new byte[1024];
-    private byte[] receiveData = new byte[1024];
+    private String sendString = null;
+    private boolean sendUdp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        try {
-            DatagramSocket client_socket = new DatagramSocket(4444);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-        try {
-            InetAddress IPAddress =  InetAddress.getByName(host);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
     }
 
-    public void sendUp(View view) {
-        str = "up";
-    }
-
-    public void sendDown(View view) {
-        str = "down";
-        try {
-            runUdpClient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void sendRight(View view) {
         str = "right";
-        try {
-            runUdpClient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendUDP(str);
     }
 
 
     public void sendLeft(View view) {
         str = "left";
-        try {
-            runUdpClient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendUDP(str);
     }
 
     public void sendAttack(View view) {
         str = "attack";
-        try {
-            runUdpClient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendUDP(str);
     }
 
     public void sendSpecial(View view) {
         str = "special";
-        try {
-            runUdpClient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendUDP(str);
     }
 
-    private void runUdpClient() throws IOException {
-//        DatagramSocket client_socket = new DatagramSocket(4444);
-//        InetAddress IPAddress =  InetAddress.getByName("10.0.16.1");
-//        InetAddress IPAddress =  InetAddress.getLocalHost();
-
-        send_data = str.getBytes();
-
-
-        DatagramPacket send_packet = new DatagramPacket(send_data,str.length(), IPAddress, 4444);
-        client_socket.send(send_packet);
-
-        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-        client_socket.receive(receivePacket);
-
-        client_socket.close();
+    private void sendUDP(String s) {
+        sendString = s;
+        sendUdp = true;
+        udpSendThread.run();
     }
+    Thread udpSendThread = new Thread(new Runnable() {
+
+        @Override
+        public void run() {
+
+            if (android.os.Build.VERSION.SDK_INT > 9) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+            }
+
+//            while (sendUdp) {
+
+                try {
+                    Thread.sleep(500);
+                }
+
+                catch (InterruptedException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                if (sendUdp == true) {
+
+                    try {
+
+                        // get server name
+                        InetAddress serverAddr = InetAddress.getByName(host);
+                        Log.d("UDP", "C: Connecting...");
+
+                        // create new UDP socket
+                        DatagramSocket socket = new DatagramSocket();
+
+                        // prepare data to be sent
+                        byte[] buf = sendString.getBytes();
+
+                        // create a UDP packet with data and its destination ip & port
+                        DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
+                        Log.d("UDP", "C: Sending: '" + new String(buf) + "'");
+
+                        // send the UDP packet
+                        socket.send(packet);
+
+                        socket.close();
+
+                        Log.d("UDP", "C: Sent.");
+                        Log.d("UDP", "C: Done.");
+
+
+                    }
+
+                    catch (Exception e) {
+                        Log.e("UDP", "C: Error", e);
+
+                    }
+
+                    try {
+                        Thread.sleep(500);
+                    }
+
+                    catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+
+                    sendUdp = false;
+                }
+
+            }
+//        }
+
+    });
+
 }
