@@ -12,18 +12,21 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class Kitten extends JLabel implements KeyListener, TickListener, Collidable {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable {
 
 	public final PlayerID id;
 
-	private int frame;
+	private static final int TIME_FOR_FRAME = 200;
+	private int frame, frameDelay;
+	
+	public static final double DX_VEL = 2, JUMP_VEL = 20, RESOLVE_VAL = DX_VEL / 2;
 
-	public static final double dxVel = 2, jumpVel = 15, resolveFloat = dxVel / 4;
 	
 	private double dx, dy, posY, posX;
 	private boolean left, right, up, down;
+	private String action, direction;
 
-	public Kitten(PlayerID id) {
+	public Cat(PlayerID id) {
 		this.id = id;
 		initVars(id);
 
@@ -32,7 +35,9 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	private void initVars(PlayerID id) {
 
+		frameDelay = 0;
 		frame = 0;
+		
 		
 		dx = 0;
 		dy = 0;
@@ -45,6 +50,8 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 		up = false;
 		down = false;
 		
+		direction = "Right";
+		
 		doTick();
 	}
 
@@ -56,37 +63,47 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 	}
 
 	private void setVelocity() {
-		dx = left ? -dxVel : right ? dxVel : 0;
-		dy = up && isGrounded() ? -jumpVel : dy;
+		dx = left ? -DX_VEL : right ? DX_VEL : 0;
+		dy = up && isGrounded() ? -JUMP_VEL : dy;
 		if (!isGrounded()) {
 			dy -= Stage.GRAV;
 		}
 	}
 
 	@Override
-	public void checkForCollisions(ArrayList<Collidable> surfaces) {
-		Rectangle internalX, internalY, external;
+	public void checkForCollisions(ArrayList<Collidable> surfaces, boolean resolve) {
+		Rectangle internalX, internalY, internalBoth, external;
 
 		for (Collidable collidable : surfaces) {
 			external = new Rectangle(collidable.getBounds());
 			
 			if (!this.getBounds().equals(collidable.getBounds())) {
-				if (!external.intersects(this.getBounds()) && !(collidable instanceof Kitten)) {
+				if (!external.intersects(this.getBounds()) && !(collidable instanceof Cat)) {
 					
 					internalX = new Rectangle(getBounds());
-					internalX.setLocation(getIntPosX() + getIntDx(), getIntPosY());
+					internalX.setLocation(round(posX + dx), getIntPosY());
 					if (external.intersects(internalX)) {
 						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
 						dx = 0;
 					}
 					
 					internalY = new Rectangle(getBounds());
-					internalY.setLocation(getIntPosX(), getIntPosY() + getIntDy());
+					internalY.setLocation(getIntPosX(), round(posY + dy));
 					if (external.intersects(internalY)) {
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
 						dy = 0;
 					}
-				} else if (external.intersects(this.getBounds())) {
+					
+					internalBoth = new Rectangle(getBounds());
+					internalBoth.setLocation(round(posX + dx), round(posY + dy));
+					if (external.intersects(internalBoth) && dx != 0 && dy !=0) {
+						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
+						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
+						dx = 0;
+						dy = 0;
+					}
+					
+				} else if (external.intersects(this.getBounds()) && (resolve)) {
 					this.resolveCollision(collidable);
 					collidable.resolveCollision(this);
 				}
@@ -105,19 +122,34 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 	}
 
 	@Override
-	public void resolveCollision(Collidable collidable) {
+	public void resolveCollision(Collidable c) {
 		double posDx, negDx, posDy, negDy, newDx, newDy;
-		posDx = collidable.getBounds().getMaxX() - this.getBounds().getX();
-		negDx = collidable.getBounds().getX() - this.getBounds().getMaxX();
-
-		posDy = collidable.getBounds().getMaxY() - this.getBounds().getY();
-		negDy = collidable.getBounds().getY() - this.getBounds().getMaxY();
-
-		newDx = posDx < Math.abs(negDx) ? resolveFloat : -resolveFloat;
-		newDy = posDy < Math.abs(negDy) ? resolveFloat : -resolveFloat;
-
-		dx = doHorizontalCollisionResolution() ? newDx + dx : dx;
-		dy = doVerticalCollisionResolution() ? newDy + dx : dy;
+		posDx = c.getBounds().getMaxX() - this.getBounds().getX();
+		negDx = c.getBounds().getX() - this.getBounds().getMaxX();
+		
+		posDy = c.getBounds().getMaxY() - this.getBounds().getY();
+		negDy = c.getBounds().getY() - this.getBounds().getMaxY();
+		
+		newDx = posDx < Math.abs(negDx) ? posDx : negDx;
+		newDy = posDy < Math.abs(negDy) ? posDy : negDy;
+		newDx *= c.getResolveVal();
+		newDy *= c.getResolveVal();
+		
+		if (c.doHorizontalCollisionResolution() && (Math.abs(newDx) < Math.abs(newDy) || !c.doVerticalCollisionResolution())) {
+			dx = (newDx / c.getBounds().getWidth()) + dx;
+		}
+		if (c.doVerticalCollisionResolution() && (Math.abs(newDy) < Math.abs(newDx) || !c.doHorizontalCollisionResolution())) {
+			dy = (newDy / c.getBounds().getHeight()) + dy;			
+		}
+	}
+	
+	@Override
+	public boolean isGround() {
+		return false;
+	}
+	
+	public double getResolveVal() {
+		return RESOLVE_VAL;
 	}
 
 	private void doMove() {
@@ -128,9 +160,9 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	public boolean isGrounded() {
 		for (Collidable collidable : Stage.getSurfaces()) {
-			if (this.getBounds().getMaxY() == collidable.getBounds().getY()) {
-				return this.getBounds().getX() < collidable.getBounds().getMaxX()
-						&& this.getBounds().getMaxX() > collidable.getBounds().getX();
+			if (this.getBounds().getMaxY() == collidable.getBounds().getY() && this.getBounds().getX() < collidable.getBounds().getMaxX()
+					&& this.getBounds().getMaxX() > collidable.getBounds().getX() && collidable.isGround()) {
+				return true;
 			}
 		}
 		return false;
@@ -174,18 +206,26 @@ public class Kitten extends JLabel implements KeyListener, TickListener, Collida
 
 	@Override
 	public void doTick() {
-		animate();
 		setVelocity();
-		checkForCollisions(Stage.getSurfaces());
+		checkForCollisions(Stage.getSurfaces(), true);
+		checkForCollisions(Stage.getSurfaces(), false);
+		animate();
 		doMove();
 	}
 
 	private void animate() {
-		this.setIcon(new ImageIcon("images/Cat_Left_Idle_" + frame + ".png"));
+		
+		direction = right ? "Right" : left ? "Left" : direction;
+		action = (right || left) ?  "Walk" : "Idle";
+		this.setIcon(new ImageIcon("images/Cat/" + action + "_" + direction + "_" + frame + ".png"));
 
-		frame++;
-		if (frame >= 4) {
-			frame = 0;
+		frameDelay++;
+		if (frameDelay >= TIME_FOR_FRAME / Stage.tickLength) {
+			frame++;
+			if (frame >= 4) {
+				frame = 0;
+			}	
+			frameDelay = 0;
 		}
 	}
 
