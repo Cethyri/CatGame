@@ -99,8 +99,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 					if (external.intersects(internalBoth) && dx != 0 && dy !=0) {
 						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
-						dx = 0;
-						dy = 0;
+						dx = dx > dy ? dx : 0;
+						dy = dy > dx ? dy : 0;
 					}
 					
 				} else if (external.intersects(this.getBounds()) && (resolve)) {
