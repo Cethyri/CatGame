@@ -15,7 +15,7 @@ public class Stage extends JPanel implements ActionListener {
 	public static final double GRAV = -1;
 	
 	private static ArrayList<Collidable> surfaces;
-	private ArrayList<TickListener> ticks;
+	private static ArrayList<TickListener> tickListeners;
 	
 	public static final int tickLength = 10;
 	private Timer t;
@@ -38,7 +38,7 @@ public class Stage extends JPanel implements ActionListener {
 	private void initVars() {
 		
 		surfaces = new ArrayList<>();
-		ticks = new ArrayList<>();
+		tickListeners = new ArrayList<>();
 		
 		t = new Timer(tickLength, this);
 		t.start();
@@ -54,7 +54,7 @@ public class Stage extends JPanel implements ActionListener {
 			surfaces.add((Collidable) c);
 		}
 		if (c instanceof TickListener) {
-			ticks.add((TickListener) c);
+			tickListeners.add((TickListener) c);
 		}
 		if (c instanceof KeyListener) {
 			addKeyListener((KeyListener) c);
@@ -64,7 +64,7 @@ public class Stage extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		for (TickListener tickListener : ticks) {
+		for (TickListener tickListener : tickListeners) {
 			tickListener.doTick();
 		}
 		repaint();
