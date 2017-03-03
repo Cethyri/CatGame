@@ -12,7 +12,7 @@ import java.net.InetAddress;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String host = "localhost";
+    private static final String host = "10.10.18.202";
     private int port = 4444;
     private String str = null;
     private String sendString = null;
@@ -22,8 +22,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
+
+    public void sendUp(View view) {
+        str = "up";
+        sendUDP(str);
+    }
+
+    public void sendDown(View view) {
+        str = "down";
+        sendUDP(str);
+    }
 
     public void sendRight(View view) {
         str = "right";
@@ -64,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 //            while (sendUdp) {
 
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 }
 
                 catch (InterruptedException e1) {
@@ -88,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // create a UDP packet with data and its destination ip & port
                         DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
-                        Log.d("UDP", "C: Sending: '" + new String(buf) + "'");
+                        Log.d("UDP", "C: Sending: '" + new String(buf) + "' of size: " + buf.length);
 
                         // send the UDP packet
                         socket.send(packet);
@@ -107,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     }
 
                     catch (InterruptedException e) {
