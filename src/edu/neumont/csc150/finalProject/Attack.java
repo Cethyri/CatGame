@@ -17,4 +17,10 @@ public class Attack extends JLabel implements TickListener {
 		this.dyEffect = dyEffect;
 		this.damage = damage;
 	}
+
+	@Override
+	public void doTick() {
+		// TODO Auto-generated method stub
+		
+	}
 }
