@@ -1,8 +1,8 @@
 package com.example.julianreyes.udpclientcontroller;
 
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -12,8 +12,8 @@ import java.net.InetAddress;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String host = "10.10.18.202";
-    private int port = 4444;
+    private static final String host = "192.168.1.12";
+    private int port = 5555;
     private String str = null;
     private String sendString = null;
     private boolean sendUdp;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendSpecial(View view) {
         str = "special";
         sendUDP(str);
+
     }
 
     private void sendUDP(String s) {
@@ -89,13 +90,15 @@ public class MainActivity extends AppCompatActivity {
 
                         // get server name
                         InetAddress serverAddr = InetAddress.getByName(host);
-                        Log.d("UDP", "C: Connecting...");
+                        Log.d("UDP", "C: Connecting..."+serverAddr.getAddress());
+                        Log.d("UDP", "C: Connecting..."+serverAddr.getHostName());
 
                         // create new UDP socket
                         DatagramSocket socket = new DatagramSocket();
 
                         // prepare data to be sent
-                        byte[] buf = sendString.getBytes();
+                        byte[] buf = null;
+                        buf = sendString.getBytes();
 
                         // create a UDP packet with data and its destination ip & port
                         DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
