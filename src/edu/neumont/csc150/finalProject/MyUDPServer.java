@@ -33,17 +33,17 @@ public class MyUDPServer {
 			
 			System.out.println("RECEIVED: " + buttonInput);
 
-			InetAddress IPAddress = receivePacket.getAddress();
-			System.out.println(IPAddress);
-			
-			int port = receivePacket.getPort();
-
-			String capitalizedSentence = buttonInput.toUpperCase();
-			sendData = capitalizedSentence.getBytes();
-
-			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-
-			serverSocket.send(sendPacket);
+//			InetAddress IPAddress = receivePacket.getAddress();
+//			System.out.println(IPAddress);
+//			
+//			int port = receivePacket.getPort();
+//
+//			String capitalizedSentence = buttonInput.toUpperCase();
+//			sendData = capitalizedSentence.getBytes();
+//
+//			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+//
+//			serverSocket.send(sendPacket);
 			
 		}
 	}
