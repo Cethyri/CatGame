@@ -145,13 +145,13 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	@Override
-	public boolean doVerticalCollisionResolution() {
-		return false;
-	}
-
-	@Override
 	public boolean doHorizontalCollisionResolution() {
 		return true;
+	}
+	
+	@Override
+	public boolean doVerticalCollisionResolution() {
+		return false;
 	}
 
 	@Override
