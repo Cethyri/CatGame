@@ -7,25 +7,29 @@ import java.net.ServerSocket;
 
 public class MyUDPServer {
 
-	static String buttonInput;
 	
 	public static void main(String args[]) throws Exception {
 		
 		DatagramSocket serverSocket = new DatagramSocket(5555);
 		
+		
 		byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];
+		
 		System.out.println("UDP Server Started........");
 		
 		while(true) {
 			DatagramPacket receivePacket = null;
 			
+			receivePacket.setData(null);
+			
 			receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
 			serverSocket.receive(receivePacket);
+			
 			System.out.println(receivePacket.getLength());
 			
-			buttonInput = new String( receivePacket.getData());
+			String buttonInput = new String( receivePacket.getData());
 			
 			System.out.println("RECEIVED: " + buttonInput);
 

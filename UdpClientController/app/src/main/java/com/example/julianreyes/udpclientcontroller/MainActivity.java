@@ -11,9 +11,11 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String host = "192.168.1.12";
+    //Home network
+//    private static final String host = "192.168.1.255";
     private int port = 5555;
+    //mobile hotspot
+    private static final String host = "192.168.43.213";
     private String str = null;
     private String sendString = null;
     private boolean sendUdp;
@@ -73,10 +75,8 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
             }
 
-//            while (sendUdp) {
-
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 }
 
                 catch (InterruptedException e1) {
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // get server name
                         InetAddress serverAddr = InetAddress.getByName(host);
-                        Log.d("UDP", "C: Connecting..."+serverAddr.getAddress());
+
                         Log.d("UDP", "C: Connecting..."+serverAddr.getHostName());
 
                         // create new UDP socket
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     }
 
                     catch (InterruptedException e) {
@@ -134,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-//        }
-
     });
 
 }
