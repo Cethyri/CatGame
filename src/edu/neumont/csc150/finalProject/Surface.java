@@ -9,7 +9,13 @@ import javax.swing.JLabel;
 
 public class Surface extends JLabel implements Collidable {
 	
+	public static int RESOLVE_VAL = 4;
+	
 	public Surface (int x, int y, int width, int height) {
+		initUI(x, y, width, height);
+	}
+
+	private void initUI(int x, int y, int width, int height) {
 		setOpaque(true);
 		setBackground(Color.BLACK);
 		setBounds(x, y, width, height);
@@ -38,7 +44,7 @@ public class Surface extends JLabel implements Collidable {
 
 	@Override
 	public double getResolveVal() {
-		return 4;
+		return RESOLVE_VAL;
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Attackable {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Attackable, KeyCodeListener {
 
 	public final PlayerID id;
 
@@ -215,7 +215,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	@Override
 	public void checkForAttack(ArrayList<Attack> attacks) {
 		for (Attack attack : attacks) {
-			receiveAttack(attack);
+			if (this.getBounds().intersects(attack.getBounds())) {
+				receiveAttack(attack);				
+			}
 		}
 		
 	}
@@ -258,7 +260,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	@Override
 	public void doTick() {
-		
+
+		checkForAttack(Stage.getAttacks());
 		setVelocity();
 		
 		checkForCollisions(Stage.getSurfaces(), true);
@@ -288,23 +291,42 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		
 		super.paintComponent(g);
 	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-
+	
+	public void keyPressedByCode(int key) {
 		if (key == id.getLeft()) {
 			left = true;
 		} else if (key == id.getRight()) {
 			right = true;
 		}
-
+		
 		if (key == id.getUp()) {
 			up = true;
 		}
 		if (key == id.getDown()) {
 			down = true;
 		}
+	}
+	
+	public void keyReleasedByCode(int key) {
+		if (key == id.getLeft()) {
+			left = false;
+		} else if (key == id.getRight()) {
+			right = false;
+		}
+		
+		if (key == id.getUp()) {
+			up = false;
+		}
+		if (key == id.getDown()) {
+			down = false;
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+
+		keyPressedByCode(key);
 
 	}
 
@@ -312,18 +334,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == id.getLeft()) {
-			left = false;
-		} else if (key == id.getRight()) {
-			right = false;
-		}
-
-		if (key == id.getUp()) {
-			up = false;
-		}
-		if (key == id.getDown()) {
-			down = false;
-		}
+		keyReleasedByCode(key);
 
 	}
 
