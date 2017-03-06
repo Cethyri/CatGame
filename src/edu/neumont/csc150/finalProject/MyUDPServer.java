@@ -11,7 +11,7 @@ public class MyUDPServer {
 	
 	public static void main(String args[]) throws Exception {
 		
-		DatagramSocket serverSocket = new DatagramSocket(5555);
+		DatagramSocket serverSocket = new DatagramSocket(64843);
 		
 		byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];

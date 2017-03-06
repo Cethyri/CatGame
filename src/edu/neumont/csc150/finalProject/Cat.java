@@ -12,7 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class Cat extends JLabel implements KeyListener, TickListener, Collidable {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Attackable {
 
 	public final PlayerID id;
 
@@ -20,14 +20,21 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	private int frame, frameDelay;
 	
 	public static final double DX_VEL = 2, JUMP_VEL = 20, RESOLVE_VAL = DX_VEL / 2;
-
-	
-	private double dx, dy, posY, posX;
+	private double dx, dy, moveDx, moveDy, dxEffect, dyEffect, posY, posX;
 	private boolean left, right, up, down;
 	private String action, direction;
+	
+	public final Attack slash;
+	public final int maxHealth;
+	private int health;
 
 	public Cat(PlayerID id) {
+		
 		this.id = id;
+		
+		slash = new Attack(0, 0, 5, id, 32, 32);
+		maxHealth = 20;
+		
 		initVars(id);
 
 		initUI();
@@ -39,8 +46,12 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		frame = 0;
 		
 		
-		dx = 0;
-		dy = 0;
+		resetDx();
+		resetDy();
+		moveDx = 0;
+		moveDy = 0;
+		dxEffect = 0;
+		dyEffect = 0;
 		
 		posX = id.startX;
 		posY = 0;
@@ -50,7 +61,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		up = false;
 		down = false;
 		
+		action = "Idle";
 		direction = "Right";
+		
+		health = maxHealth;
 		
 		doTick();
 	}
@@ -63,10 +77,17 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	private void setVelocity() {
-		dx = left ? -DX_VEL : right ? DX_VEL : 0;
-		dy = up && isGrounded() ? -JUMP_VEL : dy;
+		moveDx = left ? -DX_VEL : right ? DX_VEL : moveDx * (isGrounded() ? .85 : .95);
+		dx = moveDx + dxEffect;
+		dxEffect *= (isGrounded() ? .85 : .95);
+		
+		moveDy = up && isGrounded() ? -JUMP_VEL : moveDy;
+		moveDy += dyEffect;
+		dyEffect = 0;
+		dy = moveDy;
+		
 		if (!isGrounded()) {
-			dy -= Stage.GRAV;
+			moveDy -= Stage.GRAV;
 		}
 	}
 
@@ -84,14 +105,14 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 					internalX.setLocation(round(posX + dx), getIntPosY());
 					if (external.intersects(internalX)) {
 						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
-						dx = 0;
+						resetDx();
 					}
 					
 					internalY = new Rectangle(getBounds());
 					internalY.setLocation(getIntPosX(), round(posY + dy));
 					if (external.intersects(internalY)) {
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
-						dy = 0;
+						resetDy();
 					}
 					
 					internalBoth = new Rectangle(getBounds());
@@ -109,6 +130,18 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 				}
 			}
 		}
+	}
+
+	private void resetDy() {
+		moveDy = 0;
+		dyEffect = 0;
+		dy = 0;
+	}
+
+	private void resetDx() {
+		moveDx = 0;
+		dxEffect = 0;
+		dx = 0;
 	}
 
 	@Override
@@ -167,6 +200,25 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		}
 		return false;
 	}
+	
+	@Override
+	public void receiveAttack(Attack atk) {
+		if (!atk.hasHit(id)) {
+			atk.addHasBeenHit(id);
+			health -= atk.damage;
+			dxEffect += atk.dxEffect;
+			dyEffect += atk.dyEffect;
+		}
+		
+	}
+	
+	@Override
+	public void checkForAttack(ArrayList<Attack> attacks) {
+		for (Attack attack : attacks) {
+			receiveAttack(attack);
+		}
+		
+	}
 
 	private void setPosX(double posX) {
 		this.posX = posX;
@@ -206,7 +258,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	@Override
 	public void doTick() {
+		
 		setVelocity();
+		
 		checkForCollisions(Stage.getSurfaces(), true);
 		checkForCollisions(Stage.getSurfaces(), false);
 		animate();
@@ -216,7 +270,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	private void animate() {
 		
 		direction = right ? "Right" : left ? "Left" : direction;
-		action = (right || left) ?  "Walk" : "Idle";
+		action = (right || left) && dx != 0 ?  "Walk" : "Idle";
 		this.setIcon(new ImageIcon("images/Cat/" + action + "_" + direction + "_" + frame + ".png"));
 
 		frameDelay++;
@@ -231,6 +285,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		
 		super.paintComponent(g);
 	}
 
