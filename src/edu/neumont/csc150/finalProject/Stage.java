@@ -16,6 +16,7 @@ public class Stage extends JPanel implements ActionListener {
 	
 	private static ArrayList<Collidable> surfaces;
 	private static ArrayList<TickListener> tickListeners;
+	private static ArrayList<Attack> attacks;
 	
 	public static final int tickLength = 10;
 	private Timer t;
@@ -58,6 +59,9 @@ public class Stage extends JPanel implements ActionListener {
 		}
 		if (c instanceof KeyListener) {
 			addKeyListener((KeyListener) c);
+		}
+		if (c instanceof Attack) {
+			attacks.add((Attack) c);
 		}
 		return super.add(c);
 	}
