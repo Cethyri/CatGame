@@ -18,9 +18,8 @@ import javax.swing.Timer;
 
 public class Game extends JPanel {
 
-	private Image bgImage;
-
 	private Stage s;
+	
 
 	public Game() {
 			initUI();
@@ -41,5 +40,6 @@ public class Game extends JPanel {
 		
 		s.createKittens(4);
 		s.createTestStage();
+		
 	}
 }
