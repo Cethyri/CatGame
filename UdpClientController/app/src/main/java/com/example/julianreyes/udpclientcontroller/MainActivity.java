@@ -14,6 +14,7 @@ import java.net.InetAddress;
 public class MainActivity extends AppCompatActivity {
     //Home network
 //    private static final String host = "192.168.1.255";
+
     private int port = 5555;
     //mobile hotspot
     private static final String host = "192.168.43.213";
@@ -21,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private int id = 99;
     private String str;
     private String sendString;
+    private String receivedPacket;
 
+    private DatagramPacket serverPacket;
     private byte[] buf;
-    private byte[] newBuf = new byte[10];
-
-    private boolean sendUdp;
+    private byte[] receivingBuf = new byte[1];
+    private boolean send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void radioClicked(View view) {
-        Log.d("-", "radio clicked");
+        Log.d("UDP", "radio clicked");
         if(id == 99){
             str = "give id";
+            Log.d("UDP", "request id.... " + id);
             sendUDP(str);
-            Log.d("UDP", "requested id");
+
             if(id != 99){
                 ((RadioButton) view).setChecked(true);
-                Log.d("UDP", "received id");
+                Log.d("UDP", "received id....");
+
             }else {
                 ((RadioButton) view).setChecked(false);
                 Log.d("UDP", "did not receive id");
@@ -58,37 +62,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendDown(View view) {
-        str = "dwn";
+        str = "down";
         sendUDP(str);
     }
 
     public void sendRight(View view) {
-        str = "rit";
+        str = "right";
         sendUDP(str);
     }
 
 
     public void sendLeft(View view) {
-        str = "lft";
+        str = "left";
         sendUDP(str);
     }
 
     public void sendAttack(View view) {
-        str = "atk";
+        str = "attack";
         sendUDP(str);
     }
 
     public void sendSpecial(View view) {
-        str = "spl";
+        str = "special";
         sendUDP(str);
 
     }
 
     private void sendUDP(String s) {
             sendString = s;
-            sendUdp = true;
+            send = true;
             udpSendThread.run();
     }
+
+
     Thread udpSendThread = new Thread(new Runnable() {
 
         @Override
@@ -108,41 +114,25 @@ public class MainActivity extends AppCompatActivity {
                     e1.printStackTrace();
                 }
 
-                if (sendUdp == true) {
+                if (send == true) {
 
                     try {
-
-
                         // get server name
                         InetAddress serverAddr = InetAddress.getByName(host);
 
-                        Log.d("UDP", "C: Connecting..."+serverAddr.getHostName());
+                        Log.d("UDP", "C: Connecting.... " + serverAddr.getHostName());
 
                         // create new UDP socket
                         DatagramSocket socket = new DatagramSocket();
 
-                        if(id != 99) {
+                        if(id == 99) {
                             // prepare data to be sent
-                            byte[] buf = sendString.getBytes();
+                            buf = sendString.getBytes();
 
                             // create a UDP packet with data and its destination ip & port
                             DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
 
-                            Log.d("UDP", "C: Sending: '" + new String(buf) + "' of size: " + buf.length);
-
-                            // send the UDP packet
-                            socket.send(packet);
-
-                            Log.d("UDP", "C: Sent.");
-                            Log.d("UDP", "C: Done.");
-                        } else {
-                            // prepare data to be sent
-                            byte[] buf = sendString.getBytes();
-
-                            // create a UDP packet with data and its destination ip & port
-                            DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
-
-                            Log.d("UDP", "C: Sending: '" + new String(buf) + "' of size: " + buf.length);
+                            Log.d("UDP", "C: Sending: '" + new String(buf) + "'");
 
                             // send the UDP packet
                             socket.send(packet);
@@ -151,43 +141,55 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("UDP", "C: Done.");
 
                             //create new UDP packet to receive from server
-                            DatagramPacket serverPacket = new DatagramPacket(newBuf, newBuf.length);
+                            serverPacket = new DatagramPacket(receivingBuf, receivingBuf.length);
 
                             //receives UDP packet
                             socket.receive(serverPacket);
 
-                            String receivedPacket = new String(serverPacket.getData());
-
-//                        Log.d("UDP", "C: Received." + receivedPacket);
+                            receivedPacket = new String(serverPacket.getData());
+                            Log.d("UDP", receivedPacket);
                             try {
                                 id = Integer.parseInt(receivedPacket.trim());
+                                Log.d("UDP", "C: Received. " + id);
+                                Log.d("UDP", "C: Done.");
 
                             } catch (NumberFormatException nfe) {
-//                            Log.e("UDP", "C: Error", nfe);
+                                Log.e("UDP", "C: Error", nfe);
                             }
                             //closes socket
                             socket.close();
 
-                            Log.d("UDP", "C: Received. " + id);
+                        } else {
+                            // prepare data to be sent
+                            buf = sendString.getBytes();
+                            receivingBuf = receivedPacket.getBytes();
+
+                            // create a UDP packets with data and its destination ip & port
+                            DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
+                            DatagramPacket idPacket = new DatagramPacket(receivingBuf, receivingBuf.length, serverAddr, port);
+
+                            Log.d("UDP", "C: Sending: '" + new String(receivingBuf) + " & " + new String(buf) + "'");
+
+                            // send the UDP packet
+                            socket.send(idPacket);
+                            socket.send(packet);
+
+                            Log.d("UDP", "C: Sent.");
                             Log.d("UDP", "C: Done.");
+
                         }
 
-                    }
-
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         Log.e("UDP", "C: Error", e);
 
                     }
-
                     try {
                         Thread.sleep(100);
-                    }
-
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    sendUdp = false;
+                    send = false;
                 }
 
             }
