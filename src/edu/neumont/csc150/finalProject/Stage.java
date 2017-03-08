@@ -40,6 +40,7 @@ public class Stage extends JPanel implements ActionListener {
 		
 		surfaces = new ArrayList<>();
 		tickListeners = new ArrayList<>();
+		attacks = new ArrayList<>();
 		
 		t = new Timer(tickLength, this);
 		t.start();
@@ -47,6 +48,10 @@ public class Stage extends JPanel implements ActionListener {
 	
 	public static ArrayList<Collidable> getSurfaces() {
 		return surfaces;
+	}
+	
+	public static ArrayList<Attack> getAttacks() {
+		return attacks;
 	}
 	
 	@Override
@@ -67,6 +72,23 @@ public class Stage extends JPanel implements ActionListener {
 	}
 	
 	@Override
+	public void remove(Component c) {
+		if (c instanceof Collidable) {
+			surfaces.remove((Collidable) c);
+		}
+		if (c instanceof TickListener) {
+			tickListeners.remove((TickListener) c);
+		}
+		if (c instanceof KeyListener) {
+			removeKeyListener((KeyListener) c);
+		}
+		if (c instanceof Attack) {
+			attacks.remove((Attack) c);
+		}
+		super.remove(c);
+	}
+	
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		for (TickListener tickListener : tickListeners) {
 			tickListener.doTick();
@@ -75,7 +97,7 @@ public class Stage extends JPanel implements ActionListener {
 	}
 
 	public void createKittens(int playerCount) {
-		playerCount = playerCount <= PlayerID.values().length ? playerCount: 4;
+		playerCount = playerCount <= PlayerID.values().length ? playerCount: PlayerID.values().length;
 		for (int i = 0; i < playerCount; i++) {
 			add(new Cat(PlayerID.values()[i]));
 		}
@@ -90,6 +112,7 @@ public class Stage extends JPanel implements ActionListener {
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 3, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 6, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Attack(10, -40, 1, PlayerID.FOURTH, 100, 100));
 	}
 
 }

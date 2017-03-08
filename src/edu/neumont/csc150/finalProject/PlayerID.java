@@ -42,4 +42,27 @@ public enum PlayerID {
 	public int getRight() {
 		return right;
 	}
+	
+	public static int translate(String button, int ordinal) {
+		int keyCode = -1;
+		
+		switch (button) {
+		case "up":
+			values()[ordinal].getUp();
+			break;
+		case "down":
+			values()[ordinal].getDown();
+			break;
+		case "left":
+			values()[ordinal].getLeft();
+			break;
+		case "right":
+			values()[ordinal].getRight();
+			break;
+		default:
+			break;
+		}
+		
+		return keyCode;
+	}
 }

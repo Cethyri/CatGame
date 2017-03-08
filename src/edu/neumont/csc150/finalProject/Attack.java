@@ -1,12 +1,13 @@
 package edu.neumont.csc150.finalProject;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
 public class Attack extends JLabel implements TickListener {
 	
-	public final double dxEffect, dyEffect;
+	private double dxEffect, dyEffect;
 	public final int damage;
 	
 	public final PlayerID owner;
@@ -19,7 +20,19 @@ public class Attack extends JLabel implements TickListener {
 		this.damage = damage;
 		this.owner = owner;
 		
-		setSize(width, height);
+		initVars();
+		initUI(500, 500, width, height);
+	}
+	
+	private void initVars() {
+		hasBeenHit = new ArrayList<>();
+		
+	}
+
+	private void initUI(int x, int y, int width, int height) {
+		setOpaque(true);
+		setBackground(Color.RED);
+		setBounds(x, y, width, height);
 	}
 	
 	public void addHasBeenHit(PlayerID id) {
