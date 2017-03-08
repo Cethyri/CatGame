@@ -49,4 +49,12 @@ public class Attack extends JLabel implements TickListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public double getDxEffect() {
+		return dxEffect;
+	}
+
+	public double getDyEffect() {
+		return dyEffect;
+	}
 }
