@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+
 
 public class MainActivity extends AppCompatActivity {
     //Home network
@@ -30,18 +31,19 @@ public class MainActivity extends AppCompatActivity {
     private byte[] receivingBuf = new byte[1];
     private boolean send;
 
+    private Button up;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        up = (Button) findViewById(R.id.UP_id);
     }
-
-
     public void radioClicked(View view) {
         Log.d("UDP", "radio clicked");
         if(id == 99){
-            str = "give id";
+            str = "give";
             Log.d("UDP", "request id.... " + id);
             sendUDP(str);
 
@@ -56,25 +58,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    public boolean sendUp(View view, MotionEvent event) {
-
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                // PRESSED
-                Log.d("UDP", "pressed");
-                str = "pressed_up";
-                sendUDP(str);
-                return true; // if you want to handle the touch event
-            case MotionEvent.ACTION_UP:
-                // RELEASED
-                Log.d("UDP", "pressed");
-                str = "released_up";
-                sendUDP(str);
-                return true; // if you want to handle the touch event
-        }
-        return false;
-    }
+//
+//    public void sendUp(View view) {
+//        up.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch(event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        Log.d("Pressed", "pressed");
+//                        str = "pressed_UP";
+//                        sendUDP(str);
+//                        return true;
+//                    case MotionEvent.ACTION_UP:
+//                        Log.d("Released", "released");
+//                        str = "released_UP";
+//                        sendUDP(str);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
+//    }
 
     public void sendDown(View view) {
         str = "down";
@@ -154,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d("UDP", "C: Sent.");
                             Log.d("UDP", "C: Done.");
+                            Log.d("UDP", "C: Attempt To Receive.");
 
                             //create new UDP packet to receive from server
                             serverPacket = new DatagramPacket(receivingBuf, receivingBuf.length);

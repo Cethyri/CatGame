@@ -16,11 +16,11 @@
         android:background="@drawable/roundbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/LEFT"
-        android:layout_alignLeft="@+id/UP"
-        android:layout_alignStart="@+id/UP"
         android:id="@+id/DOWN"
-        android:onClick="sendDown" />
+        android:onClick="sendDown"
+        android:layout_below="@+id/LEFT"
+        android:layout_alignLeft="@+id/UP_id"
+        android:layout_alignStart="@+id/UP_id" />
 
     <Button
         android:text="Right"
@@ -40,12 +40,11 @@
         android:layout_width="wrap_content"
         android:background="@drawable/roundbutton"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
         android:id="@+id/LEFT"
-        android:layout_alignTop="@+id/UP"
+        android:onClick="sendLeft"
+        android:layout_below="@+id/UP_id"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="sendLeft" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="B"
@@ -79,14 +78,14 @@
         android:background="@drawable/roundbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/UP"
+        android:id="@+id/UP_id"
         android:layout_marginTop="88dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="71dp"
         android:layout_marginStart="71dp"
-        android:onTouch="sendUp" />
+        android:onClick="sendUp" />
 
     <RadioButton
         android:id="@+id/radioButton"

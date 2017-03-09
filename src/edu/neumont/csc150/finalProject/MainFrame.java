@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
 	
 	private GroupLayout layout;
 	
-	private Game C;
+	private static Game G;
 	
 	public MainFrame() throws Exception {
 		
@@ -33,11 +33,14 @@ public class MainFrame extends JFrame {
     	setSize(CONTENT_WIDTH + i.left + i.right, CONTENT_HEIGHT + i.top + i.bottom);
     	setLocationRelativeTo(null);
     	
-       	C = new Game();
+       	G = new Game();
     	
-    	this.setContentPane(C);
-    }    
+    	this.setContentPane(G);
+    }   
     
+    public static Game getGame() {
+    	return G;
+    }
     
 	public static void main(String[] args) {
 		

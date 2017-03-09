@@ -12,7 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Attackable, KeyCodeListener {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Attackable {
 
 	public final PlayerID id;
 
@@ -285,7 +285,11 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		super.paintComponent(g);
 	}
 	
-	public void keyPressedByCode(int key) {
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+
 		if (key == id.getLeft()) {
 			left = true;
 		} else if (key == id.getRight()) {
@@ -299,8 +303,11 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 			down = true;
 		}
 	}
-	
-	public void keyReleasedByCode(int key) {
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		
 		if (key == id.getLeft()) {
 			left = false;
 		} else if (key == id.getRight()) {
@@ -313,22 +320,6 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		if (key == id.getDown()) {
 			down = false;
 		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		keyPressedByCode(key);
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		keyReleasedByCode(key);
-
 	}
 
 	@Override
