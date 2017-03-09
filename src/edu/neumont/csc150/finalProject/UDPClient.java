@@ -7,23 +7,48 @@ import java.util.Scanner;
 
 public class UDPClient {
 
-
-	   public static void main(String args[]) throws Exception {
-	      Scanner s = new Scanner(System.in);
-	      DatagramSocket clientSocket = new DatagramSocket();
-//	      InetAddress IPAddress = InetAddress.getByName("192.168.43.213");
-	      InetAddress IPAddress = InetAddress.getByName("192.168.43.7");
-	      byte[] sendData = new byte[1024];
-	      byte[] receiveData = new byte[1024];
-	      String sentence = s.nextLine();
-	      sendData = sentence.getBytes();
-	      DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 5555);
-	      clientSocket.send(sendPacket);
-	      DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-	      clientSocket.receive(receivePacket);
-	      String modifiedSentence = new String(receivePacket.getData());
-	      System.out.println("FROM SERVER:" + modifiedSentence);
-	      clientSocket.close();
-	   }
+	private static Scanner s;
+	private static DatagramSocket clientSocket;
+	private static InetAddress IPAddress;
+	private static byte[] sendData;
+	private static byte[] receiveData;
+	private static String sentence;
+	private static DatagramPacket sendPacket;
+	private static DatagramPacket receivePacket;
+	private static String modifiedSentence;
 	
+	private static int id = 99;
+
+	public static void main(String args[]) throws Exception {
+		s = new Scanner(System.in);
+		clientSocket = new DatagramSocket();
+		sendData = new byte[1024];
+		receiveData = new byte[1024];
+		IPAddress = InetAddress.getByName("localhost");
+
+		while (true) {
+			sentence = s.nextLine();
+			sendData = sentence.getBytes();
+			
+			if (sentence.equalsIgnoreCase("close")) {
+				clientSocket.close();
+			}
+			
+			sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 5555);
+			clientSocket.send(sendPacket);
+			
+			if (id == 99) {
+				receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				clientSocket.receive(receivePacket);
+				modifiedSentence = new String(receivePacket.getData()).substring(0, receivePacket.getLength());
+				id = Integer.parseInt(modifiedSentence);
+				System.out.println("FROM SERVER:" + modifiedSentence);	
+			} else {
+				System.out.println("send");
+			}
+			
+		}
+
+	}
+
 }
