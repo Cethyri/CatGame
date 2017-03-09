@@ -66,7 +66,7 @@ public enum PlayerID {
 			}			
 		}
 		
-		kE = new KeyEvent(null, KeyEvent.KEY_PRESSED, 0, 0, keyCode, '-');
+		kE = new KeyEvent(MainFrame.getGame(), KeyEvent.KEY_PRESSED, 0, 0, keyCode, '-');
 		
 		return kE;
 	}

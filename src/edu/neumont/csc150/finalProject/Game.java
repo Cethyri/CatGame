@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class Game extends JPanel implements KeyListener {
 
-	private static int PLAYER_COUNT = 4;
+	private static int PLAYER_COUNT = 1;
 	
 	public final UDPServer UDP;
 
