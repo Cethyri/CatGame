@@ -33,7 +33,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		
 		this.id = id;
 		
-		slash = new Attack(10, 5, id, "right", false, Attack.FRAMES_FOR_ANIM, 32, 32);
+		slash = new Attack(10, 5, id, "Right", false, Attack.FRAMES_FOR_ANIM, 64, 64);
 		maxHealth = 20;
 		
 		initVars(id);
@@ -305,6 +305,13 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		}
 		if (key == id.getDown()) {
 			down = true;
+		}
+		
+		
+		if (key == id.getAttack()) {
+			if (!slash.isInAction()) {
+				slash.create(direction);
+			}
 		}
 		
 		System.out.println("pressed " + KeyEvent.getKeyText(key));
