@@ -96,7 +96,7 @@ public class Attack extends JLabel implements TickListener {
 		direction = owner.getDirection();
 		
 		x = owner.getIntPosX() + (direction.equals("Left") ? -this.getWidth() : owner.getWidth());
-		y = owner.getIntPosY();
+		y = owner.getIntPosY() + 16;
 		
 		this.setLocation(x + getIntPosX(), y + getIntPosY());
 	}
