@@ -18,28 +18,30 @@ import javax.swing.Timer;
 
 public class Game extends JPanel {
 
-	private Stage s;
-	
+	public final UDPServer UDP;
 
-	public Game() {
-			initUI();
-			initStage();
-			
-		}
+	private static Stage s;
+
+	public Game() throws Exception {
+		UDP = new UDPServer();
+		
+		initUI();
+		initStage();
+
+	}
 
 	public void initUI() {
 		setLayout(null);
-       	setFocusable(false);
-        setDoubleBuffered(true);
-        setBounds(0, 0, MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT);
+		setFocusable(false);
+		setDoubleBuffered(true);
+		setBounds(0, 0, MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT);
 	}
 
 	private void initStage() {
 		s = new Stage();
 		this.add(s);
-		
+
 		s.createKittens(4);
 		s.createTestStage();
-		
 	}
 }

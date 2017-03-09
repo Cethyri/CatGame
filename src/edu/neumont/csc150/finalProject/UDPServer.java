@@ -3,44 +3,35 @@ package edu.neumont.csc150.finalProject;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.Timer;
 
 public class UDPServer {
 	
-	private static int assignIDs = 0;
-	private static int id = -1;
-	private static String buttonInput;
+	private byte[] receiveData;
+	private byte[] sendData;
+	private DatagramSocket serverSocket;
 	
+	private PacketHandler[] packetHandlers;
+	private int assignIDs = 0;
+	private String buttonInput;
 	
-	public static void main(String args[]) throws Exception {
+	public UDPServer() throws Exception {
 		
-		DatagramSocket serverSocket = new DatagramSocket(5555);
-				
-		byte[] receiveData = new byte[10];
-//		byte[] idData = new byte[1];
-		byte[] sendData = new byte[10];
+		initVars();
 		
 		System.out.println("UDP Server Started........");
 		
 		while(true) {			
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-//			DatagramPacket idReceived = new DatagramPacket(idData, idData.length);
 
 			//receives any data
-//			serverSocket.receive(idReceived);
 			serverSocket.receive(receivePacket);
 			
 			//gets rid of excess string
 			buttonInput = new String( receivePacket.getData()).substring(0, receivePacket.getLength());
 			
-			
-//			try {
-//				id = new Integer(new String(idReceived.getData() ) );
-//				
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//			}
-			
-			System.out.println("RECEIVED: " + id + "\t" + buttonInput);			
+			System.out.println("RECEIVED: " + buttonInput);			
 			
 			//gets IP address of incoming packets
 			InetAddress IPAddress = receivePacket.getAddress();
@@ -49,17 +40,32 @@ public class UDPServer {
 			//gets port from incoming packets
 			int port = receivePacket.getPort();
 
-			String capitalizedSentence = Integer.toString(assignIDs);
-			sendData = capitalizedSentence.getBytes();
+			String id = Integer.toString(assignIDs);
+			sendData = id.getBytes();
 
-//			if(assignIDs < 4 ) {
-
+			if(assignIDs < PlayerID.values().length ) {
+				
+				for (PacketHandler packetHandler : packetHandlers) {
+					if (packetHandler != null) {
+						
+					}
+				}
+				assignIDs++;
+				
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 
 				serverSocket.send(sendPacket);
-//				assignIDs++;
-//			}
+			}
 		}
+	}
+	
+	private void initVars() throws SocketException {
+		serverSocket = new DatagramSocket(5555);
+		
+		receiveData = new byte[10];
+		sendData = new byte[10];
+		
+		packetHandlers = new PacketHandler[PlayerID.values().length];
 	}
 	
 }

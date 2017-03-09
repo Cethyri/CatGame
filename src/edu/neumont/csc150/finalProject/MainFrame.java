@@ -15,12 +15,12 @@ public class MainFrame extends JFrame {
 	
 	private Game C;
 	
-	public MainFrame() {
+	public MainFrame() throws Exception {
 		
 		initUI();
 	}
 	
-    private void initUI() {
+    private void initUI() throws Exception {
     	
     	setTitle("Fight!");
     	setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -44,8 +44,14 @@ public class MainFrame extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainFrame mf = new MainFrame();
-                mf.setVisible(true);
+                MainFrame mf;
+				try {
+					mf = new MainFrame();
+					mf.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		});
 	}
