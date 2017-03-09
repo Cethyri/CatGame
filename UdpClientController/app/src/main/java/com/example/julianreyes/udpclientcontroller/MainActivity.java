@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         up = (Button) findViewById(R.id.UP_id);
+        down = (Button) findViewById(R.id.DOWN_id);
+        right = (Button) findViewById(R.id.RIGHT_id);
+        left = (Button) findViewById(R.id.LEFT_id);
+        attack = (Button) findViewById(R.id.A_id);
+        special = (Button) findViewById(R.id.B_id);
+
     }
     public void radioClicked(View view) {
         Log.d("UDP", "radio clicked");
@@ -85,29 +91,109 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendDown(View view) {
-        str = "down";
-        sendUDP(str);
+        down.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("Pressed", "pressed");
+                        str = "pressed_DOWN";
+                        sendUDP(str);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Log.d("Released", "released");
+                        str = "released_DOWN";
+                        sendUDP(str);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void sendRight(View view) {
-        str = "right";
-        sendUDP(str);
+        right.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("Pressed", "pressed");
+                        str = "pressed_RIGHT";
+                        sendUDP(str);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Log.d("Released", "released");
+                        str = "released_RIGHT";
+                        sendUDP(str);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
 
     public void sendLeft(View view) {
-        str = "left";
-        sendUDP(str);
+        left.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("Pressed", "pressed");
+                        str = "pressed_LEFT";
+                        sendUDP(str);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Log.d("Released", "released");
+                        str = "released_LEFT";
+                        sendUDP(str);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void sendAttack(View view) {
-        str = "attack";
-        sendUDP(str);
+        attack.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("Pressed", "pressed");
+                        str = "pressed_ATTACK";
+                        sendUDP(str);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Log.d("Released", "released");
+                        str = "released_ATTACK";
+                        sendUDP(str);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void sendSpecial(View view) {
-        str = "special";
-        sendUDP(str);
+        special.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.d("Pressed", "pressed");
+                        str = "pressed_SPECIAL";
+                        sendUDP(str);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        Log.d("Released", "released");
+                        str = "released_SPECIAL";
+                        sendUDP(str);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 

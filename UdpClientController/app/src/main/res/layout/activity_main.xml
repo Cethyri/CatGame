@@ -16,9 +16,9 @@
         android:background="@drawable/roundbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/DOWN"
+        android:id="@+id/DOWN_id"
         android:onClick="sendDown"
-        android:layout_below="@+id/LEFT"
+        android:layout_below="@+id/LEFT_id"
         android:layout_alignLeft="@+id/UP_id"
         android:layout_alignStart="@+id/UP_id" />
 
@@ -29,10 +29,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="57dp"
         android:layout_marginStart="57dp"
-        android:id="@+id/RIGHT"
-        android:layout_above="@+id/DOWN"
-        android:layout_toRightOf="@+id/LEFT"
-        android:layout_toEndOf="@+id/LEFT"
+        android:id="@+id/RIGHT_id"
+        android:layout_above="@+id/DOWN_id"
+        android:layout_toRightOf="@+id/LEFT_id"
+        android:layout_toEndOf="@+id/LEFT_id"
         android:onClick="sendRight" />
 
     <Button
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:background="@drawable/roundbutton"
         android:layout_height="wrap_content"
-        android:id="@+id/LEFT"
+        android:id="@+id/LEFT_id"
         android:onClick="sendLeft"
         android:layout_below="@+id/UP_id"
         android:layout_alignParentLeft="true"
@@ -51,10 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/roundbutton"
-        android:id="@+id/B"
+        android:id="@+id/B_id"
         android:layout_marginRight="43dp"
         android:layout_marginEnd="43dp"
-        android:layout_above="@+id/A"
+        android:layout_above="@+id/A_id"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="sendSpecial" />
@@ -64,13 +64,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/roundbutton"
-        android:id="@+id/A"
+        android:id="@+id/A_id"
         android:layout_marginRight="23dp"
         android:layout_marginEnd="23dp"
-        android:layout_alignBaseline="@+id/RIGHT"
-        android:layout_alignBottom="@+id/RIGHT"
-        android:layout_toLeftOf="@+id/B"
-        android:layout_toStartOf="@+id/B"
+        android:layout_alignBaseline="@+id/RIGHT_id"
+        android:layout_alignBottom="@+id/RIGHT_id"
+        android:layout_toLeftOf="@+id/B_id"
+        android:layout_toStartOf="@+id/B_id"
         android:onClick="sendAttack"/>
 
     <Button
