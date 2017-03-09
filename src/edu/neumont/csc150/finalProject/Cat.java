@@ -28,6 +28,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	public final int maxHealth;
 	private int health;
 
+	
 	public Cat(PlayerID id) {
 		
 		this.id = id;
@@ -206,8 +207,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		if (!atk.hasHit(id)) {
 			atk.addHasBeenHit(id);
 			health -= atk.damage;
-			dxEffect += atk.dxEffect;
-			dyEffect += atk.dyEffect;
+			dxEffect += atk.getDxEffect();
+			dyEffect += atk.getDyEffect();
 		}
 		
 	}
@@ -242,14 +243,6 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	private int getIntPosY() {
 		return round(posY);
-	}
-
-	private int getIntDx() {
-		return round(dx);
-	}
-
-	private int getIntDy() {
-		return round(dy);
 	}
 
 	private int round(double d) {
