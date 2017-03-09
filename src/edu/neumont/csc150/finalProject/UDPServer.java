@@ -39,7 +39,7 @@ public class UDPServer {
 
 					recievePacket();
 
-					if (buttonInput == "give") {
+					if (buttonInput.equals("give")) {
 
 						for (ControlHandler controlHandler : controlHandlers) {
 							if (controlHandler != null) {

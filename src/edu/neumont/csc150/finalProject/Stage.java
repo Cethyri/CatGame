@@ -15,6 +15,7 @@ public class Stage extends JPanel implements ActionListener {
 	public static final double GRAV = -1;
 	
 	private static ArrayList<Collidable> surfaces;
+	private static ArrayList<Moveable> moveables;
 	private static ArrayList<TickListener> tickListeners;
 	private static ArrayList<Attack> attacks;
 	
@@ -59,6 +60,9 @@ public class Stage extends JPanel implements ActionListener {
 		if (c instanceof Collidable) {
 			surfaces.add((Collidable) c);
 		}
+		if (c instanceof Moveable) {
+			moveables.add((Moveable) c);
+		}
 		if (c instanceof TickListener) {
 			tickListeners.add((TickListener) c);
 		}
@@ -75,6 +79,9 @@ public class Stage extends JPanel implements ActionListener {
 	public void remove(Component c) {
 		if (c instanceof Collidable) {
 			surfaces.remove((Collidable) c);
+		}
+		if (c instanceof Moveable) {
+			moveables.remove((Moveable) c);
 		}
 		if (c instanceof TickListener) {
 			tickListeners.remove((TickListener) c);
@@ -112,7 +119,7 @@ public class Stage extends JPanel implements ActionListener {
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 3, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 6, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
-		add(new Attack(10, -40, 1, PlayerID.FOURTH, "left", 100, 100));
+		add(new Attack(10, 1, PlayerID.FOURTH, "left", true, -1, 100, 100));
 	}
 
 }

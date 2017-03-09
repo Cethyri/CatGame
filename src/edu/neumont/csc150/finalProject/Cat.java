@@ -12,11 +12,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Attackable {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Moveable, Attackable {
 
 	public final PlayerID id;
 
-	private static final int TIME_FOR_FRAME = 200;
+	public static final int TIME_FOR_FRAME = 200, FRAMES_FOR_ANIM = 4;
 	private int frame, frameDelay;
 	
 	public static final double DX_VEL = 2, JUMP_VEL = 20, RESOLVE_VAL = DX_VEL / 2;
@@ -33,7 +33,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		
 		this.id = id;
 		
-		slash = new Attack(0, 0, 5, id, "right", 32, 32);
+		slash = new Attack(10, 5, id, "right", false, Attack.FRAMES_FOR_ANIM, 32, 32);
 		maxHealth = 20;
 		
 		initVars(id);
@@ -46,13 +46,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		frameDelay = 0;
 		frame = 0;
 		
-		
 		resetDx();
 		resetDy();
-		moveDx = 0;
-		moveDy = 0;
-		dxEffect = 0;
-		dyEffect = 0;
 		
 		posX = id.startX;
 		posY = 0;
@@ -103,21 +98,21 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 				if (!external.intersects(this.getBounds()) && !(collidable instanceof Cat)) {
 					
 					internalX = new Rectangle(getBounds());
-					internalX.setLocation(round(posX + dx), getIntPosY());
+					internalX.setLocation((int) Math.round(posX + dx), getIntPosY());
 					if (external.intersects(internalX)) {
 						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
 						resetDx();
 					}
 					
 					internalY = new Rectangle(getBounds());
-					internalY.setLocation(getIntPosX(), round(posY + dy));
+					internalY.setLocation(getIntPosX(), (int) Math.round(posY + dy));
 					if (external.intersects(internalY)) {
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
 						resetDy();
 					}
 					
 					internalBoth = new Rectangle(getBounds());
-					internalBoth.setLocation(round(posX + dx), round(posY + dy));
+					internalBoth.setLocation((int) Math.round(posX + dx), (int) Math.round(posY + dy));
 					if (external.intersects(internalBoth) && dx != 0 && dy !=0) {
 						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
@@ -127,7 +122,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 					
 				} else if (external.intersects(this.getBounds()) && (resolve)) {
 					this.resolveCollision(collidable);
-					collidable.resolveCollision(this);
+					if (collidable instanceof Moveable) {
+						((Moveable) collidable).resolveCollision(this);
+					}
 				}
 			}
 		}
@@ -208,8 +205,16 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		if (!atk.hasHit(id)) {
 			atk.addHasBeenHit(id);
 			health -= atk.damage;
-			dxEffect += atk.getDxEffect(this.getBounds());
-			dyEffect += atk.getDyEffect(this.getBounds());
+			
+			double effect;
+			
+			effect = atk.getEffect(this.getBounds(), true);
+			dxEffect += effect;
+			moveDx = (effect != 0) ? 0: moveDx;
+			
+			effect = atk.getEffect(this.getBounds(), false);
+			dyEffect += effect;
+			moveDy = (effect != 0) ? 0: moveDy;
 		}
 		
 	}
@@ -243,17 +248,11 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	public int getIntPosX() {
-		return round(posX);
+		return (int) Math.round(posX);
 	}
 
 	public int getIntPosY() {
-		return round(posY);
-	}
-
-	private int round(double d) {
-		int r = (int) d;
-		r += (d - ((int) d) >= .5) ? 1 : 0;
-		return r;
+		return (int) Math.round(posY);
 	}
 
 	@Override
@@ -277,7 +276,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		frameDelay++;
 		if (frameDelay >= TIME_FOR_FRAME / Stage.tickLength) {
 			frame++;
-			if (frame >= 4) {
+			if (frame >= FRAMES_FOR_ANIM) {
 				frame = 0;
 			}	
 			frameDelay = 0;
