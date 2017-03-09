@@ -33,7 +33,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		
 		this.id = id;
 		
-		slash = new Attack(0, 0, 5, id, 32, 32);
+		slash = new Attack(0, 0, 5, id, "right", 32, 32);
 		maxHealth = 20;
 		
 		initVars(id);
@@ -190,6 +190,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		setPosX(posX + dx);
 		setPosY(posY + dy);
 
+		slash.updatePosition(this);
 	}
 
 	public boolean isGrounded() {
@@ -207,8 +208,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		if (!atk.hasHit(id)) {
 			atk.addHasBeenHit(id);
 			health -= atk.damage;
-			dxEffect += atk.getDxEffect();
-			dyEffect += atk.getDyEffect();
+			dxEffect += atk.getDxEffect(this.getBounds());
+			dyEffect += atk.getDyEffect(this.getBounds());
 		}
 		
 	}
@@ -236,12 +237,16 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	private void resetLocation() {
 		this.setLocation(getIntPosX(), getIntPosY());
 	}
+	
+	public String getDirection() {
+		return direction;
+	}
 
-	private int getIntPosX() {
+	public int getIntPosX() {
 		return round(posX);
 	}
 
-	private int getIntPosY() {
+	public int getIntPosY() {
 		return round(posY);
 	}
 
