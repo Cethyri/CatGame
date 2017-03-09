@@ -43,28 +43,31 @@ public enum PlayerID {
 		return right;
 	}
 	
-	public static int translate(String button, int ordinal) {
+	public static KeyEvent translate(String button, int ordinal) {
 		int keyCode = -1;
+		KeyEvent kE;
 		
 		if (ordinal >= 0 && ordinal < values().length) {
 			switch (button) {
 			case "up":
-				values()[ordinal].getUp();
+				keyCode = values()[ordinal].getUp();
 				break;
 			case "down":
-				values()[ordinal].getDown();
+				keyCode = values()[ordinal].getDown();
 				break;
 			case "left":
-				values()[ordinal].getLeft();
+				keyCode = values()[ordinal].getLeft();
 				break;
 			case "right":
-				values()[ordinal].getRight();
+				keyCode = values()[ordinal].getRight();
 				break;
 			default:
 				break;
 			}			
 		}
 		
-		return keyCode;
+		kE = new KeyEvent(null, KeyEvent.KEY_PRESSED, 0, 0, keyCode, '-');
+		
+		return kE;
 	}
 }

@@ -1,23 +1,14 @@
 package edu.neumont.csc150.finalProject;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class Game extends JPanel {
+public class Game extends JPanel implements KeyListener {
 
+	private static int PLAYER_COUNT = 4;
+	
 	public final UDPServer UDP;
 
 	private static Stage s;
@@ -41,7 +32,28 @@ public class Game extends JPanel {
 		s = new Stage();
 		this.add(s);
 
-		s.createKittens(4);
+		s.createKittens(PLAYER_COUNT);
 		s.createTestStage();
 	}
+	
+	public static int getPlayerCount() {
+		return PLAYER_COUNT;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("key pressed in game");
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		System.out.println("key released in game");
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+	
+	
 }
