@@ -45,11 +45,6 @@ public class UDPServer {
 
 			if(assignIDs < PlayerID.values().length ) {
 				
-				for (PacketHandler packetHandler : packetHandlers) {
-					if (packetHandler != null) {
-						
-					}
-				}
 				assignIDs++;
 				
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);

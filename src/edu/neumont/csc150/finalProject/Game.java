@@ -18,12 +18,12 @@ import javax.swing.Timer;
 
 public class Game extends JPanel {
 
-	public final UDPServer UDP;
+	//public final UDPServer UDP;
 
 	private static Stage s;
 
 	public Game() throws Exception {
-		UDP = new UDPServer();
+		//UDP = new UDPServer();
 		
 		initUI();
 		initStage();
