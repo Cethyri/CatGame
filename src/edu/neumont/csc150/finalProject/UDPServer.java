@@ -39,7 +39,9 @@ public class UDPServer {
 					recievePacket();
 
 
-					if (buttonInput.equals("give")) {						for (ControlHandler controlHandler : controlHandlers) {
+					if (buttonInput.equals("give")) {						
+						
+						for (ControlHandler controlHandler : controlHandlers) {
 							if (controlHandler != null) {
 								if (controlHandler.IPAddress.equals(IPAddress)) {
 									assigned = true;

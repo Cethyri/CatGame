@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private String receivedPacket;
 
     private DatagramPacket serverPacket;
+    private DatagramSocket socket;
     private byte[] buf;
     private byte[] receivingBuf = new byte[1];
     private boolean send;
@@ -40,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            socket = new DatagramSocket();
+
+        } catch (SocketException s) {
+            Log.d("UDP", "C: " + s);
+        }
         up = (Button) findViewById(R.id.UP_id);
         up.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -194,14 +202,14 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
             }
 
-                try {
-                    Thread.sleep(100);
-                }
-
-                catch (InterruptedException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+//                try {
+////                    Thread.sleep(100);
+//                }
+//
+//                catch (InterruptedException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                }
 
                 if (send == true) {
 
@@ -212,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("UDP", "C: Connecting.... " + serverAddr.getHostName());
 
                         // create new UDP socket
-                        DatagramSocket socket = new DatagramSocket();
+//                        DatagramSocket socket = new DatagramSocket();
 
                         if(isUDPConnecting) {
                             // prepare data to be sent
@@ -246,7 +254,8 @@ public class MainActivity extends AppCompatActivity {
                                 Log.e("UDP", "C: Error", nfe);
                             }
                             //closes socket
-                            socket.close();
+//                            socket.close();
+
                             isUDPConnecting = false;
 
                         } else if (!isUDPConnecting){
@@ -264,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("UDP", "C: Sent.");
                             Log.d("UDP", "C: Done.");
 
-                            socket.close();
+//                            socket.close();
 
                         }
 
