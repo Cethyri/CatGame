@@ -20,10 +20,10 @@ public class Surface extends JLabel implements Collidable {
 		setBackground(Color.BLACK);
 		setBounds(x, y, width, height);
 	}
-
+	
 	@Override
-	public void checkForCollisions(ArrayList<Collidable> surfaces, boolean resolve) {
-		
+	public double getResolveVal() {
+		return RESOLVE_VAL;
 	}
 
 	@Override
@@ -34,17 +34,6 @@ public class Surface extends JLabel implements Collidable {
 	@Override
 	public boolean doHorizontalCollisionResolution() {
 		return true;
-	}
-
-	@Override
-	public void resolveCollision(Collidable collidable) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double getResolveVal() {
-		return RESOLVE_VAL;
 	}
 	
 	@Override

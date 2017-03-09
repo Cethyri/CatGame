@@ -38,8 +38,8 @@ public class UDPServer {
 
 					recievePacket();
 
-					if (buttonInput.equals("give")) {
-						for (ControlHandler controlHandler : controlHandlers) {
+
+					if (buttonInput.equals("give")) {						for (ControlHandler controlHandler : controlHandlers) {
 							if (controlHandler != null) {
 								if (controlHandler.IPAddress.equals(IPAddress)) {
 									assigned = true;
@@ -67,6 +67,7 @@ public class UDPServer {
 							}
 						}
 					}
+					System.out.println("here" + assignIDs);
 				} while (assignIDs < Game.getPlayerCount());
 
 				controlThread.start();
@@ -85,6 +86,7 @@ public class UDPServer {
 							if (controlHandler.IPAddress.equals(IPAddress)) {
 								String[] readInput = buttonInput.toLowerCase().split("_", 2);
 								KeyEvent kE = PlayerID.translate(readInput[1], controlHandler.ID);
+
 								switch (readInput[0]) {
 								case "pressed":
 									MainFrame.getGame().keyPressed(kE);
@@ -111,6 +113,8 @@ public class UDPServer {
 	private void initVars() throws SocketException {
 		serverSocket = new DatagramSocket(5555);
 
+		receiveData = new byte[10];
+		sendData = new byte[10];
 		receiveData = new byte[20];
 		sendData = new byte[20];
 
