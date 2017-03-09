@@ -38,8 +38,7 @@ public class UDPServer {
 
 					recievePacket();
 
-					if (buttonInput == "give") {
-
+					if (buttonInput.equals("give")) {
 						for (ControlHandler controlHandler : controlHandlers) {
 							if (controlHandler != null) {
 								if (controlHandler.IPAddress.equals(IPAddress)) {
@@ -68,6 +67,7 @@ public class UDPServer {
 							}
 						}
 					}
+					System.out.println("here" + assignIDs);
 				} while (assignIDs < Game.getPlayerCount());
 
 				controlThread.start();
@@ -81,12 +81,12 @@ public class UDPServer {
 
 				while (true) {
 					recievePacket();
-
 					for (ControlHandler controlHandler : controlHandlers) {
 						if (controlHandler != null) {
 							if (controlHandler.IPAddress.equals(IPAddress)) {
 								String[] readInput = buttonInput.toLowerCase().split("_", 2);
 								KeyEvent kE = PlayerID.translate(readInput[1], controlHandler.ID);
+								System.out.println(readInput[0]);
 								switch (readInput[0]) {
 								case "pressed":
 									MainFrame.getGame().keyPressed(kE);
