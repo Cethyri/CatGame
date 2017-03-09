@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                             socket.receive(serverPacket);
 
                             receivedPacket = new String(serverPacket.getData());
-                            Log.d("UDP", receivedPacket);
+
                             try {
                                 id = Integer.parseInt(receivedPacket.trim());
                                 Log.d("UDP", "C: Received. " + id);
@@ -162,16 +162,13 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             // prepare data to be sent
                             buf = sendString.getBytes();
-                            receivingBuf = receivedPacket.getBytes();
 
                             // create a UDP packets with data and its destination ip & port
                             DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, port);
-                            DatagramPacket idPacket = new DatagramPacket(receivingBuf, receivingBuf.length, serverAddr, port);
 
-                            Log.d("UDP", "C: Sending: '" + new String(receivingBuf) + " & " + new String(buf) + "'");
+                            Log.d("UDP", "C: Sending: '" +  new String(buf) + "'");
 
                             // send the UDP packet
-                            socket.send(idPacket);
                             socket.send(packet);
 
                             Log.d("UDP", "C: Sent.");
