@@ -112,7 +112,7 @@ public class Stage extends JPanel implements ActionListener {
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 3, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 6, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
 		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
-		add(new Attack(10, -40, 1, PlayerID.FOURTH, 100, 100));
+		add(new Attack(10, -40, 1, PlayerID.FOURTH, "left", 100, 100));
 	}
 
 }

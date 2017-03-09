@@ -87,7 +87,7 @@ public class UDPServer {
 						if (controlHandler != null) {
 							if (controlHandler.IPAddress.equals(IPAddress)) {
 								String[] readInput = buttonInput.toLowerCase().split("_", 2);
-								KeyEvent kE = PlayerID.translate(buttonInput, controlHandler.ID);
+								KeyEvent kE = PlayerID.translate(readInput[1], controlHandler.ID);
 								switch (readInput[0]) {
 								case "pressed":
 									MainFrame.getGame().keyPressed(kE);
