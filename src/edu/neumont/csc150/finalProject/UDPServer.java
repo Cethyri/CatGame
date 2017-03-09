@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.Timer;
 
-public class UDPServer implements Runnable{
+public class UDPServer{
 	
 	private byte[] receiveData;
 	private byte[] sendData;
@@ -22,6 +22,7 @@ public class UDPServer implements Runnable{
 		initVars();
 		
 		System.out.println("UDP Server Started........");
+		
 		Thread serverThread = new Thread(new Runnable() {
 			
 			@Override
@@ -69,37 +70,9 @@ public class UDPServer implements Runnable{
 				}
 			}
 		});
+		
 		serverThread.start();
-//		while(true) {			
-//			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-//
-//			//receives any data
-//			serverSocket.receive(receivePacket);
-//			
-//			//gets rid of excess string
-//			buttonInput = new String( receivePacket.getData()).substring(0, receivePacket.getLength());
-//			
-//			System.out.println("RECEIVED: " + buttonInput);			
-//			
-//			//gets IP address of incoming packets
-//			InetAddress IPAddress = receivePacket.getAddress();
-//			System.out.println(IPAddress);
-//			
-//			//gets port from incoming packets
-//			int port = receivePacket.getPort();
-//
-//			String id = Integer.toString(assignIDs);
-//			sendData = id.getBytes();
-//
-//			if(assignIDs < PlayerID.values().length ) {
-//				
-//				assignIDs++;
-//				
-//				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-//
-//				serverSocket.send(sendPacket);
-//			}
-//		}
+		
 	}
 	
 	private void initVars() throws SocketException {
@@ -111,16 +84,6 @@ public class UDPServer implements Runnable{
 		packetHandlers = new PacketHandler[PlayerID.values().length];
 	}
 
-	@Override
-	public void run() {
-		try {
-			UDPServer s = new UDPServer();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
-	}
 	
 }
 

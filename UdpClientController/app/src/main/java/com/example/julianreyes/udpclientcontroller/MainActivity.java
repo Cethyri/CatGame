@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -13,7 +14,7 @@ import java.net.InetAddress;
 
 public class MainActivity extends AppCompatActivity {
     //Home network
-//    private static final String host = "192.168.1.255";
+//    private static final String host = "192.168.1.12";
 
     private int port = 5555;
     //mobile hotspot
@@ -56,9 +57,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void sendUp(View view) {
-        str = "up";
-        sendUDP(str);
+    public boolean sendUp(View view, MotionEvent event) {
+
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                // PRESSED
+                Log.d("UDP", "pressed");
+                str = "pressed_up";
+                sendUDP(str);
+                return true; // if you want to handle the touch event
+            case MotionEvent.ACTION_UP:
+                // RELEASED
+                Log.d("UDP", "pressed");
+                str = "released_up";
+                sendUDP(str);
+                return true; // if you want to handle the touch event
+        }
+        return false;
     }
 
     public void sendDown(View view) {
