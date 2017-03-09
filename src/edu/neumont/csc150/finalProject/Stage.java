@@ -1,16 +1,19 @@
 package edu.neumont.csc150.finalProject;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Stage extends JPanel implements ActionListener {
+public class Stage extends JPanel implements ActionListener{
 	
 	public static final double GRAV = -1;
 	
@@ -40,6 +43,7 @@ public class Stage extends JPanel implements ActionListener {
 	private void initVars() {
 		
 		surfaces = new ArrayList<>();
+		moveables = new ArrayList<>();
 		tickListeners = new ArrayList<>();
 		attacks = new ArrayList<>();
 		
@@ -97,8 +101,8 @@ public class Stage extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		for (TickListener tickListener : tickListeners) {
-			tickListener.doTick();
+		for (int i = 0; i < tickListeners.size(); i++) {
+			tickListeners.get(i).doTick();
 		}
 		repaint();
 	}

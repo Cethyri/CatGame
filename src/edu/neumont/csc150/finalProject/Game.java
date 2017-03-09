@@ -1,17 +1,18 @@
 package edu.neumont.csc150.finalProject;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-public class Game extends JPanel implements KeyListener {
+public class Game extends JPanel {
 
 	private static int PLAYER_COUNT = 1;
 	
 	public final UDPServer UDP;
 
-	private static Stage s;
+	public static Stage stage;
 
 	public Game() throws Exception {
 		UDP = new UDPServer();
@@ -29,31 +30,28 @@ public class Game extends JPanel implements KeyListener {
 	}
 
 	private void initStage() {
-		s = new Stage();
-		this.add(s);
+		stage = new Stage();
+		this.add(stage);
 
-		s.createKittens(PLAYER_COUNT);
-		s.createTestStage();
+		stage.createKittens(PLAYER_COUNT);
+		stage.createTestStage();
 	}
 	
 	public static int getPlayerCount() {
 		return PLAYER_COUNT;
 	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println("key pressed in game");
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		System.out.println("key released in game");
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
 	
-	
+	public static Stage getStage() {
+		return stage;
+	}
+
+	public void dispatchToVisible(KeyEvent e) {
+		for (Component c : this.getComponents()) {
+			if (c.isVisible()) {
+				System.out.println("dispatch on " + c);
+				e.setSource(c);
+				c.dispatchEvent(e);
+			}
+		}
+	}	
 }

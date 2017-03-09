@@ -54,7 +54,6 @@ public class UDPServer {
 							String id = Integer.toString(assignIDs);
 							sendData = id.getBytes();
 
-							assignIDs++;
 
 							DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 
@@ -65,9 +64,10 @@ public class UDPServer {
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
+							
+							assignIDs++;
 						}
 					}
-					System.out.println("here" + assignIDs);
 				} while (assignIDs < Game.getPlayerCount());
 
 				controlThread.start();
@@ -85,21 +85,23 @@ public class UDPServer {
 						if (controlHandler != null) {
 							if (controlHandler.IPAddress.equals(IPAddress)) {
 								String[] readInput = buttonInput.toLowerCase().split("_", 2);
-								KeyEvent kE = PlayerID.translate(readInput[1], controlHandler.ID);
-
-								switch (readInput[0]) {
-								case "pressed":
-									MainFrame.getGame().keyPressed(kE);
-									break;
-								case "released":
-									MainFrame.getGame().keyReleased(kE);
-									break;
-								case "typed":
-									
-									break;
-								default:
-									break;
-								}
+								int keyCode = PlayerID.translate(readInput[1], controlHandler.ID);
+								int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED : (readInput[0].equals("pressed") ? KeyEvent.KEY_RELEASED : KeyEvent.KEY_TYPED);
+								KeyEvent kE = new KeyEvent(MainFrame.game, eventType, System.currentTimeMillis(), 0, keyCode, KeyEvent.CHAR_UNDEFINED);
+								
+								MainFrame.game.dispatchToVisible(kE);
+//								switch (readInput[0]) {
+//								case "pressed":
+//									MainFrame.game.keyPressed(kE);
+//									break;
+//								case "released":
+//									MainFrame.game.keyReleased(kE);
+//									break;
+//								case "typed":
+//									break;
+//								default:
+//									break;
+//								}
 							}
 						}
 					}

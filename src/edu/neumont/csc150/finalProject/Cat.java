@@ -306,6 +306,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		if (key == id.getDown()) {
 			down = true;
 		}
+		
+		System.out.println("pressed " + KeyEvent.getKeyText(key));
 	}
 
 	@Override
@@ -324,6 +326,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		if (key == id.getDown()) {
 			down = false;
 		}
+		
+		System.out.println("released " + KeyEvent.getKeyText(key));
 	}
 
 	@Override

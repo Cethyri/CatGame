@@ -57,7 +57,13 @@ public class Attack extends JLabel implements TickListener {
 	}
 	
 	public void addHasBeenHit(PlayerID id) {
-		hasBeenHit.add(id);
+		if (isStageHazard()) {
+			hasBeenHit.add(id);
+		}
+	}
+
+	private boolean isStageHazard() {
+		return lifeInFrames != -1;
 	}
 	
 	public boolean hasHit(PlayerID id) {
@@ -107,6 +113,7 @@ public class Attack extends JLabel implements TickListener {
 		frameDelay++;
 		if (frameDelay >= TIME_FOR_FRAME / Stage.tickLength) {
 			frame++;
+			lifeFrames ++;
 			if (frame >= FRAMES_FOR_ANIM) {
 				frame = 0;
 			}	
@@ -116,21 +123,24 @@ public class Attack extends JLabel implements TickListener {
 	
 	public void create(String direction) {
 		initVars(direction, true);
-		Stage.add(this);
+		Game.stage.add(this);
 	}
 	
 	public void clear() {
-		
+		inAction = false;
+		Game.stage.remove(this);
 	}
 	
 	@Override
 	public void doTick() {
 		if (inAction) {
 			animate();			
-		}
-		
-		if (lifeInFrames != -1) {
-			lifeFrames ++;
+			
+			if (isStageHazard()) {
+				if (lifeFrames > lifeInFrames) {
+					clear();
+				}
+			}
 		}
 	}
 }
