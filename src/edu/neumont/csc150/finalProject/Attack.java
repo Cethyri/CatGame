@@ -66,6 +66,10 @@ public class Attack extends JLabel implements TickListener {
 		return lifeInFrames != -1;
 	}
 	
+	public boolean isInAction() {
+		return inAction;
+	}
+	
 	public boolean hasHit(PlayerID id) {
 		
 		return hasBeenHit.contains(id);
@@ -91,8 +95,8 @@ public class Attack extends JLabel implements TickListener {
 		
 		direction = owner.getDirection();
 		
-		x = owner.getIntPosX() + (direction.equals("left") ? -this.getWidth() : owner.getWidth());
-		y = owner.getIntPosY() + 32;
+		x = owner.getIntPosX() + (direction.equals("Left") ? -this.getWidth() : owner.getWidth());
+		y = owner.getIntPosY();
 		
 		this.setLocation(x + getIntPosX(), y + getIntPosY());
 	}
