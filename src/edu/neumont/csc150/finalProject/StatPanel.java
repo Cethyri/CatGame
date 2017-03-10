@@ -20,7 +20,6 @@ public class StatPanel extends JPanel {
 	private void initUI() {
 		this.setOpaque(true);
 		this.setBackground(owner.id.playerColor);
-		
 		setBounds(owner.id.startX, 0, MainFrame.CONTENT_WIDTH / 4, 100);
 	}
 	
