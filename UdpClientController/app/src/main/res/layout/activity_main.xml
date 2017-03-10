@@ -72,10 +72,9 @@
         android:background="@drawable/roundbutton"
         android:id="@+id/LEFT_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:text="Left"
-        android:layout_alignBaseline="@+id/A_id"
-        android:layout_alignBottom="@+id/A_id"
+        android:layout_alignBottom="@+id/B_id"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -83,9 +82,8 @@
         android:background="@drawable/roundbutton"
         android:id="@+id/RIGHT_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:text="Right"
-        android:layout_alignBaseline="@+id/LEFT_id"
         android:layout_alignBottom="@+id/LEFT_id"
         android:layout_toRightOf="@+id/radioButton"
         android:layout_toEndOf="@+id/radioButton" />
