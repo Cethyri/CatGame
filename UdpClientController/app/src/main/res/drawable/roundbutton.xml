@@ -5,13 +5,18 @@
             <corners android:radius="1000dp" />
             <solid android:color="#ccc" />
             <stroke
-                android:width="8dip"
+                android:width="4dip"
                 android:color="#ccc" />
             <padding
                 android:bottom="8dp"
                 android:left="8dp"
                 android:right="8dp"
                 android:top="8dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="50dp"
+                android:endColor="#777"
+                android:startColor="#fff"/>
         </shape>
     </item>
     <item android:state_pressed="true">

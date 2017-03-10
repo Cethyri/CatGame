@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import java.net.DatagramPacket;
@@ -17,11 +18,12 @@ import java.net.SocketException;
 
 public class MainActivity extends AppCompatActivity {
     //Home network
-//    private static final String host = "192.168.1.12";
-
+//    private String host = "192.168.1.12";
+    private String host = "";
     private int port = 5555;
     //mobile hotspot
-    private static final String host = "192.168.43.213";
+//    private String host = "192.168.43.213";
+//    private String host = "192.168.43.7";
 
     private int id = 99;
     private String str;
@@ -35,57 +37,78 @@ public class MainActivity extends AppCompatActivity {
     private boolean send;
     private boolean isUDPConnecting;
 
-    private Button up,down,right,left,attack, special;
+    private Button x, y,right,left,attack, special;
+    private EditText enterIP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        enterIP = (EditText)findViewById(R.id.Enter_IP_id);
+        enterIP.setText("Enter IP");
+
         try {
+            //opens socket
             socket = new DatagramSocket();
 
         } catch (SocketException s) {
             Log.d("UDP", "C: " + s);
         }
-        up = (Button) findViewById(R.id.UP_id);
-        up.setOnTouchListener(new View.OnTouchListener() {
+        sendUp();
+        sendDown();
+        sendLeft();
+        sendRight();
+        sendAttack();
+        sendSpecial();
+
+    }
+
+    public void sendUp() {
+        x = (Button) findViewById(R.id.UP_id);
+        x.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("UDP", "pressed");
-                        str = "pressed_UP";
+                        str = "pressed_JUMP";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("UDP", "released");
-                        str = "released_UP";
+                        str = "released_JUMP";
                         sendUDP(str);
                         return true;
                 }
                 return false;
             }
         });
-        down = (Button) findViewById(R.id.DOWN_id);
-        down.setOnTouchListener(new View.OnTouchListener() {
+    }
+
+    public void sendDown() {
+        y = (Button) findViewById(R.id.DOWN_id);
+        y.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("Pressed", "pressed");
-                        str = "pressed_DOWN";
+                        str = "pressed_Y";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("Released", "released");
-                        str = "released_DOWN";
+                        str = "released_Y";
                         sendUDP(str);
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+    public void sendRight() {
         right = (Button) findViewById(R.id.RIGHT_id);
         right.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -105,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+
+    public void sendLeft() {
         left = (Button) findViewById(R.id.LEFT_id);
         left.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -124,6 +151,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public void sendAttack() {
         attack = (Button) findViewById(R.id.A_id);
         attack.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -143,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public void sendSpecial() {
         special = (Button) findViewById(R.id.B_id);
         special.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -164,10 +197,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     public void radioClicked(View view) {
         Log.d("UDP", "radio clicked");
 
+//        if(enterIP.getText().equals("Enter IP")){
+//
+//        }
         if(id == 99){
+            host = enterIP.getText().toString();
+            Log.d("UDP", "host name:" + host);
+
             isUDPConnecting = true;
             str = "give";
             Log.d("UDP", "request id.... " + id);

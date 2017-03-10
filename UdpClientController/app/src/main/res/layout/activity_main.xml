@@ -10,91 +10,96 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.julianreyes.udpclientcontroller.MainActivity">
 
-
-    <Button
-        android:text="Down"
-        android:background="@drawable/roundbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/DOWN_id"
-        android:onClick="sendDown"
-        android:layout_below="@+id/LEFT_id"
-        android:layout_alignLeft="@+id/UP_id"
-        android:layout_alignStart="@+id/UP_id" />
-
-    <Button
-        android:text="Right"
-        android:background="@drawable/roundbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="57dp"
-        android:layout_marginStart="57dp"
-        android:id="@+id/RIGHT_id"
-        android:layout_above="@+id/DOWN_id"
-        android:layout_toRightOf="@+id/LEFT_id"
-        android:layout_toEndOf="@+id/LEFT_id"
-        android:onClick="sendRight" />
-
-    <Button
-        android:text="Left"
-        android:layout_width="wrap_content"
-        android:background="@drawable/roundbutton"
-        android:layout_height="wrap_content"
-        android:id="@+id/LEFT_id"
-        android:onClick="sendLeft"
-        android:layout_below="@+id/UP_id"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="B"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/roundbutton"
-        android:id="@+id/B_id"
-        android:layout_marginRight="43dp"
-        android:layout_marginEnd="43dp"
-        android:layout_above="@+id/A_id"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="sendSpecial" />
-
-    <Button
-        android:text="A"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/roundbutton"
-        android:id="@+id/A_id"
-        android:layout_marginRight="23dp"
-        android:layout_marginEnd="23dp"
-        android:layout_alignBaseline="@+id/RIGHT_id"
-        android:layout_alignBottom="@+id/RIGHT_id"
-        android:layout_toLeftOf="@+id/B_id"
-        android:layout_toStartOf="@+id/B_id"
-        android:onClick="sendAttack"/>
-
-    <Button
-        android:text="Up"
-        android:background="@drawable/roundbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/UP_id"
-        android:layout_marginTop="88dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="71dp"
-        android:layout_marginStart="71dp"
-        android:onClick="sendUp" />
-
     <RadioButton
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Find Server :"
+        android:onClick="radioClicked"
+        android:layout_alignBaseline="@+id/Enter_IP_id"
+        android:layout_alignBottom="@+id/Enter_IP_id"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:background="@drawable/roundbutton"
+        android:rotation="45"
+        android:id="@+id/UP_id"
+        android:layout_width="50dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
+        android:text="X"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/Enter_IP_id"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:background="@drawable/roundbutton"
+        android:rotation="45"
+        android:id="@+id/B_id"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="B"
+        android:layout_below="@+id/A_id"
+        android:layout_toRightOf="@+id/A_id"
+        android:layout_toEndOf="@+id/A_id" />
+
+    <Button
+        android:background="@drawable/roundbutton"
+        android:rotation="45"
+        android:id="@+id/A_id"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="A"
+        android:layout_below="@+id/UP_id"
+        android:layout_toLeftOf="@+id/UP_id"
+        android:layout_toStartOf="@+id/UP_id" />
+
+    <Button
+        android:background="@drawable/roundbutton"
+        android:rotation="45"
+        android:id="@+id/DOWN_id"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="Y"
+        android:layout_below="@+id/UP_id"
+        android:layout_toRightOf="@+id/B_id"
+        android:layout_toEndOf="@+id/B_id" />
+
+    <Button
+        android:background="@drawable/roundbutton"
+        android:id="@+id/LEFT_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Left"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:background="@drawable/roundbutton"
+        android:id="@+id/RIGHT_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Right"
+        android:layout_alignBaseline="@+id/LEFT_id"
+        android:layout_alignBottom="@+id/LEFT_id"
+        android:layout_toRightOf="@+id/radioButton"
+        android:layout_toEndOf="@+id/radioButton" />
+
+    <EditText
+        android:id="@+id/Enter_IP_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Find Server"
-        android:onClick="radioClicked" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_toEndOf="@+id/radioButton"
+        android:layout_toRightOf="@+id/radioButton"
+        android:ems="6"
+        android:inputType="text" />
+
 
 </RelativeLayout>
