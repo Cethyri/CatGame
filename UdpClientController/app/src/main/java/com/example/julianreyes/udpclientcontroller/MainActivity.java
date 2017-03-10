@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     public void radioClicked(View view) {
         Log.d("UDP", "radio clicked");
 
-        if(id == 99){
+        if(id == 99) {
             host = enterIP.getText().toString();
             Log.d("UDP", "host name:" + host);
 
@@ -229,14 +229,19 @@ public class MainActivity extends AppCompatActivity {
             Log.d("UDP", "request id.... " + id);
             sendUDP(str);
 
-            if(id != 99){
+            if (id != 99) {
                 ((RadioButton) view).setChecked(true);
                 Log.d("UDP", "received id.... " + id);
 
-            }else {
+            } else {
                 ((RadioButton) view).setChecked(false);
                 Log.d("UDP", "did not receive id");
+
             }
+        }else {
+            ((RadioButton) view).setChecked(false);
+            id = 99;
+            Log.d("UDP", "C: ID Set To 99, Radio Off.");
         }
 
     }
