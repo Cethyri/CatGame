@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 public class Attack extends JLabel implements TickListener {
 	
-	public static final int TIME_FOR_FRAME = 180, FRAMES_FOR_ANIM = 10;
+	public static final int TIME_FOR_FRAME = 18, FRAMES_FOR_ANIM = 10;
 	public final int lifeInFrames;
 	private int frame, frameDelay, lifeFrames;
 	
