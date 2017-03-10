@@ -17,13 +17,9 @@ import java.net.SocketException;
 
 
 public class MainActivity extends AppCompatActivity {
-    //Home network
-//    private String host = "192.168.1.12";
+
     private String host = "";
     private int port = 5555;
-    //mobile hotspot
-//    private String host = "192.168.43.213";
-//    private String host = "192.168.43.7";
 
     private int id = 99;
     private String str;
@@ -62,6 +58,29 @@ public class MainActivity extends AppCompatActivity {
         sendA();
         sendB();
 
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("UDP", "Pausing....");
+        socket.close();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("UDP", "Resuming....");
+        try {
+            socket = new DatagramSocket();
+
+        } catch (SocketException s) {
+            Log.d("UDP", "C: " + s);
+        }
+        host = enterIP.getText().toString();
+        str = "resuming_connection";
+        sendUDP(str);
     }
 
     public void sendX() {
@@ -201,9 +220,6 @@ public class MainActivity extends AppCompatActivity {
     public void radioClicked(View view) {
         Log.d("UDP", "radio clicked");
 
-//        if(enterIP.getText().equals("Enter IP")){
-//
-//        }
         if(id == 99){
             host = enterIP.getText().toString();
             Log.d("UDP", "host name:" + host);
