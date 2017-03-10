@@ -55,29 +55,29 @@ public class MainActivity extends AppCompatActivity {
         } catch (SocketException s) {
             Log.d("UDP", "C: " + s);
         }
-        sendUp();
-        sendDown();
+        sendX();
+        sendY();
         sendLeft();
         sendRight();
-        sendAttack();
-        sendSpecial();
+        sendA();
+        sendB();
 
     }
 
-    public void sendUp() {
-        x = (Button) findViewById(R.id.UP_id);
+    public void sendX() {
+        x = (Button) findViewById(R.id.Y_id);
         x.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("UDP", "pressed");
-                        str = "pressed_JUMP";
+                        str = "pressed_x";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("UDP", "released");
-                        str = "released_JUMP";
+                        str = "released_x";
                         sendUDP(str);
                         return true;
                 }
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void sendDown() {
-        y = (Button) findViewById(R.id.DOWN_id);
+    public void sendY() {
+        y = (Button) findViewById(R.id.Y_id);
         y.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -116,12 +116,12 @@ public class MainActivity extends AppCompatActivity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("Pressed", "pressed");
-                        str = "pressed_RIGHT";
+                        str = "pressed_right";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("Released", "released");
-                        str = "released_RIGHT";
+                        str = "released_right";
                         sendUDP(str);
                         return true;
                 }
@@ -139,12 +139,12 @@ public class MainActivity extends AppCompatActivity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("Pressed", "pressed");
-                        str = "pressed_LEFT";
+                        str = "pressed_left";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("Released", "released");
-                        str = "released_LEFT";
+                        str = "released_left";
                         sendUDP(str);
                         return true;
                 }
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void sendAttack() {
+    public void sendA() {
         attack = (Button) findViewById(R.id.A_id);
         attack.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -161,12 +161,12 @@ public class MainActivity extends AppCompatActivity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("Pressed", "pressed");
-                        str = "pressed_ATTACK";
+                        str = "pressed_a";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("Released", "released");
-                        str = "released_ATTACK";
+                        str = "released_a";
                         sendUDP(str);
                         return true;
                 }
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void sendSpecial() {
+    public void sendB() {
         special = (Button) findViewById(R.id.B_id);
         special.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -183,12 +183,12 @@ public class MainActivity extends AppCompatActivity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         Log.d("Pressed", "pressed");
-                        str = "pressed_SPECIAL";
+                        str = "pressed_b";
                         sendUDP(str);
                         return true;
                     case MotionEvent.ACTION_UP:
                         Log.d("Released", "released");
-                        str = "released_SPECIAL";
+                        str = "released_b";
                         sendUDP(str);
                         return true;
                 }
