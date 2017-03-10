@@ -339,15 +339,15 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 				left = false;
 			}
 
-			if (key == id.up) {
+			if (key == id.x) {
 				up = true;
 			}
 
-			if (key == id.down) {
+			if (key == id.y) {
 				down = true;
 			}
 
-			if (key == id.attack) {
+			if (key == id.a) {
 				if (!slash.isInAction()) {
 					slash.create(direction);
 				}
@@ -369,10 +369,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 				right = false;
 			}
 
-			if (key == id.up) {
+			if (key == id.x) {
 				up = false;
 			}
-			if (key == id.down) {
+			if (key == id.y) {
 				down = false;
 			}
 
