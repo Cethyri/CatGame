@@ -24,7 +24,7 @@
     <Button
         android:background="@drawable/roundbutton"
         android:rotation="45"
-        android:id="@+id/Y_id"
+        android:id="@+id/X_id"
         android:layout_width="50dp"
         android:layout_height="47dp"
         android:layout_marginEnd="95dp"
@@ -53,18 +53,18 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="A"
-        android:layout_below="@+id/Y_id"
-        android:layout_toLeftOf="@+id/Y_id"
-        android:layout_toStartOf="@+id/Y_id" />
+        android:layout_below="@+id/X_id"
+        android:layout_toLeftOf="@+id/X_id"
+        android:layout_toStartOf="@+id/X_id" />
 
     <Button
         android:background="@drawable/roundbutton"
         android:rotation="45"
-        android:id="@+id/DOWN_id"
+        android:id="@+id/Y_id"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="Y"
-        android:layout_below="@+id/Y_id"
+        android:layout_below="@+id/X_id"
         android:layout_toRightOf="@+id/B_id"
         android:layout_toEndOf="@+id/B_id" />
 

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendX() {
-        x = (Button) findViewById(R.id.Y_id);
+        x = (Button) findViewById(R.id.X_id);
         x.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
