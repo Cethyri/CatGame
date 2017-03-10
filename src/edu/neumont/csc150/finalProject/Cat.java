@@ -308,7 +308,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	private void animate() {
 
 		direction = right ? "Right" : left ? "Left" : direction;
-		action = (right || left) && dx != 0 ? "Walk" : "Idle";
+		action = !isAlive() ? "Dead" : ((right || left) && dx != 0 ? "Walk" : "Idle");
 		this.setIcon(new ImageIcon("images/Cat/" + action + "_" + direction + "_" + frame + ".png"));
 
 		frameDelay++;
