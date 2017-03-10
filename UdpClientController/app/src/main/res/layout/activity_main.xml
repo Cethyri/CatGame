@@ -95,8 +95,8 @@
         android:layout_marginStart="14dp"
         android:layout_toEndOf="@+id/radioButton"
         android:layout_toRightOf="@+id/radioButton"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:ems="6"
+        android:inputType="text" />
 
 
 </RelativeLayout>
