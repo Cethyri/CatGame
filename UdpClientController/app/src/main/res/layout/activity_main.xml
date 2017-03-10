@@ -23,21 +23,23 @@
 
     <Button
         android:background="@drawable/roundbutton"
+        android:rotation="45"
         android:id="@+id/UP_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="94dp"
-        android:layout_marginRight="94dp"
+        android:layout_width="50dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
         android:text="X"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/radioButton"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/Enter_IP_id"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
         android:background="@drawable/roundbutton"
+        android:rotation="45"
         android:id="@+id/B_id"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="B"
         android:layout_below="@+id/A_id"
@@ -46,8 +48,9 @@
 
     <Button
         android:background="@drawable/roundbutton"
+        android:rotation="45"
         android:id="@+id/A_id"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="A"
         android:layout_below="@+id/UP_id"
@@ -56,8 +59,9 @@
 
     <Button
         android:background="@drawable/roundbutton"
+        android:rotation="45"
         android:id="@+id/DOWN_id"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="Y"
         android:layout_below="@+id/UP_id"
@@ -70,8 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Left"
-        android:layout_alignBaseline="@+id/A_id"
-        android:layout_alignBottom="@+id/A_id"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
