@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 public class Attack extends JLabel implements TickListener {
 	
-	public static final int TIME_FOR_FRAME = 30, FRAMES_FOR_ANIM = 11;
+	public static final int TIME_FOR_FRAME = 180, FRAMES_FOR_ANIM = 10;
 	public final int lifeInFrames;
 	private int frame, frameDelay, lifeFrames;
 	
@@ -51,8 +51,9 @@ public class Attack extends JLabel implements TickListener {
 	}
 
 	private void initUI(int x, int y, int width, int height) {
-		setOpaque(true);
+		setOpaque(false);
 		setBackground(Color.RED);
+		setVisible(inAction);
 		setBounds(x, y, width, height);
 	}
 	
@@ -120,19 +121,19 @@ public class Attack extends JLabel implements TickListener {
 			lifeFrames ++;
 			if (frame >= FRAMES_FOR_ANIM) {
 				frame = 0;
-			}	
+			}
 			frameDelay = 0;
 		}
 	}
 	
 	public void create(String direction) {
 		initVars(direction, true);
-		Game.stage.add(this);
+		this.setVisible(inAction);
 	}
 	
 	public void clear() {
 		inAction = false;
-		Game.stage.remove(this);
+		this.setVisible(inAction);
 	}
 	
 	@Override
@@ -141,7 +142,7 @@ public class Attack extends JLabel implements TickListener {
 			animate();			
 			
 			if (isStageHazard()) {
-				if (lifeFrames > lifeInFrames) {
+				if (lifeFrames >= lifeInFrames) {
 					clear();
 				}
 			}
