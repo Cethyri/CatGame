@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class Game extends JPanel {
 
-	private static int PLAYER_COUNT = 2;
+	private static int PLAYER_COUNT = 4;
 	
 	public final UDPServer UDP;
 

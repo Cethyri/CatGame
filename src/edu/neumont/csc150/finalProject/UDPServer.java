@@ -87,11 +87,14 @@ public class UDPServer {
 						if (controlHandler != null) {
 							if (controlHandler.IPAddress.equals(IPAddress)) {
 								String[] readInput = buttonInput.toLowerCase().split("_", 2);
-								int keyCode = PlayerID.translate(readInput[1], controlHandler.ID);
-								int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED :  KeyEvent.KEY_RELEASED;
-								KeyEvent kE = new KeyEvent(MainFrame.game, eventType, System.currentTimeMillis(), 0, keyCode, KeyEvent.CHAR_UNDEFINED);
 								
-								MainFrame.game.dispatchToVisible(kE);
+								if (readInput.length == 2) {
+									int keyCode = PlayerID.translate(readInput[1], controlHandler.ID);
+									int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED :  KeyEvent.KEY_RELEASED;
+									KeyEvent kE = new KeyEvent(MainFrame.game, eventType, System.currentTimeMillis(), 0, keyCode, KeyEvent.CHAR_UNDEFINED);
+									
+									MainFrame.game.dispatchToVisible(kE);									
+								}
 							}
 						}
 					}
