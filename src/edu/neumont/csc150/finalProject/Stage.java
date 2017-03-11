@@ -1,18 +1,16 @@
 package edu.neumont.csc150.finalProject;
 
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+@SuppressWarnings("serial")
 public class Stage extends JPanel implements ActionListener{
 	
 	public static final double GRAV = -1;

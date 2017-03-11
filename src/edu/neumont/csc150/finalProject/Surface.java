@@ -1,12 +1,9 @@
 package edu.neumont.csc150.finalProject;
 
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class Surface extends JLabel implements Collidable {
 	
 	public static int RESOLVE_VAL = 4;

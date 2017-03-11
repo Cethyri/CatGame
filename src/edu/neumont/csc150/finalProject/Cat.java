@@ -1,6 +1,5 @@
 package edu.neumont.csc150.finalProject;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -9,10 +8,9 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Moveable, Attackable {
 
 	public final PlayerID id;
@@ -31,6 +29,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	
 	private final StatPanel stats;
 
+	/**
+	 * creates a new cat and initializes id so cat knows it's start position, player color, and controls
+	 * @param id contains start position, player color, and controls
+	 */
 	public Cat(PlayerID id) {
 		
 		this.id = id;

@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
 
+@SuppressWarnings("serial")
 public class JoinPanel extends javax.swing.JPanel {
 	                     
 	private JLabel PlayerLabel;
