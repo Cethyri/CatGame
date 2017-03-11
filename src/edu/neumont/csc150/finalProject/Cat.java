@@ -1,6 +1,7 @@
 package edu.neumont.csc150.finalProject;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -79,7 +80,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	private void initUI() {
 
-		this.setOpaque(true);
+		this.setOpaque(false);
 		this.setBackground(id.playerColor);
 		setBounds(getIntPosX(), getIntPosY(), getIcon().getIconWidth(), getIcon().getIconHeight());
 	}
@@ -324,6 +325,12 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		g.setColor(id.playerColor);
+		g.setFont(new Font("ARIAL", Font.BOLD, 16));
+		g.drawString(id.name(), 0, 16);
+		
+		Circle c = new Circle();
 	}
 
 	@Override

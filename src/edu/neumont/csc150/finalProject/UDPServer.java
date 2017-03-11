@@ -38,41 +38,66 @@ public class UDPServer {
 
 					recievePacket();
 
-
-					if (buttonInput.equals("give")) {						
-						
+					if (buttonInput.equals("give")) {
+						int existId = 0;
+						String id = "";
 						for (ControlHandler controlHandler : controlHandlers) {
 							if (controlHandler != null) {
 								if (controlHandler.IPAddress.equals(IPAddress)) {
 									assigned = true;
+									existId = controlHandler.ID;
 								}
 							}
 						}
 
+						// gets port from incoming packets
+						int port = receivePacket.getPort();
+						
 						if (!assigned) {
-							// gets port from incoming packets
-							int port = receivePacket.getPort();
-
-							String id = Integer.toString(assignIDs);
-							sendData = id.getBytes();
-
-
-							DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-
-							try {
-								serverSocket.send(sendPacket);
-
-								controlHandlers.add(new ControlHandler(IPAddress, assignIDs));
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+							id = Integer.toString(assignIDs);
+						} else {
+							id = Integer.toString(existId);
+						}
+						
+						sendData = id.getBytes();
+						
+						DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+						
+						try {
+							serverSocket.send(sendPacket);
 							
-							assignIDs++;
+							if (!assigned) {
+								controlHandlers.add(new ControlHandler(IPAddress, assignIDs));								
+								assignIDs++;
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+						
+						
+					} else {
+						
+						for (ControlHandler controlHandler : controlHandlers) {
+							if (controlHandler != null) {
+								if (controlHandler.IPAddress.equals(IPAddress)) {
+									String[] readInput = buttonInput.toLowerCase().split("_", 2);
+
+									if (readInput.length == 2) {
+										int keyCode = PlayerID.translate(readInput[1], controlHandler.ID);
+										int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED
+												: KeyEvent.KEY_RELEASED;
+										KeyEvent kE = new KeyEvent(MainFrame.game, eventType,
+												System.currentTimeMillis(), 0, keyCode, KeyEvent.CHAR_UNDEFINED);
+
+										MainFrame.game.dispatchToVisible(kE);
+									}
+								}
+							}
 						}
 					}
-				} while (assignIDs < Game.getPlayerCount());
+				} while (true);
 
-				controlThread.start();
 			}
 		});
 
@@ -87,13 +112,15 @@ public class UDPServer {
 						if (controlHandler != null) {
 							if (controlHandler.IPAddress.equals(IPAddress)) {
 								String[] readInput = buttonInput.toLowerCase().split("_", 2);
-								
+
 								if (readInput.length == 2) {
 									int keyCode = PlayerID.translate(readInput[1], controlHandler.ID);
-									int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED :  KeyEvent.KEY_RELEASED;
-									KeyEvent kE = new KeyEvent(MainFrame.game, eventType, System.currentTimeMillis(), 0, keyCode, KeyEvent.CHAR_UNDEFINED);
-									
-									MainFrame.game.dispatchToVisible(kE);									
+									int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED
+											: KeyEvent.KEY_RELEASED;
+									KeyEvent kE = new KeyEvent(MainFrame.game, eventType, System.currentTimeMillis(), 0,
+											keyCode, KeyEvent.CHAR_UNDEFINED);
+
+									MainFrame.game.dispatchToVisible(kE);
 								}
 							}
 						}

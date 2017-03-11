@@ -22,6 +22,8 @@ public class Stage extends JPanel implements ActionListener{
 	private static ArrayList<TickListener> tickListeners;
 	private static ArrayList<Attack> attacks;
 	
+	private int dead;
+	
 	public static final int tickLength = 10;
 	private Timer t;
 	
@@ -46,6 +48,8 @@ public class Stage extends JPanel implements ActionListener{
 		moveables = new ArrayList<>();
 		tickListeners = new ArrayList<>();
 		attacks = new ArrayList<>();
+		
+		dead = 0;
 		
 		t = new Timer(tickLength, this);
 		t.start();
@@ -104,6 +108,21 @@ public class Stage extends JPanel implements ActionListener{
 		for (int i = 0; i < tickListeners.size(); i++) {
 			tickListeners.get(i).doTick();
 		}
+		if (dead != -1) {
+			dead = 0;
+			
+			for (TickListener tickListener : tickListeners) {
+				if (tickListener instanceof Cat) {
+					if (!((Cat) tickListener).isAlive()) {
+						dead++;
+					}
+				}
+			}
+			
+			if (dead >= Game.getPlayerCount() - 1) {
+				finalScreen();
+			}
+		}
 		repaint();
 	}
 
@@ -116,6 +135,17 @@ public class Stage extends JPanel implements ActionListener{
 	}
 
 	public void createTestStage() {
+		add(new Surface(0, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10), MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT / 10));
+		
+		add(new Surface(MainFrame.CONTENT_WIDTH / 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 5 * 2, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 4, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 5));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 3, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 6, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+		add(new Surface(MainFrame.CONTENT_WIDTH / 10 * 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10) * 3, MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
+	}
+	
+	private void finalScreen() {
+		dead = -1;
 		add(new Surface(0, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 10), MainFrame.CONTENT_WIDTH, MainFrame.CONTENT_HEIGHT / 10));
 		
 		add(new Surface(MainFrame.CONTENT_WIDTH / 5, MainFrame.CONTENT_HEIGHT - (MainFrame.CONTENT_HEIGHT / 5), MainFrame.CONTENT_WIDTH / 20, MainFrame.CONTENT_HEIGHT / 10));
