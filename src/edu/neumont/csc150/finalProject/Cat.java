@@ -329,8 +329,6 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		g.setColor(id.playerColor);
 		g.setFont(new Font("ARIAL", Font.BOLD, 16));
 		g.drawString(id.name(), 0, 16);
-		
-		Circle c = new Circle();
 	}
 
 	@Override
