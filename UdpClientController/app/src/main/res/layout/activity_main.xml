@@ -16,10 +16,9 @@
         android:layout_height="wrap_content"
         android:text="Find Server :"
         android:onClick="radioClicked"
-        android:layout_alignBaseline="@+id/Enter_IP_id"
-        android:layout_alignBottom="@+id/Enter_IP_id"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/Enter_IP_id"
+        android:layout_alignStart="@+id/Enter_IP_id" />
 
     <Button
         android:background="@drawable/roundbutton"
@@ -27,13 +26,10 @@
         android:id="@+id/X_id"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
         android:text="X"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/Enter_IP_id"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/Y_id"
+        android:layout_toLeftOf="@+id/Y_id"
+        android:layout_toStartOf="@+id/Y_id" />
 
     <Button
         android:background="@drawable/roundbutton"
@@ -43,8 +39,8 @@
         android:layout_height="65dp"
         android:text="B"
         android:layout_below="@+id/A_id"
-        android:layout_toRightOf="@+id/A_id"
-        android:layout_toEndOf="@+id/A_id" />
+        android:layout_toLeftOf="@+id/Y_id"
+        android:layout_toStartOf="@+id/Y_id" />
 
     <Button
         android:background="@drawable/roundbutton"
@@ -53,7 +49,8 @@
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:text="A"
-        android:layout_below="@+id/X_id"
+        android:layout_alignBaseline="@+id/RIGHT_id"
+        android:layout_alignBottom="@+id/RIGHT_id"
         android:layout_toLeftOf="@+id/X_id"
         android:layout_toStartOf="@+id/X_id" />
 
@@ -64,9 +61,11 @@
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:text="Y"
-        android:layout_below="@+id/X_id"
-        android:layout_toRightOf="@+id/B_id"
-        android:layout_toEndOf="@+id/B_id" />
+        android:layout_above="@+id/B_id"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp" />
 
     <Button
         android:background="@drawable/roundbutton"
@@ -74,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:text="Left"
-        android:layout_alignBottom="@+id/B_id"
+        android:layout_alignTop="@+id/RIGHT_id"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -84,21 +83,20 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:text="Right"
-        android:layout_alignBottom="@+id/LEFT_id"
-        android:layout_toRightOf="@+id/radioButton"
-        android:layout_toEndOf="@+id/radioButton" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/LEFT_id"
+        android:layout_toEndOf="@+id/LEFT_id"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
     <EditText
         android:id="@+id/Enter_IP_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="14dp"
-        android:layout_toEndOf="@+id/radioButton"
-        android:layout_toRightOf="@+id/radioButton"
         android:ems="7"
-        android:inputType="text" />
+        android:inputType="text"
+        android:layout_below="@+id/radioButton"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
