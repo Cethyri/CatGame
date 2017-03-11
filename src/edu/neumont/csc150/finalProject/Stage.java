@@ -16,7 +16,7 @@ public class Stage extends JPanel implements ActionListener{
 	public static final double GRAV = -1;
 	
 	private static ArrayList<Collidable> surfaces;
-	private static ArrayList<Moveable> moveables;
+	private static ArrayList<Movable> moveables;
 	private static ArrayList<TickListener> tickListeners;
 	private static ArrayList<Attack> attacks;
 	
@@ -66,8 +66,8 @@ public class Stage extends JPanel implements ActionListener{
 		if (c instanceof Collidable) {
 			surfaces.add((Collidable) c);
 		}
-		if (c instanceof Moveable) {
-			moveables.add((Moveable) c);
+		if (c instanceof Movable) {
+			moveables.add((Movable) c);
 		}
 		if (c instanceof TickListener) {
 			tickListeners.add((TickListener) c);
@@ -86,8 +86,8 @@ public class Stage extends JPanel implements ActionListener{
 		if (c instanceof Collidable) {
 			surfaces.remove((Collidable) c);
 		}
-		if (c instanceof Moveable) {
-			moveables.remove((Moveable) c);
+		if (c instanceof Movable) {
+			moveables.remove((Movable) c);
 		}
 		if (c instanceof TickListener) {
 			tickListeners.remove((TickListener) c);
