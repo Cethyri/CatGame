@@ -1,17 +1,14 @@
 package edu.neumont.csc150.finalProject;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Insets;
 
-import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	
 	public static final int CONTENT_WIDTH = 2000, CONTENT_HEIGHT = 1000;
-	
-	private GroupLayout layout;
 	
 	public static Game game;
 	

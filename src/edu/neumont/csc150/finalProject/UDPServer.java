@@ -17,7 +17,7 @@ public class UDPServer {
 
 	private ArrayList<ControlHandler> controlHandlers;
 	private String buttonInput;
-	private Thread assignThread, controlThread;
+	private Thread assignThread;
 
 	public UDPServer() throws Exception {
 
@@ -98,34 +98,6 @@ public class UDPServer {
 					}
 				} while (true);
 
-			}
-		});
-
-		controlThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				while (true) {
-					recievePacket();
-					for (ControlHandler controlHandler : controlHandlers) {
-						if (controlHandler != null) {
-							if (controlHandler.IPAddress.equals(IPAddress)) {
-								String[] readInput = buttonInput.toLowerCase().split("_", 2);
-
-								if (readInput.length == 2) {
-									int keyCode = PlayerID.translate(readInput[1], controlHandler.ID);
-									int eventType = readInput[0].equals("pressed") ? KeyEvent.KEY_PRESSED
-											: KeyEvent.KEY_RELEASED;
-									KeyEvent kE = new KeyEvent(MainFrame.game, eventType, System.currentTimeMillis(), 0,
-											keyCode, KeyEvent.CHAR_UNDEFINED);
-
-									MainFrame.game.dispatchToVisible(kE);
-								}
-							}
-						}
-					}
-				}
 			}
 		});
 

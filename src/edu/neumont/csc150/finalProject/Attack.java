@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class Attack extends JLabel implements TickListener {
 	
 	public static final int TIME_FOR_FRAME = 18, FRAMES_FOR_ANIM = 10;

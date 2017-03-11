@@ -2,10 +2,9 @@ package edu.neumont.csc150.finalProject;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Game extends JPanel {
 
 	private static int PLAYER_COUNT = 3;

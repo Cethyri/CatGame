@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class StatPanel extends JPanel {
 	
 	public static final int HEALTH_HEIGHT = 15;
