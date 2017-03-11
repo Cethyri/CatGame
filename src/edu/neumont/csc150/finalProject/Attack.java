@@ -136,7 +136,7 @@ public class Attack extends JLabel implements TickListener {
 		inAction = false;
 		this.setVisible(inAction);
 	}
-	
+//@@@@ "Implementing_and_using_a_custom_interface_with_event_handling."
 	@Override
 	public void doTick() {
 		if (inAction) {

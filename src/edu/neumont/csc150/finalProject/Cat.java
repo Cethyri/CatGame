@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-//@@@ "Javadoc_style_documentation_on_an_entire_class_(class_and_all_its_methods)."
+//@@@@ "Javadoc_style_documentation_on_an_entire_class_(class_and_all_its_methods)."
 @SuppressWarnings("serial")
 public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Moveable, Attackable {
 
@@ -288,7 +288,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	public int getHealth() {
 		return health;
 	}
-//@@@@ "Implementing_and_using_a_custom_interface_with_event_handling."
+
 	@Override
 	public void doTick() {
 		if (!isAlive()) {
