@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-//@@@@ "Javadoc_style_documentation_on_an_entire_class_(class_and_all_its_methods)."
+//@@@@ "Javadoc_style documentation on an entire class (class and all its methods)."
 @SuppressWarnings("serial")
 public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Movable, Attackable {
 

@@ -14,6 +14,7 @@ import javax.swing.Timer;
 public class Stage extends JPanel implements ActionListener{
 	
 	public static final double GRAV = -1;
+	public static final int TILE_DIMENSIONS = 50;
 	
 	private static ArrayList<Collidable> surfaces;
 	private static ArrayList<Movable> moveables;
@@ -130,6 +131,28 @@ public class Stage extends JPanel implements ActionListener{
 			add(new Cat(PlayerID.values()[i]));
 		}
 		
+	}
+	
+	//@@@@ "A multi-dimensional array (>= 2 dimensions)"
+	public void createSurfacesFromArray(boolean[][] surfaces) {
+		boolean validated = true;
+		if (surfaces.length == MainFrame.CONTENT_WIDTH_IN_TILES) {
+			for (boolean[] bs : surfaces) {
+				if (bs.length != MainFrame.CONTENT_HEIGHT_IN_TILES) {
+					validated = false;
+				}
+			}
+		}
+		
+		if (validated) {
+			for (int x = 0; x < surfaces.length; x++) {
+				for (int y = 0; y < surfaces[x].length; y++) {
+					if (surfaces[x][y]) {
+						add(new Surface(x * TILE_DIMENSIONS, y * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS));
+					}
+				}
+			}
+		}
 	}
 
 	public void createTestStage() {

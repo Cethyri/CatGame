@@ -33,7 +33,7 @@ public class Game extends JPanel {
 		this.add(stage);
 
 		stage.createKittens(PLAYER_COUNT);
-		stage.createTestStage();
+		stage.createSurfacesFromArray(stages.testStage());
 	}
 	
 	public static int getPlayerCount() {
