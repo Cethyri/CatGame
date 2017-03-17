@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-//@@@@ "Javadoc_style_documentation_on_an_entire_class_(class_and_all_its_methods)."
+//@@@@ "Javadoc_style documentation on an entire class (class and all its methods)."
 @SuppressWarnings("serial")
-public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Moveable, Attackable {
+public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Movable, Attackable {
 
 	public final PlayerID id;
 
@@ -50,6 +50,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		initUI();
 	}
 
+	/**
+	 * set initial value of variables
+	 * @param id
+	 */
 	private void initVars(PlayerID id) {
 
 		frameDelay = 0;
@@ -73,6 +77,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		doTick();
 	}
 
+	/**
+	 * resets all booleans for inputs to false, used specifically when player dies before reading key releases, and in initVars()
+	 */
 	private void resetInputs() {
 		left = false;
 		right = false;
@@ -80,6 +87,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		down = false;
 	}
 
+	/**
+	 * sets the initial component values
+	 */
 	private void initUI() {
 
 		this.setOpaque(false);
@@ -87,6 +97,11 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		setBounds(getIntPosX(), getIntPosY(), getIcon().getIconWidth(), getIcon().getIconHeight());
 	}
 
+	/**
+	 * Calculates dx and dy based on moveDx (the effect of the players controls on the cat) and dxEffect (the effect from any attacks or external effects). Adds gravity and some gentle resistance.
+	 * 
+	 * 
+	 */
 	private void setVelocity() {
 		moveDx = left ? -DX_VEL : right ? DX_VEL : moveDx * (isGrounded() ? .85 : .95);
 		dx = moveDx + dxEffect;
@@ -101,16 +116,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 			moveDy -= Stage.GRAV;
 		}
 	}
-
-	@Override
-	public Rectangle getBounds() {
-		Rectangle half = new Rectangle(super.getBounds());
-
-		half.setLocation(half.x, half.y + half.height / 2);
-		half.setSize(half.width, half.height / 2);
-		return super.getBounds();
-	}
-
+	
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Movable#checkForCollisions(java.util.ArrayList, boolean)
+	 */
 	@Override
 	public void checkForCollisions(ArrayList<Collidable> surfaces, boolean resolve) {
 		Rectangle internalX, internalY, internalBoth, external;
@@ -140,56 +149,40 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 					if (external.intersects(internalBoth) && dx != 0 && dy != 0) {
 						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
 						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
-						dx = dx > dy ? dx : 0;
-						dy = dy > dx ? dy : 0;
+						if (dx < dy) {
+							resetDx();
+						} else {
+							resetDy();
+						}
 					}
 
 				} else if (external.intersects(this.getBounds()) && (resolve)) {
 					this.resolveCollision(collidable);
-					if (collidable instanceof Moveable) {
-						((Moveable) collidable).resolveCollision(this);
+					if (collidable instanceof Movable) {
+						((Movable) collidable).resolveCollision(this);
 					}
 				}
 			}
 		}
 	}
-
-	private void resetDy() {
-		moveDy = 0;
-		dyEffect = 0;
-		dy = 0;
-	}
-
-	private void resetDx() {
-		moveDx = 0;
-		dxEffect = 0;
-		dx = 0;
-	}
-
-	@Override
-	public boolean doHorizontalCollisionResolution() {
-		return true;
-	}
-
-	@Override
-	public boolean doVerticalCollisionResolution() {
-		return false;
-	}
-
+	
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Movable#resolveCollision(edu.neumont.csc150.finalProject.Collidable)
+	 */
 	@Override
 	public void resolveCollision(Collidable c) {
 		double posDx, negDx, posDy, negDy, newDx, newDy;
 		posDx = c.getBounds().getMaxX() - this.getBounds().getX();
 		negDx = c.getBounds().getX() - this.getBounds().getMaxX();
-
+		
 		posDy = c.getBounds().getMaxY() - this.getBounds().getY();
 		negDy = c.getBounds().getY() - this.getBounds().getMaxY();
-
+		
 		newDx = posDx < Math.abs(negDx) ? posDx : negDx;
 		newDy = posDy < Math.abs(negDy) ? posDy : negDy;
 		newDx *= c.getResolveVal();
 		newDy *= c.getResolveVal();
-
+		
 		if (c.doHorizontalCollisionResolution()
 				&& (Math.abs(newDx) < Math.abs(newDy) || !c.doVerticalCollisionResolution())) {
 			dx = (newDx / c.getBounds().getWidth()) + dx;
@@ -199,16 +192,57 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 			dy = (newDy / c.getBounds().getHeight()) + dy;
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Collidable#doHorizontalCollisionResolution()
+	 */
+	@Override
+	public boolean doHorizontalCollisionResolution() {
+		return true;
+	}
+	
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Collidable#doVerticalCollisionResolution()
+	 */
+	@Override
+	public boolean doVerticalCollisionResolution() {
+		return false;
+	}
 
+	/**
+	 * set dx and all things that effect it to zero
+	 */
+	private void resetDy() {
+		moveDy = 0;
+		dyEffect = 0;
+		dy = 0;
+	}
+
+	/**
+	 * set dy and all things that effect it to zero
+	 */
+	private void resetDx() {
+		moveDx = 0;
+		dxEffect = 0;
+		dx = 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Collidable#isGround()
+	 */
 	@Override
 	public boolean isGround() {
 		return false;
 	}
 
+	@Override
 	public double getResolveVal() {
 		return RESOLVE_VAL;
 	}
 
+	/**
+	 * adds dx to the pos of this cat and has slash update it's position
+	 */
 	private void doMove() {
 		setPosX(posX + dx);
 		setPosY(posY + dy);
@@ -216,6 +250,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		slash.updatePosition(this);
 	}
 
+	/**
+	 * @return if this cat is on solid ground
+	 */
 	public boolean isGrounded() {
 		for (Collidable collidable : Stage.getSurfaces()) {
 			if (this.getBounds().getMaxY() == collidable.getBounds().getY()
@@ -227,25 +264,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		return false;
 	}
 
-	@Override
-	public void receiveAttack(Attack atk) {
-		if (!atk.owner.equals(id) && !atk.hasHit(id) && atk.isInAction()) {
-			atk.addHasBeenHit(id);
-			health -= atk.damage;
-
-			double effect;
-
-			effect = atk.getEffect(this.getBounds(), true);
-			dxEffect += effect;
-			moveDx = (effect != 0) ? 0 : moveDx;
-
-			effect = atk.getEffect(this.getBounds(), false);
-			dyEffect += effect;
-			moveDy = (effect != 0) ? 0 : moveDy;
-		}
-
-	}
-
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Attackable#checkForAttack(java.util.ArrayList)
+	 */
 	@Override
 	public void checkForAttack(ArrayList<Attack> attacks) {
 		for (Attack attack : attacks) {
@@ -255,40 +276,91 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.Attackable#receiveAttack(edu.neumont.csc150.finalProject.Attack)
+	 */
+	@Override
+	public void receiveAttack(Attack atk) {
+		if (!atk.owner.equals(id) && !atk.hasHit(id) && atk.isInAction()) {
+			atk.addHasBeenHit(id);
+			health -= atk.damage;
+			
+			double effect;
+			
+			effect = atk.getEffect(this.getBounds(), true);
+			dxEffect += effect;
+			moveDx = (effect != 0) ? 0 : moveDx;
+			
+			effect = atk.getEffect(this.getBounds(), false);
+			dyEffect += effect;
+			moveDy = (effect != 0) ? 0 : moveDy;
+		}
+		
+	}
+	
+	/**
+	 * @return if this cat is alive
+	 */
 	public boolean isAlive() {
 		return health > 0;
 	}
 
+	/**
+	 * set the field posX and set the location of this JLabel to match
+	 * @param posX 
+	 */
 	private void setPosX(double posX) {
 		this.posX = posX;
 		resetLocation();
 	}
 
+	/**
+	 * set the field posY and set the location of this JLabel to match
+	 * @param posY
+	 */
 	private void setPosY(double posY) {
 		this.posY = posY;
 		resetLocation();
 	}
 
+	/**
+	 * sets the location of the this JLabel to match the rounded posX and posY
+	 */
 	private void resetLocation() {
 		this.setLocation(getIntPosX(), getIntPosY());
 	}
 
+	/**
+	 * @return the string representing the direction the cat is facing
+	 */
 	public String getDirection() {
 		return direction;
 	}
 
+	/**
+	 * @return a rounded posX
+	 */
 	public int getIntPosX() {
 		return (int) Math.round(posX);
 	}
 
+	/**
+	 * @return a rounded posY
+	 */
 	public int getIntPosY() {
 		return (int) Math.round(posY);
 	}
 	
+	/**
+	 * @return this cat's health
+	 */
 	public int getHealth() {
 		return health;
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.neumont.csc150.finalProject.TickListener#doTick()
+	 */
 	@Override
 	public void doTick() {
 		if (!isAlive()) {
@@ -308,6 +380,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		doMove();
 	}
 
+	/**
+	 * sets the frame based on the current direction, action, and frame of the cat
+	 */
 	private void animate() {
 
 		direction = right ? "Right" : left ? "Left" : direction;

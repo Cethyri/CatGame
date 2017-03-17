@@ -14,9 +14,10 @@ import javax.swing.Timer;
 public class Stage extends JPanel implements ActionListener{
 	
 	public static final double GRAV = -1;
+	public static final int TILE_DIMENSIONS = 50;
 	
 	private static ArrayList<Collidable> surfaces;
-	private static ArrayList<Moveable> moveables;
+	private static ArrayList<Movable> moveables;
 	private static ArrayList<TickListener> tickListeners;
 	private static ArrayList<Attack> attacks;
 	
@@ -66,8 +67,8 @@ public class Stage extends JPanel implements ActionListener{
 		if (c instanceof Collidable) {
 			surfaces.add((Collidable) c);
 		}
-		if (c instanceof Moveable) {
-			moveables.add((Moveable) c);
+		if (c instanceof Movable) {
+			moveables.add((Movable) c);
 		}
 		if (c instanceof TickListener) {
 			tickListeners.add((TickListener) c);
@@ -86,8 +87,8 @@ public class Stage extends JPanel implements ActionListener{
 		if (c instanceof Collidable) {
 			surfaces.remove((Collidable) c);
 		}
-		if (c instanceof Moveable) {
-			moveables.remove((Moveable) c);
+		if (c instanceof Movable) {
+			moveables.remove((Movable) c);
 		}
 		if (c instanceof TickListener) {
 			tickListeners.remove((TickListener) c);
@@ -130,6 +131,28 @@ public class Stage extends JPanel implements ActionListener{
 			add(new Cat(PlayerID.values()[i]));
 		}
 		
+	}
+	
+	//@@@@ "A multi-dimensional array (>= 2 dimensions)"
+	public void createSurfacesFromArray(boolean[][] surfaces) {
+		boolean validated = true;
+		if (surfaces.length == MainFrame.CONTENT_WIDTH_IN_TILES) {
+			for (boolean[] bs : surfaces) {
+				if (bs.length != MainFrame.CONTENT_HEIGHT_IN_TILES) {
+					validated = false;
+				}
+			}
+		}
+		
+		if (validated) {
+			for (int x = 0; x < surfaces.length; x++) {
+				for (int y = 0; y < surfaces[x].length; y++) {
+					if (surfaces[x][y]) {
+						add(new Surface(x * TILE_DIMENSIONS, y * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS));
+					}
+				}
+			}
+		}
 	}
 
 	public void createTestStage() {

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public enum PlayerID {
-	//@@@@ "An_enum_with_custom_data_elements."
+	//@@@@ "An enum with custom data elements."
 	
 	FIRST(new Color(102, 0, 0), KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_PAGE_UP, KeyEvent.VK_PAGE_DOWN, 0),
 	SECOND(new Color(0, 102, 102), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E, MainFrame.CONTENT_WIDTH / 4),

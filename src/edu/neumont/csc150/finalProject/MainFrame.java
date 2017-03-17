@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	
-	public static final int CONTENT_WIDTH = 2000, CONTENT_HEIGHT = 1000;
+	
+	public static final int CONTENT_WIDTH_IN_TILES = 40, CONTENT_HEIGHT_IN_TILES = 20;
+	public static final int CONTENT_WIDTH = CONTENT_WIDTH_IN_TILES * Stage.TILE_DIMENSIONS, CONTENT_HEIGHT = CONTENT_HEIGHT_IN_TILES * Stage.TILE_DIMENSIONS;
 	
 	public static Game game;
 	
