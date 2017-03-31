@@ -98,5 +98,19 @@
         android:layout_below="@+id/radioButton"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:background="@drawable/roundbutton"
+        android:id="@+id/PLAY_CLICK_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="Click Me"
+        android:onClick="playClicker"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_below="@+id/Enter_IP_id"
+        android:layout_alignRight="@+id/radioButton"
+        android:layout_alignEnd="@+id/radioButton"
+        android:layout_marginTop="13dp" />
+
 
 </RelativeLayout>

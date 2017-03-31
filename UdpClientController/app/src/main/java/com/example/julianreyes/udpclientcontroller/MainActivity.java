@@ -1,5 +1,6 @@
 package com.example.julianreyes.udpclientcontroller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -81,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         host = enterIP.getText().toString();
         str = "resuming_connection";
         sendUDP(str);
+    }
+
+    public void playClicker(View view) {
+        Intent newIntent = new Intent(MainActivity.this, ButtonClicker.class);
+        startActivity(newIntent);
+
     }
 
     public void sendX() {
