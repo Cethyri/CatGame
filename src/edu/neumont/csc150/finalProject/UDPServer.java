@@ -15,6 +15,7 @@ public class UDPServer {
 	protected DatagramPacket receivePacket;
 	private InetAddress IPAddress;
 
+	private int assignIDs = 0;
 	private ArrayList<ControlHandler> controlHandlers;
 	private String buttonInput;
 	private Thread assignThread;
@@ -30,7 +31,6 @@ public class UDPServer {
 			@Override
 			public void run() {
 
-				int assignIDs = 0;
 				boolean assigned;
 
 				do {
@@ -68,7 +68,7 @@ public class UDPServer {
 							
 							if (!assigned) {
 								controlHandlers.add(new ControlHandler(IPAddress, assignIDs));								
-								assignIDs++;
+								assign();
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -99,9 +99,14 @@ public class UDPServer {
 				} while (true);
 
 			}
+
 		});
 
 		assignThread.start();
+	}
+	
+	public void assign() {
+		assignIDs++;
 	}
 
 	private void initVars() throws SocketException {

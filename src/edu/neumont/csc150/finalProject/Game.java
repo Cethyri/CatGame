@@ -11,13 +11,15 @@ public class Game extends JPanel {
 	
 	public final UDPServer UDP;
 
-	public static Stage stage;
+	private static Stage stage;
+	private static JoinScreen join;
 
 	public Game() throws Exception {
 		UDP = new UDPServer();
 		
 		initUI();
 		initStage();
+		//initJoinScreen();
 
 	}
 
@@ -34,6 +36,12 @@ public class Game extends JPanel {
 
 		stage.createKittens(PLAYER_COUNT);
 		stage.createSurfacesFromArray(stages.testStage());
+	}
+	
+	private void initJoinScreen() {
+		join = new JoinScreen();
+		this.add(join);
+		
 	}
 	
 	public static int getPlayerCount() {

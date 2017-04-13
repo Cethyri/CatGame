@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
 //@@@@ "Javadoc_style documentation on an entire class (class and all its methods)."
 @SuppressWarnings("serial")
 public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Movable, Attackable {
@@ -26,32 +27,44 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	public final Attack slash;
 	public final int maxHealth;
 	private int health;
-	
+
 	private final StatPanel stats;
 
 	/**
-	 * creates a new cat and initializes id so cat knows it's start position, player color, and controls
-	 * @param id contains start position, player color, and controls
+	 * creates a new cat and initializes id so cat knows it's start position,
+	 * player color, and controls
+	 * 
+	 * @param id
+	 *            contains start position, player color, and controls
 	 */
 	public Cat(PlayerID id) {
-		
+
 		this.id = id;
 
 		slash = new Attack(10, 5, id, "Right", false, Attack.FRAMES_FOR_ANIM, 64, 64);
-		Game.stage.add(slash);
-		
-		maxHealth = 20;
-		
-		stats = new StatPanel(this);
-		Game.stage.add(stats);
 
+		maxHealth = 20;
+
+		stats = new StatPanel(this);
+
+		addToStage();
+		
 		initVars(id);
 
 		initUI();
 	}
 
+	public void addToStage() {
+		if (Game.getStage() != null) {
+			Game.getStage().add(this);
+			Game.getStage().add(slash);
+			Game.getStage().add(stats);
+		}
+	}
+
 	/**
 	 * set initial value of variables
+	 * 
 	 * @param id
 	 */
 	private void initVars(PlayerID id) {
@@ -64,7 +77,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 		posX = id.startX + MainFrame.CONTENT_WIDTH / 8;
 		posY = 0;
-		
+
 		resetLocation();
 
 		resetInputs();
@@ -78,7 +91,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	/**
-	 * resets all booleans for inputs to false, used specifically when player dies before reading key releases, and in initVars()
+	 * resets all booleans for inputs to false, used specifically when player
+	 * dies before reading key releases, and in initVars()
 	 */
 	private void resetInputs() {
 		left = false;
@@ -98,7 +112,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	/**
-	 * Calculates dx and dy based on moveDx (the effect of the players controls on the cat) and dxEffect (the effect from any attacks or external effects). Adds gravity and some gentle resistance.
+	 * Calculates dx and dy based on moveDx (the effect of the players controls
+	 * on the cat) and dxEffect (the effect from any attacks or external
+	 * effects). Adds gravity and some gentle resistance.
 	 * 
 	 * 
 	 */
@@ -116,73 +132,83 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 			moveDy -= Stage.GRAV;
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.neumont.csc150.finalProject.Movable#checkForCollisions(java.util.ArrayList, boolean)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.neumont.csc150.finalProject.Movable#checkForCollisions(java.util.
+	 * ArrayList, boolean)
 	 */
 	@Override
 	public void checkForCollisions(ArrayList<Collidable> surfaces, boolean resolve) {
-		Rectangle internalX, internalY, internalBoth, external;
+		if (surfaces != null) {
+			Rectangle internalX, internalY, internalBoth, external;
 
-		for (Collidable collidable : surfaces) {
-			external = new Rectangle(collidable.getBounds());
+			for (Collidable collidable : surfaces) {
+				external = new Rectangle(collidable.getBounds());
 
-			if (!this.getBounds().equals(collidable.getBounds())) {
-				if (!external.intersects(this.getBounds()) && !(collidable instanceof Cat)) {
+				if (!this.getBounds().equals(collidable.getBounds())) {
+					if (!external.intersects(this.getBounds()) && !(collidable instanceof Cat)) {
 
-					internalX = new Rectangle(getBounds());
-					internalX.setLocation((int) Math.round(posX + dx), getIntPosY());
-					if (external.intersects(internalX)) {
-						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
-						resetDx();
-					}
-
-					internalY = new Rectangle(getBounds());
-					internalY.setLocation(getIntPosX(), (int) Math.round(posY + dy));
-					if (external.intersects(internalY)) {
-						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
-						resetDy();
-					}
-
-					internalBoth = new Rectangle(getBounds());
-					internalBoth.setLocation((int) Math.round(posX + dx), (int) Math.round(posY + dy));
-					if (external.intersects(internalBoth) && dx != 0 && dy != 0) {
-						setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
-						setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
-						if (dx < dy) {
+						internalX = new Rectangle(getBounds());
+						internalX.setLocation((int) Math.round(posX + dx), getIntPosY());
+						if (external.intersects(internalX)) {
+							setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
 							resetDx();
-						} else {
+						}
+
+						internalY = new Rectangle(getBounds());
+						internalY.setLocation(getIntPosX(), (int) Math.round(posY + dy));
+						if (external.intersects(internalY)) {
+							setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
 							resetDy();
 						}
-					}
 
-				} else if (external.intersects(this.getBounds()) && (resolve)) {
-					this.resolveCollision(collidable);
-					if (collidable instanceof Movable) {
-						((Movable) collidable).resolveCollision(this);
+						internalBoth = new Rectangle(getBounds());
+						internalBoth.setLocation((int) Math.round(posX + dx), (int) Math.round(posY + dy));
+						if (external.intersects(internalBoth) && dx != 0 && dy != 0) {
+							setPosX(dx > 0 ? external.getX() - internalX.getHeight() : external.getMaxX());
+							setPosY(dy > 0 ? external.getY() - internalY.getHeight() : external.getMaxY());
+							if (dx < dy) {
+								resetDx();
+							} else {
+								resetDy();
+							}
+						}
+
+					} else if (external.intersects(this.getBounds()) && (resolve)) {
+						this.resolveCollision(collidable);
+						if (collidable instanceof Movable) {
+							((Movable) collidable).resolveCollision(this);
+						}
 					}
 				}
 			}
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.neumont.csc150.finalProject.Movable#resolveCollision(edu.neumont.csc150.finalProject.Collidable)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.neumont.csc150.finalProject.Movable#resolveCollision(edu.neumont.
+	 * csc150.finalProject.Collidable)
 	 */
 	@Override
 	public void resolveCollision(Collidable c) {
 		double posDx, negDx, posDy, negDy, newDx, newDy;
 		posDx = c.getBounds().getMaxX() - this.getBounds().getX();
 		negDx = c.getBounds().getX() - this.getBounds().getMaxX();
-		
+
 		posDy = c.getBounds().getMaxY() - this.getBounds().getY();
 		negDy = c.getBounds().getY() - this.getBounds().getMaxY();
-		
+
 		newDx = posDx < Math.abs(negDx) ? posDx : negDx;
 		newDy = posDy < Math.abs(negDy) ? posDy : negDy;
 		newDx *= c.getResolveVal();
 		newDy *= c.getResolveVal();
-		
+
 		if (c.doHorizontalCollisionResolution()
 				&& (Math.abs(newDx) < Math.abs(newDy) || !c.doVerticalCollisionResolution())) {
 			dx = (newDx / c.getBounds().getWidth()) + dx;
@@ -192,17 +218,24 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 			dy = (newDy / c.getBounds().getHeight()) + dy;
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.neumont.csc150.finalProject.Collidable#doHorizontalCollisionResolution()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.neumont.csc150.finalProject.Collidable#
+	 * doHorizontalCollisionResolution()
 	 */
 	@Override
 	public boolean doHorizontalCollisionResolution() {
 		return true;
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.neumont.csc150.finalProject.Collidable#doVerticalCollisionResolution()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.neumont.csc150.finalProject.Collidable#doVerticalCollisionResolution(
+	 * )
 	 */
 	@Override
 	public boolean doVerticalCollisionResolution() {
@@ -227,7 +260,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		dx = 0;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.neumont.csc150.finalProject.Collidable#isGround()
 	 */
 	@Override
@@ -254,50 +289,61 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	 * @return if this cat is on solid ground
 	 */
 	public boolean isGrounded() {
-		for (Collidable collidable : Stage.getSurfaces()) {
-			if (this.getBounds().getMaxY() == collidable.getBounds().getY()
-					&& this.getBounds().getX() < collidable.getBounds().getMaxX()
-					&& this.getBounds().getMaxX() > collidable.getBounds().getX() && collidable.isGround()) {
-				return true;
+		if (Stage.getSurfaces() != null) {
+			for (Collidable collidable : Stage.getSurfaces()) {
+				if (this.getBounds().getMaxY() == collidable.getBounds().getY()
+						&& this.getBounds().getX() < collidable.getBounds().getMaxX()
+						&& this.getBounds().getMaxX() > collidable.getBounds().getX() && collidable.isGround()) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.neumont.csc150.finalProject.Attackable#checkForAttack(java.util.ArrayList)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.neumont.csc150.finalProject.Attackable#checkForAttack(java.util.
+	 * ArrayList)
 	 */
 	@Override
 	public void checkForAttack(ArrayList<Attack> attacks) {
-		for (Attack attack : attacks) {
-			if (this.getBounds().intersects(attack.getBounds())) {
-				receiveAttack(attack);
+		if (attacks != null) {
+			for (Attack attack : attacks) {
+				if (this.getBounds().intersects(attack.getBounds())) {
+					receiveAttack(attack);
+				}
 			}
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.neumont.csc150.finalProject.Attackable#receiveAttack(edu.neumont.csc150.finalProject.Attack)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.neumont.csc150.finalProject.Attackable#receiveAttack(edu.neumont.
+	 * csc150.finalProject.Attack)
 	 */
 	@Override
 	public void receiveAttack(Attack atk) {
 		if (!atk.owner.equals(id) && !atk.hasHit(id) && atk.isInAction()) {
 			atk.addHasBeenHit(id);
 			health -= atk.damage;
-			
+
 			double effect;
-			
+
 			effect = atk.getEffect(this.getBounds(), true);
 			dxEffect += effect;
 			moveDx = (effect != 0) ? 0 : moveDx;
-			
+
 			effect = atk.getEffect(this.getBounds(), false);
 			dyEffect += effect;
 			moveDy = (effect != 0) ? 0 : moveDy;
 		}
-		
+
 	}
-	
+
 	/**
 	 * @return if this cat is alive
 	 */
@@ -307,7 +353,8 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	/**
 	 * set the field posX and set the location of this JLabel to match
-	 * @param posX 
+	 * 
+	 * @param posX
 	 */
 	private void setPosX(double posX) {
 		this.posX = posX;
@@ -316,6 +363,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 
 	/**
 	 * set the field posY and set the location of this JLabel to match
+	 * 
 	 * @param posY
 	 */
 	private void setPosY(double posY) {
@@ -350,7 +398,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	public int getIntPosY() {
 		return (int) Math.round(posY);
 	}
-	
+
 	/**
 	 * @return this cat's health
 	 */
@@ -358,7 +406,9 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		return health;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see edu.neumont.csc150.finalProject.TickListener#doTick()
 	 */
 	@Override
@@ -369,7 +419,7 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 				slash.clear();
 			}
 		}
-		
+
 		checkForAttack(Stage.getAttacks());
 		setVelocity();
 
@@ -381,9 +431,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	}
 
 	/**
-	 * sets the frame based on the current direction, action, and frame of the cat
+	 * sets the frame based on the current direction, action, and frame of the
+	 * cat
 	 */
-	private void animate() {
+	public void animate() {
 
 		direction = right ? "Right" : left ? "Left" : direction;
 		action = !isAlive() ? "Dead" : ((right || left) && dx != 0 ? "Walk" : "Idle");
@@ -402,10 +453,10 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		g.setColor(id.playerColor);
-		g.setFont(new Font("ARIAL", Font.BOLD, 16));
-		g.drawString(id.name(), 0, 16);
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+		g.drawString(id.name(), (this.getWidth() - (id.name().length() * 12)) / 2, 12);
 	}
 
 	@Override
