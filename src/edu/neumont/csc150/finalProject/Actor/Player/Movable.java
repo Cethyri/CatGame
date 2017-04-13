@@ -1,6 +1,8 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Actor.Player;
 
 import java.util.ArrayList;
+
+import edu.neumont.csc150.finalProject.Actor.Collidable;
 
 public interface Movable {
 

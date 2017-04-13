@@ -1,8 +1,13 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Main;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
+
+import edu.neumont.csc150.finalProject.Controller.UDPServer;
+import edu.neumont.csc150.finalProject.Join.JoinScreen;
+import edu.neumont.csc150.finalProject.Stage.Stage;
+import edu.neumont.csc150.finalProject.Stage.stages;
 
 @SuppressWarnings("serial")
 public class Game extends JPanel {

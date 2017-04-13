@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Controller;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

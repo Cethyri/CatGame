@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Join;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import edu.neumont.csc150.finalProject.Actor.Player.PlayerID;
+import edu.neumont.csc150.finalProject.Main.MainFrame;
+import edu.neumont.csc150.finalProject.Stage.Stage;
 
 public class JoinScreen extends JPanel implements ActionListener {
 	

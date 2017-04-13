@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Join;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
+
+import edu.neumont.csc150.finalProject.Actor.Player.Cat;
+import edu.neumont.csc150.finalProject.Actor.Player.PlayerID;
 
 @SuppressWarnings("serial")
 public class JoinPanel extends JPanel {

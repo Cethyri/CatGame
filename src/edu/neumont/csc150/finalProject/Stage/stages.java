@@ -1,4 +1,6 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Stage;
+
+import edu.neumont.csc150.finalProject.Main.MainFrame;
 
 public class stages {
 	

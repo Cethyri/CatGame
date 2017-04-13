@@ -1,9 +1,11 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Main;
 
 import java.awt.EventQueue;
 import java.awt.Insets;
 
 import javax.swing.JFrame;
+
+import edu.neumont.csc150.finalProject.Stage.Stage;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {

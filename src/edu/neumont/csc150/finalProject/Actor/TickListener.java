@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Actor;
 
 public interface TickListener {
 	

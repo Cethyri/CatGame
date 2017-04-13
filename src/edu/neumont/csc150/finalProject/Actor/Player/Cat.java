@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Actor.Player;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import edu.neumont.csc150.finalProject.Actor.Collidable;
+import edu.neumont.csc150.finalProject.Actor.TickListener;
+import edu.neumont.csc150.finalProject.Main.Game;
+import edu.neumont.csc150.finalProject.Main.MainFrame;
+import edu.neumont.csc150.finalProject.Stage.Stage;
 
 //@@@@ "Javadoc_style documentation on an entire class (class and all its methods)."
 @SuppressWarnings("serial")

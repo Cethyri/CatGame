@@ -1,7 +1,9 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Actor.Player;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+
+import edu.neumont.csc150.finalProject.Main.MainFrame;
 
 public enum PlayerID {
 	//@@@@ "An enum with custom data elements."

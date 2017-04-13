@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Stage;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -9,6 +9,16 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import edu.neumont.csc150.finalProject.Actor.Collidable;
+import edu.neumont.csc150.finalProject.Actor.Surface;
+import edu.neumont.csc150.finalProject.Actor.TickListener;
+import edu.neumont.csc150.finalProject.Actor.Player.Attack;
+import edu.neumont.csc150.finalProject.Actor.Player.Cat;
+import edu.neumont.csc150.finalProject.Actor.Player.Movable;
+import edu.neumont.csc150.finalProject.Actor.Player.PlayerID;
+import edu.neumont.csc150.finalProject.Main.Game;
+import edu.neumont.csc150.finalProject.Main.MainFrame;
 
 @SuppressWarnings("serial")
 public class Stage extends JPanel implements ActionListener{

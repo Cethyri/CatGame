@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Actor.Player;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import edu.neumont.csc150.finalProject.Actor.TickListener;
+import edu.neumont.csc150.finalProject.Stage.Stage;
 
 @SuppressWarnings("serial")
 public class Attack extends JLabel implements TickListener {

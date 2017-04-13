@@ -1,9 +1,11 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Actor.Player;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
+
+import edu.neumont.csc150.finalProject.Main.MainFrame;
 
 @SuppressWarnings("serial")
 public class StatPanel extends JPanel {

@@ -1,4 +1,4 @@
-package edu.neumont.csc150.finalProject;
+package edu.neumont.csc150.finalProject.Join;
 
 public enum Passive {
 	SPEED_UP("Speed Up"),
