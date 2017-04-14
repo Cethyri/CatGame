@@ -19,7 +19,7 @@ public class UDPServer {
 	private InetAddress IPAddress;
 
 	private int assignIDs = 0;
-	private ArrayList<ControlHandler> controlHandlers;
+	private ControlHandler[] controlHandlers;
 	private String buttonInput;
 	private Thread assignThread;
 
@@ -70,8 +70,7 @@ public class UDPServer {
 							serverSocket.send(sendPacket);
 							
 							if (!assigned) {
-								controlHandlers.add(new ControlHandler(IPAddress, assignIDs));								
-								assign();
+								assign(IPAddress);
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -108,8 +107,11 @@ public class UDPServer {
 		assignThread.start();
 	}
 	
-	public void assign() {
-		assignIDs++;
+	public void assign(InetAddress IP) {
+		if (assignIDs < PlayerID.values().length) {
+			controlHandlers[assignIDs] = new ControlHandler(IP, assignIDs);
+			assignIDs++;			
+		}
 	}
 
 	private void initVars() throws SocketException {
@@ -120,7 +122,7 @@ public class UDPServer {
 		receiveData = new byte[20];
 		sendData = new byte[20];
 
-		controlHandlers = new ArrayList<>();
+		controlHandlers = new ControlHandler[PlayerID.values().length];
 	}
 
 	private void recievePacket() {

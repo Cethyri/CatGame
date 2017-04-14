@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 
 import edu.neumont.csc150.finalProject.Actor.Collidable;
 import edu.neumont.csc150.finalProject.Actor.TickListener;
+import edu.neumont.csc150.finalProject.Join.Aggressive;
+import edu.neumont.csc150.finalProject.Join.Passive;
 import edu.neumont.csc150.finalProject.Main.Game;
 import edu.neumont.csc150.finalProject.Main.MainFrame;
 import edu.neumont.csc150.finalProject.Stage.Stage;
@@ -21,6 +23,7 @@ import edu.neumont.csc150.finalProject.Stage.Stage;
 public class Cat extends JLabel implements KeyListener, TickListener, Collidable, Movable, Attackable {
 
 	public final PlayerID id;
+	private ImageIcon buffImg, specialImg;
 
 	public static final int TIME_FOR_FRAME = 200, FRAMES_FOR_ANIM = 4;
 	private int frame, frameDelay;
@@ -435,6 +438,11 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		animate();
 		doMove();
 	}
+	
+	public void displayAnimate() {
+		setVelocity();
+		animate();
+	}
 
 	/**
 	 * sets the frame based on the current direction, action, and frame of the
@@ -445,7 +453,20 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		direction = right ? "Right" : left ? "Left" : direction;
 		action = !isAlive() ? "Dead" : ((right || left) && dx != 0 ? "Walk" : "Idle");
 		this.setIcon(new ImageIcon("images/Cat/" + action + "_" + direction + "_" + frame + ".png"));
-
+		
+		if (isAlive() && id.getBuff() != Passive.NONE) {
+			buffImg = new ImageIcon("images/Overlays/Passive_" + id.getBuff().imagePart + "_" + direction + "_" + 0 + ".png");
+		} else {
+			buffImg = null;
+		}
+		
+		if (isAlive() && id.getSpecial() != Aggressive.NONE) {
+			specialImg = new ImageIcon("images/Overlays/Aggressive_" + id.getSpecial().imagePart + "_" + direction + "_" + 0 + ".png");
+		} else {
+			specialImg = null;
+		}
+		
+		
 		frameDelay++;
 		if (frameDelay >= TIME_FOR_FRAME / Stage.tickLength) {
 			frame++;
@@ -463,6 +484,13 @@ public class Cat extends JLabel implements KeyListener, TickListener, Collidable
 		g.setColor(id.playerColor);
 		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
 		g.drawString(id.name(), (this.getWidth() - (id.name().length() * 12)) / 2, 12);
+		
+		if (buffImg != null) {
+			g.drawImage(buffImg.getImage(), 0, 0, null);			
+		}
+		if (specialImg != null) {
+			g.drawImage(specialImg.getImage(), 0, 0, null);
+		}
 	}
 
 	@Override

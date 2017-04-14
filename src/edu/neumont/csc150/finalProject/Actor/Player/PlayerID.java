@@ -3,6 +3,8 @@ package edu.neumont.csc150.finalProject.Actor.Player;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import edu.neumont.csc150.finalProject.Join.Aggressive;
+import edu.neumont.csc150.finalProject.Join.Passive;
 import edu.neumont.csc150.finalProject.Main.MainFrame;
 
 public enum PlayerID {
@@ -18,6 +20,9 @@ public enum PlayerID {
 	public final Color playerColor;
 	public final int left, right, x, y, a, b;
 	
+	private Passive buff;
+	private Aggressive special;
+	
 	private PlayerID(Color playerColor, int left, int right, int x, int y, int a, int b, int startX) {
 		this.playerColor = playerColor;
 		this.left = left;
@@ -27,6 +32,25 @@ public enum PlayerID {
 		this.a = a;
 		this.b = b;
 		this.startX = startX;
+		
+		buff = Passive.NONE;
+		special = Aggressive.NONE;
+	}
+	
+	public void setBuff(Passive buff) {
+		this.buff = buff;
+	}
+	
+	public void setSpecial(Aggressive special) {
+		this.special = special;
+	}
+	
+	public Passive getBuff() {
+		return buff;
+	}
+	
+	public Aggressive getSpecial() {
+		return special;
 	}
 	
 	public static int translate(String button, int ordinal) {
@@ -58,5 +82,16 @@ public enum PlayerID {
 		}
 		
 		return keyCode;
+	}
+	
+	public static PlayerID findWhich(KeyEvent e) {
+		
+		for (PlayerID id: PlayerID.values()) {
+			if (e.equals(id.a)) {
+				return id;
+			}
+		}
+		
+		return null;
 	}
 }

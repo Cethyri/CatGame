@@ -1,20 +1,23 @@
 package edu.neumont.csc150.finalProject.Join;
 
 public enum Passive {
-	SPEED_UP("Speed Up"),
-	STRENGTH_UP("Strength Up"),
-	HEALTH_UP("Health Up"),
-	DOUBLE_JUMP("Double Jump");
+	NONE("NONE", "none"),
+	SPEED_UP("Speed Up", "Speed"),
+	STRENGTH_UP("Strength Up", "Goku"),
+	HEALTH_UP("Health Up", "Health"),
+	DOUBLE_JUMP("Double Jump", "Genji");
 	
-	private final String Name;
+	public final String name;
+	public final String imagePart;
 	
-	private Passive(String Name) {
-		this.Name = Name;
+	private Passive(String name, String imagePart) {
+		this.name = name;
+		this.imagePart = imagePart;
 	}
 
 	@Override
 	public String toString() {
 		
-		return Name;
+		return name;
 	}
 }

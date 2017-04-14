@@ -128,9 +128,9 @@ public class Stage extends JPanel implements ActionListener{
 				}
 			}
 			
-			if (dead >= Game.getPlayerCount() - 1) {
-				finalScreen();
-			}
+//			if (dead >= Game.getPlayerCount() - 1) {
+//				finalScreen();
+//			}
 		}
 		repaint();
 	}
@@ -140,7 +140,10 @@ public class Stage extends JPanel implements ActionListener{
 		for (int i = 0; i < playerCount; i++) {
 			add(new Cat(PlayerID.values()[i]));
 		}
-		
+	}
+	
+	public void addToKittens(Cat k) {
+		add(k);
 	}
 	
 	//@@@@ "A multi-dimensional array (>= 2 dimensions)"
