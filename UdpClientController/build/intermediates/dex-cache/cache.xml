@@ -3,48 +3,129 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\Julian Reyes\.android\build-cache\9b21c0bd8cc51fa0823f54b5858e713b1a315bc0\output\jars\classes.jar"
+        jar="C:\Users\Julian Reyes\.android\build-cache\23a7763d76a62527f8001a8309994b5e404eff7e\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
-        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_3eff9051010fff08edc1e03259a173ed1432e4ae.jar" />
+        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_a32c42dbef7fbb5da809a43d37e10ae9b8024a10.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Julian Reyes\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jar="C:\Users\Julian Reyes\.android\build-cache\e3c998c0c34d1a3230444b6aaacb4a951660bd28\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
-        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_0ea30a393941b6bba3a7b941180d20c23704d3da.jar" />
+        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_c9f2d119ea9c5b75e17c23256dbaa8e53f828cc5.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Julian Reyes\.android\build-cache\f98cf996e2b8c67f4e2293edbe4f421223829855\output\jars\classes.jar"
+        jar="C:\Users\Julian Reyes\.android\build-cache\5cb90564c7d4e7b3dd8e87f8996ef9c2f0181b51\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_ef478c5b6e97742825764022b98338ca9b49a3dd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\4b15007b39f6feb44e2307d9fd2c4e6434d92109\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_67ff13a038af650bd04cecfcd4714ef7823292fd.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c680c2c350d6cbfe4fd92994105691ddb7409a22">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_a1d6fd76df6d21222af7a306bf44f97d707c3679\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\5e3e42a0874b14102047f4af7227c0b6412170a0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_c9ed6e682c80dc5b28c05a05f7c2544dd04a8656.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\670f34c39bca2f6e81a4fd62fbe322a01bf6cb92\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_d1b3ba4f2e77ebeedc97a11b12c7ae6c8371e639.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\8d8896090fcde187027a7ccaf613190c72accd7b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_852463a5ec6dd53cc7eb104f86a962bcf8a4b615.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\99aad7fb6e9a36e9746affdcac83d695cd353780\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="702d339bc0a81d21354cd7e2cf2b67225fa4a16c">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_676c3a5480c79e7f123a0ab37179b99eea302051.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_40130c1345bdaf72fde08529c056c69a49e261ed\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\060b458ea978366439c8bd3c14f0fbf994d32294\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="e51c2f662bb72419632af5192553c37e33890a99">
-        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_93ebee10386ab2fe92e9ae371b91f45168347004.jar" />
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_2786b38854ebaaf15a46ac3c356c392b20b82c2c.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Julian Reyes\.android\build-cache\13c936b7ca5537e64e206002bd939195ca51bbdb\output\jars\classes.jar"
+        jar="C:\Users\Julian Reyes\.android\build-cache\719d6aa02dc745c34ba3f6a531d26eeeeb8f62cc\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="152de8da301561dcb0946471697a420d8f7a68c5">
-        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_c052e9fe730aa3b5e271320f0135a8cde0c9720f.jar" />
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_3f67aa84467342b78368e4fc2c392e023d7001fb.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Julian Reyes\.android\build-cache\8ca6e41083bfecb34de03f77ac405e143b091644\output\jars\classes.jar"
+        jar="C:\Users\Julian Reyes\.android\build-cache\1235cd21e1bfb72b26878edd949b7fe0a794772f\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
-        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_f94d8c6480ea0baf34f8e3eeb0f3ada91f7cbc8c.jar" />
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_f4dbcc3254ffd0c7de4d1bfc7812f680cb28af1f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Julian Reyes\.android\build-cache\c25de99625aca9846b4b4f411ca66d4d3c27a359\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
+        <dex dex="C:\Users\Julian Reyes\Documents\Neumont\CSC150\CatGame\UdpClientController\app\build\intermediates\pre-dexed\debug\classes_80b40b584ebbec73b688aa5bdb5e845f26196c77.jar" />
     </item>
 
 </items>
