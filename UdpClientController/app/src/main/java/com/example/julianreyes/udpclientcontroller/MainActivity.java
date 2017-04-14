@@ -270,15 +270,6 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
             }
 
-//                try {
-////                    Thread.sleep(100);
-//                }
-//
-//                catch (InterruptedException e1) {
-//                    // TODO Auto-generated catch block
-//                    e1.printStackTrace();
-//                }
-
                 if (send == true) {
 
                     try {
@@ -288,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("UDP", "C: Connecting.... " + serverAddr.getHostName());
 
                         // create new UDP socket
-//                        DatagramSocket socket = new DatagramSocket();
 
                         if(isUDPConnecting) {
                             // prepare data to be sent
@@ -341,19 +331,12 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("UDP", "C: Sent.");
                             Log.d("UDP", "C: Done.");
 
-//                            socket.close();
 
                         }
 
                     } catch (Exception e) {
                         Log.e("UDP", "C: Error", e);
 
-                    }
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
                     }
                     send = false;
                 }
