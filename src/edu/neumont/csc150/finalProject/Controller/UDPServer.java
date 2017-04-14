@@ -17,6 +17,7 @@ public class UDPServer {
 	private DatagramSocket serverSocket;
 	protected DatagramPacket receivePacket;
 	private InetAddress IPAddress;
+	private volatile boolean isClose = false;
 
 	private int assignIDs = 0;
 	private ControlHandler[] controlHandlers;
@@ -98,7 +99,7 @@ public class UDPServer {
 							}
 						}
 					}
-				} while (true);
+				} while (!isClose);
 
 			}
 
@@ -142,5 +143,10 @@ public class UDPServer {
 		// gets IP address of incoming packets
 		IPAddress = receivePacket.getAddress();
 		System.out.println("FROM" + IPAddress);
+	}
+	
+	public void stopServer(){
+		serverSocket.close();		
+		isClose = true;
 	}
 }
