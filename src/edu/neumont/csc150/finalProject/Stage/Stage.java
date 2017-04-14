@@ -128,9 +128,9 @@ public class Stage extends JPanel implements ActionListener{
 				}
 			}
 			
-//			if (dead >= Game.getPlayerCount() - 1) {
-//				finalScreen();
-//			}
+			if (dead >= Game.getPlayerCount() - 1) {
+				//finalScreen();
+			}
 		}
 		repaint();
 	}
