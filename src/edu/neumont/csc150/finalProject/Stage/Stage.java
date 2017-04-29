@@ -130,6 +130,8 @@ public class Stage extends JPanel implements ActionListener{
 			
 			if (dead >= Game.getPlayerCount() - 1) {
 				//finalScreen();
+				t.stop();
+				MainFrame.game.reset();
 			}
 		}
 		repaint();

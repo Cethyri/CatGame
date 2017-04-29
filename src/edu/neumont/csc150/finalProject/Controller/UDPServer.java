@@ -20,7 +20,7 @@ public class UDPServer {
 	private volatile boolean isClose = false;
 
 	private int assignIDs = 0;
-	private ControlHandler[] controlHandlers;
+	private static ControlHandler[] controlHandlers;
 	private String buttonInput;
 	private Thread assignThread;
 
@@ -43,7 +43,7 @@ public class UDPServer {
 					recievePacket();
 
 					if (buttonInput.equals("give")) {
-						int existId = 0;
+						PlayerID existId = null;
 						String id = "";
 						for (ControlHandler controlHandler : controlHandlers) {
 							if (controlHandler != null) {
@@ -57,11 +57,7 @@ public class UDPServer {
 						// gets port from incoming packets
 						int port = receivePacket.getPort();
 						
-						if (!assigned) {
-							id = Integer.toString(assignIDs);
-						} else {
-							id = Integer.toString(existId);
-						}
+						id = Integer.toString(assignIDs);
 						
 						sendData = id.getBytes();
 						
@@ -110,8 +106,15 @@ public class UDPServer {
 	
 	public void assign(InetAddress IP) {
 		if (assignIDs < PlayerID.values().length) {
-			controlHandlers[assignIDs] = new ControlHandler(IP, assignIDs);
-			assignIDs++;			
+			controlHandlers[assignIDs] = new ControlHandler(IP, PlayerID.values()[assignIDs]);
+			assignIDs++;
+		}
+	}
+	
+	public void assign(InetAddress IP, KeyEvent toFind) {
+		if (assignIDs < PlayerID.values().length) {
+			controlHandlers[assignIDs] = new ControlHandler(IP, PlayerID.findWhich(toFind));
+			assignIDs++;
 		}
 	}
 

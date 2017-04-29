@@ -36,7 +36,8 @@ public class MainFrame extends JFrame {
     	
        	game = new Game();
     	
-    	this.setContentPane(game);
+    	//this.setContentPane(game);
+       	this.add(game);
     }
     
 	public static void main(String[] args) {

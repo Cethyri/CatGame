@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 import edu.neumont.csc150.finalProject.Actor.Player.Cat;
 import edu.neumont.csc150.finalProject.Actor.Player.PlayerID;
@@ -69,8 +70,8 @@ public class JoinPanel extends JPanel implements KeyListener {
 		ReadyButton = new JRadioButton();
 
 		ReadyButton.setText("Ready");
+		ReadyButton.setFocusable(false);
 
-		this.remove(PlayerLabel);
 		setFullLayout();
 	}
 

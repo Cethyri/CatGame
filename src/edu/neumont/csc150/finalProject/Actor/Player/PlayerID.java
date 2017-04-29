@@ -53,33 +53,31 @@ public enum PlayerID {
 		return special;
 	}
 	
-	public static int translate(String button, int ordinal) {
+	public static int translate(String button, PlayerID id) {
 		int keyCode = -1;
 		
-		if (ordinal >= 0 && ordinal < values().length) {
 			switch (button) {
 			case "left":
-				keyCode = values()[ordinal].left;
+				keyCode = id.left;
 				break;
 			case "right":
-				keyCode = values()[ordinal].right;
+				keyCode = id.right;
 				break;
 			case "x":
-				keyCode = values()[ordinal].x;
+				keyCode = id.x;
 				break;
 			case "y":
-				keyCode = values()[ordinal].y;
+				keyCode = id.y;
 				break;
 			case "a":
-				keyCode = values()[ordinal].a;
+				keyCode = id.a;
 				break;
 			case "b":
-				keyCode = values()[ordinal].b;
+				keyCode = id.b;
 				break;
 			default:
 				break;
-			}			
-		}
+			}
 		
 		return keyCode;
 	}

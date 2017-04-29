@@ -46,20 +46,30 @@ public class Game extends JPanel {
 	private void initJoinScreen() {
 		join = new JoinScreen();
 		this.add(join);
-		
 	}
 	
 	public void start() {
 		initStage();
 		transfer();
-		remove(join);
+		join.setVisible(false);
+		join.setFocusable(false);
 		join = null;
 	}
 	
+	public void reset() {
+		initJoinScreen();
+		stage.setVisible(false);
+		stage.setFocusable(false);
+		stage = null;
+	}
+	
 	private void transfer() {
+		PLAYER_COUNT = 0;
 		for (JoinPanel tmpJP: JoinScreen.playerPanels) {
 			if (tmpJP.isReady()) {
-				tmpJP.sendToStage();				
+				++PLAYER_COUNT;
+				tmpJP.sendToStage();
+				
 			}
 			
 		}
